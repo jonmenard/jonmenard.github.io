@@ -63,9 +63,7 @@ let bird = {
     y: 300,
 };
 
-if(document.getElementById("usernameButton") != undefined){
-    highscore = document.getElementById("flappybirdHighScore").value;
-}
+
 
 function makePipe(){
 
@@ -237,9 +235,6 @@ function mainScreen(){
     gameContex.strokeRect(137.5,262.5,75,75);
     
 
-    gameContex.fillRect(275,262.5,75,75);
-    gameContex.strokeRect(275,262.5,75,75);
-
 
     // making the start button
     gameContex.beginPath();
@@ -255,31 +250,6 @@ function mainScreen(){
     gameContex.fillStyle = "green";
     gameContex.fill();
 
-
-    //making leaderboard
-    gameContex.beginPath();
-    gameContex.moveTo(287.75, 312.75);
-    gameContex.lineTo(287.75, 295.91);
-    gameContex.lineTo(304.25, 295.91);
-    gameContex.lineTo(304.25, 284.7956);
-    gameContex.lineTo(320.75, 284.7956);
-    gameContex.lineTo(320.75, 290.3528);
-    gameContex.lineTo(337.25, 290.3528);
-    gameContex.lineTo(337.25, 312.75);
-    gameContex.closePath();
-
-    gameContex.stroke();
-    gameContex.fillStyle = "rgb(255,161,74)";
-    gameContex.fill();
-
-    gameContex.textAlign = "center"; 
-    gameContex.fillStyle = "black";
-    gameContex.strokeStyle = "rgb(41,52,46)";
-    gameContex.lineWidth =1;
-    gameContex.font = "bold 14px Changa One";
-    gameContex.fillText("3", 296, 310);
-    gameContex.fillText("1", 312.5, 299);
-    gameContex.fillText("2", 329, 305);
 
 }
 
@@ -299,8 +269,8 @@ function gameOver(){
     clearInterval(flappyGame);
     flappyGame = null;
     clearInterval(pipes);
-    $("#startFlappyBird").prop('disabled',false);
-    $("#leaderboardsFlappyBird").prop('disabled',false);
+    $("#startFlappyBird").attr('disabled',false);
+    //$("#leaderboardsFlappyBird").attr('disabled',false);
 
 
 
@@ -340,14 +310,6 @@ function gameOver(){
 
     if(flappyScore > highscore){
         highscore = flappyScore;
-
-        $.ajax({
-           type: 'POST',
-           url: "updateFlappyBird.php",
-           data: { album: flappyScore }
-          
-        });
-
 
         if(document.getElementById("flappybirdHighScore") != undefined){
             document.getElementById("flappybirdHighScore").value = highscore;
@@ -397,7 +359,6 @@ function reset(event){
         flappyGame = setInterval(drawCanvas,1);
     }
     newgame = false;
-    $('#leaderboardTable').hide()
 }
 
 
@@ -410,27 +371,13 @@ let newgame = false;
 $('#startFlappyBird, #leaderboardsFlappyBird').click(function () {
     if (this.id == 'startFlappyBird') {
         if(flappyGame == null){
-            $("#startFlappyBird").prop('disabled',true);
-            $("#leaderboardsFlappyBird").prop('disabled',true);
-            $('#leaderboardTable').hide()
+            $("#startFlappyBird").attr('disabled',true);
+            //$("#leaderboardsFlappyBird").attr('disabled',true);
+            //$('#leaderboardTable').hide()
             newgame = true;
             document.removeEventListener("keydown",start);
             reset();
         }
-    }else if (this.id == 'leaderboardsFlappyBird') {
-        $("#leaderboardsFlappyBird").prop('disabled',true);
-        gameContex.fillStyle = "rgb(222,215,147)";
-        gameContex.fillRect(270,260,90,90);
-
-        $.ajax({
-            type: 'POST',
-            url: "flappyBirdLeaderBoard.php",
-            data: { album: flappyScore },
-            success: function(msg){
-                $('#leaderboardTable').html(msg);
-                $('#leaderboardTable').show()
-            }
-        });
     }
 });
 

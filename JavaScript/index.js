@@ -16,11 +16,9 @@ $(function(){
 
 $(function(){
     $(title).on('click',function(){
-        $(title).fadeOut(1000);
-        $(title).promise().done(function(){
-            window.location.href = 'about.php';
+        $(title).fadeOut(1000, function(){
+            window.location.href = 'about.html';
         });
-    });
-    
+    }); 
 });
 
