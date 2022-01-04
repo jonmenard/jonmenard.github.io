@@ -1,0 +1,874 @@
+
+.custom-file-input::before {
+    position: absolute;
+    top: 2px;
+    background-color: red;
+    left: 75px;
+    vertical-align: top;
+    content: 'Select Profile Picture';
+    text-align: center;
+    display: inline-block;
+    background-color: rgb(20,20,20);
+    color:rgb(169,169,169);
+    font-size: 20px;
+    -webkit-user-select: none;
+    cursor: pointer;
+    width: 285px;
+    border-radius: 40px;
+    margin: auto;
+    padding: 8px;
+    height: 30px;
+  }
+
+#eventDisplayDiv:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+    height: 0;
+	border: 15px solid transparent;
+    border-right-color: pink;
+	border-left: 0;
+	margin-top: -20px;
+	margin-left: -20px;
+    z-index: 6;
+}
+
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+    background: none;
+}
+
+
+
+#changefileID{
+    height: 50px;
+    width: 0px;
+    vertical-align: top;
+    text-align: center;
+    background: transparent;
+    color: transparent;
+}
+
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+    text-align: center;
+  }
+  
+
+
+
+
+html{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-size: cover;
+    background-repeat: round;
+    min-width: 100%;
+    background-color: white;
+    border-color: rgb(20,20,20);
+    border-width: 3px;
+    border-top: solid;
+}
+
+
+
+
+
+
+.top{
+    padding-top: 10px;
+    color: RGB(20,20,20);
+
+}
+
+body {
+    position: relative;
+    top: 40px;
+    width: 99%;
+    text-align: center;
+    background-color: RGB(20,20,20);
+    padding-bottom: 100px;
+    border-top: dashed;
+    border-color: white;
+    border-width: 1px;
+    min-height: fit-content
+  }
+
+.menu {
+    height: 20px;
+    min-height: 26px;
+    width: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    background: transparent;
+    color: rgb(20,20,20);
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+}
+
+#todayCell{
+   position: relative;
+
+}
+
+.monthLabel{
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    color: rgb(20,20,20);
+
+    font-size: 20px;
+}
+
+#todayButton{
+    white-space: nowrap;
+    display: inline;
+}
+
+.calendarRow{
+    position: relative;
+}
+
+#calendarForm{
+    white-space: nowrap;
+    display: inline;
+}
+
+#inputHolder{
+    white-space: nowrap;
+}
+
+
+#calendarInput::-webkit-calendar-picker-indicator {
+    color: rgb(20,20,20);
+    padding-right: 5px;
+    padding-left: 0px;
+    margin-left: 0px;
+ }
+
+.calendarNumber{
+    position: absolute;
+    text-align: middle;
+    margin: 0px;
+    top: 0px;
+    right: 0px;
+    width: 40px;
+    height: 40px;
+    margin-top: 5px;
+    margin-right: 5px;
+    line-height: 40px;
+    border-radius: 50%;
+    background: transparent;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 1px;
+}
+
+
+.calendarP{
+    
+    position: relative;
+    text-align: left;
+    white-space: nowrap;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/materialicons/v53/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+  }
+  
+.material-icons {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-size: 24px;
+    vertical-align: middle;
+    text-align: left;
+
+  }
+
+
+.calendarFormInput{
+    width: auto;
+    max-width: 200px;
+    min-height: 35px;
+    border-radius: 40px;
+    background-color: whitesmoke;
+    color: rgb(20,20,20);
+    border-color: rgb(20,20,20);;
+    font-size: 20px;
+}
+
+#thisMonthLabel{
+    font-weight: bold;
+    font-size: 25px;
+}
+
+#headerCell{
+    color: white;
+}
+
+#calendarHolder{
+    margin-top: 40px;
+    text-align: center;
+    width: 100%;
+    color: rgb(20,20,20);
+}
+
+#eventAdderForm{
+    display: block;
+}
+
+#eventAdderDiv{
+    
+    height: fit-content;
+    width: fit-content;
+    max-width: 200px;
+    padding: 10px;
+    border-style: outset;
+    background-color: whitesmoke;
+    z-index: 6;
+}
+
+#eventAdderDiv:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 16px solid transparent;
+	border-top-color: black;
+	border-bottom: 0;
+	margin-left: -16px;
+    margin-bottom: -16px;
+    z-index: 6;
+    
+}
+
+.eventInformation{
+    display: inline;
+}
+
+#eventDisplayDiv{
+    position: relative;
+    margin: none;
+    height: fit-content;
+    width: fit-content;
+    border-style: outset;
+    border-top-color: pink;
+    background-color: whitesmoke;
+    z-index: 6;
+}
+
+.eventAdderInformation{
+    color: black;
+    max-width: 200px;
+    margin-left: 10px;
+    text-align: left;
+    font-size: 20px;
+    margin: 10px;
+    vertical-align: center;
+}
+
+#eventName{
+    font-weight: bold;
+    font-size: 22px;
+    margin-bottom: 1px;
+}
+
+
+#person, #place{
+    font-size: 20px;
+}
+
+#eventTime, #timer{
+    margin-top: 1px;
+    font-size: 15px;
+}
+
+
+
+.eventButtonHolder button{
+    width: 50%;
+    background-color: transparent;
+    border: none;
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    color: black;
+    padding: 10px 0px;
+    cursor: pointer;
+    float: left;
+}
+
+.eventButtonHolder button:not(:last-child) {
+    border-left: none;
+}
+
+
+.eventButtonHolder{
+    white-space: nowrap;
+}
+
+
+#addEventSubmit{
+    position: relative;
+    border-radius: 50%;
+    border: none;
+    height: 40px;
+    color: whitesmoke;
+    font-size: 20px;
+
+    background-color: rgb(20,20,20);
+
+}
+
+.calendarEventInput{
+    background: transparent;
+    border: none;
+    height: 35px;
+    color: rgb(20,20,20);
+    left: 0px
+    
+}
+
+.eventAdderInputDiv{
+    vertical-align: center;
+    border: solid RGBA(60,60,60, 0.5);
+    border-width: 1px;
+    white-space: nowrap;
+    margin: 5px;
+    text-align: left;
+}
+
+
+#calendar{
+    position: relative;
+    margin-top: 10px;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+    background-color: rgb(240, 240, 240);
+    border:rgb(20,20,20);
+    border-width: 2px;
+    border-style: solid;
+    border-collapse: collapse;
+}
+
+.calendarTD{
+    position: relative;
+    border: rgb(20,20,20);
+    border-style: solid;
+    border-width: 1px;
+    color: black;
+    height: 200px;
+    width: 200px;
+    max-width: 200px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Changa -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+
+#buttonH{
+    position: absolute;
+    top: -35px;
+    right: 10px;
+    padding-bottom: 2px;
+    font-family: Helvetica, sans-serif;
+}
+
+#projectHeader{
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    padding-bottom: 2px;
+    height: fit-content;
+    font-family: Helvetica, sans-serif;
+}
+
+
+
+#profilePicture{
+    position: relative;
+    text-align: center;
+    width: 400px;
+    margin-top: 10px;
+    border-radius: 250px;
+}
+
+.textHolder{
+    padding: 5px;
+    text-align: left;
+}
+
+
+.header{
+    text-align: center;
+    font-family: Helvetica, sans-serif;
+    color: whitesmoke;
+}
+
+.header2{
+    text-align: center;
+    font-family: Helvetica, sans-serif;
+    color: RGB(20,20,20);
+}
+
+#aboutMe{
+    position: relative;
+    text-align: left;
+    font-family: Helvetica;
+    font-size: 18px;
+    color: RGB(60,60,60);
+    line-height: 25px;
+    background-color: whitesmoke;
+    max-width: 75%;
+    margin-left: 12.5%;
+    padding-bottom: 10px;
+}
+
+
+
+#aboutMeHolder{
+    position: relative;
+    text-align: left;
+    font-family: Helvetica, sans-serif;
+    color: RGB(20,20,20);
+    background-color: whitesmoke;
+    max-width: 100%;
+}
+
+
+
+
+ 
+.custom-file-input:hover::before {
+    color: white;
+}
+  
+.overlay {
+
+    position:fixed;
+    display:none; 
+    z-index: 5;
+
+    background-color: rgba(0, 0, 0, 0.8);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+button:hover, input:hover {
+    text-decoration: underline;
+}
+
+
+
+
+#mainTitle{
+    position: absolute;
+    min-width: 100%;
+    top: 30%;
+    background-color: RGB(20,20,20);
+    color: whitesmoke;
+    font-size: 100px;
+    font-family: Helvetica, sans-serif;
+    white-space: nowrap;
+}
+
+
+#resetSnake{
+    position: absolute; 
+    top:23px; 
+    right:2px;
+    width: auto;
+    color: red;
+    font-size: 20px;
+    background-color: black;
+    border: none;
+}
+
+.loginErrorMessage{
+    color: red;
+   padding: -10px;
+}
+
+
+
+
+#loginImg{
+    padding: 10px;
+    background-size: contain;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+
+
+
+#exitImg{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+}
+
+
+#exit{
+    border: none;
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+}
+
+.formDiv{
+
+    z-index: 10;
+    text-align: center;
+    border-radius: 40px;
+    position: fixed;
+    border: outset;
+    top: 30%;
+    right: 40%;
+    visibility: visible;
+    color: whitesmoke;
+    background-color: whitesmoke;
+    border-width: 5px;
+}
+
+
+.form{
+    height: 100%;
+    position: relative;
+    color: transparent;
+    width: 450px;
+    font-size: 20px;
+    text-align: center;
+}
+
+#or{
+    padding: 2px;
+    position: relative;
+    color:rgb(20,20,20);
+    font-size: 20px;
+}
+
+.loginPage{
+    border-radius: 40px;
+    background-color: rgb(20,20,20);
+    color:rgb(169,169,169);
+    font-size: 20px;
+    font-weight: bolder;
+    width: 300px;
+    margin: auto;
+    padding: 8px;
+    min-width: 300px;
+    -webkit-appearance: none;
+}
+
+.optionB{
+    margin-bottom: 3px;
+}
+
+
+
+
+
+#G{
+    width: 320px;
+    min-width: 320px;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+
+
+
+#ProfilePictureDiv{
+    max-width: 600px;
+    position: relative;
+    margin: auto;
+    min-height: 600px;
+    height: 100%;
+    width: auto;
+    text-align: center;
+}
+
+#flappybirdContainer{
+    max-width: 600px;
+    position: relative;
+    margin: auto;
+    min-height: 600px;
+    height: fit-content;
+    width: auto;
+    text-align: center;
+}
+
+#snake{
+    border-style: outset;
+}
+
+
+textNode{
+    text-align: left;
+}
+
+#container{
+    position: relative;
+    height: auto;
+    width: 600px;
+    background: RGB(189,189,189);
+    border-style:  outset;
+    margin: auto;
+    border-width: thick;
+    border-style: outset;
+}
+
+.textHolder{
+padding: 5px;
+font-size: 25px;
+color: whitesmoke;
+}
+
+.mineSweeperButton {
+    height: 30px;
+    width: 30px;
+    padding: 3px;
+    background:rgb(189, 189,189);
+    border: 4px soild white;
+    font-size: 28px;
+    font-weight: bolder;
+    background-size: 30px auto;
+    line-height: 0px;
+    text-align: center;
+    margin: 0px 0px 0px 0px;
+    position: static;
+}
+
+
+.difficulty{
+    height: 30px;
+    width: auto;
+    padding: 10px;
+    background:rgb(189, 189,189);
+    border: 4px soild white;
+    font-size: 28px;
+    font-weight: bolder;
+    background-size: 30px auto;
+    line-height: 0px;
+    text-align: center;
+    margin: 0px 0px 0px 0px;
+    position: static;
+}
+
+#snakeContainer{
+    max-width: 600px;
+    position: relative;
+    margin: auto;
+    height: 705;
+    width: auto;
+    text-align: center;
+}
+
+
+
+.gameHolder{
+    position: relative;
+    height: auto;
+    text-align: left;
+    font-family: Helvetica, sans-serif;
+    background-color: RGB(20,20,20);
+    max-width: 75%;
+    margin-left: 12.5%;
+}
+
+
+.projectHolder{
+    position: relative;
+    height: fit-content;
+    text-align: left;
+    font-family: Helvetica, sans-serif;
+    background-color: RGB(20,20,20);
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
+
+
+#poolManagementSystemHolder{
+    position: relative;
+    height: fit-content;
+    text-align: left;
+    font-family: Helvetica, sans-serif;
+    background-color: whitesmoke;
+    padding-bottom: 100px;
+    padding-top: 10px;
+    width: 100%;
+}
+#flag { 
+    padding: -1;
+    width: 28px; 
+    height: 28px;
+    background-size: 35px auto;
+    background-image: URL('https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Minesweeper_flag.svg/1024px-Minesweeper_flag.svg.png'); 
+    margin-left: -6px;
+    margin-top: -8px;
+    position: static;
+}
+
+#aiContainer{
+    max-width: 600px;
+    position: relative;
+    margin: auto;
+    min-height: 600px;
+    width: auto;
+    text-align: center;
+}
+
+#ai{
+    position: relative;
+    width: 600px;
+    max-width: 600px;
+    min-height: 600px;
+    border: outset;
+    border-color: whitesmoke;
+}
+
+#aiButtons{
+    position: absolute;
+    right: 10px;
+    top: 2px;
+    max-width: 600px;
+    background-color: none;
+}
+
+.aiButton{
+    color: whitesmoke;
+    font-family: Helvetica, sans-serif;
+    font-size: 15px;
+    background-color: transparent;
+    border: none;
+    border-color: rgb(20,20,20);
+    text-align: center;
+}
+
+#stop:hover {
+    color: red;
+}
+
+#start:hover {
+    color: green;
+}
+
+#resetAI:hover {
+    color: blue;
+}
+
+#remove:hover {
+    color: purple;
+}
+
+#show:hover {
+    color: violet;
+}
+
+#less:hover {
+    color: pink;
+}
+
+#dropdown {
+    
+    z-index: 1;
+    border: solid black;
+    border-width: 2 2px;
+    background-color: black;
+    border-radius: 5px;
+    position: absolute;
+    right: 0px;
+    top: 40px;
+    width: auto;
+    height: auto;
+}
+
+.editProfile{
+   
+    margin: auto;
+    padding: 0px 20px 20px 20px;
+    color: rgb(200,200,200);
+    width: auto;
+    background: transparent;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+}
+
+
+.editProfile:hover{
+    color: white;
+}
+
+
+
+#startFlappyBird{
+    z-index: 6;
+    background-color: transparent;
+    border: none;
+    width: 75px;
+    height: 75px;
+    top: 263px;
+    left: 139px;
+    position: absolute;
+}
+
+#leaderboardsFlappyBird{
+    z-index: 6;
+    background-color: transparent;
+    border: none;
+    width: 75px;
+    height: 75px;
+    top: 263px;
+    left: 276px;
+    position: absolute;
+}
+
+
+.flappybirdTr{
+    text-align: center;
+    font-size: 18px;
+    width: 100%;
+    color: rgb(255,122,91);
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    font-weight: bold;
+    font-family: Changa -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+
+#leaderboardTable{
+    z-index: 5;
+    border: none;
+    width: 200px;
+    height: 75px;
+    top: 216px;
+    left: 240px;
+    position: absolute;
+}

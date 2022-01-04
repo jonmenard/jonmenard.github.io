@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="minesweeper.css">
+    <title>Jon Menard's Portfolio</title>
+</head>
+<body>
+
+<h1 class="header"> Hi! I am Jon, Welcome to my website</h1>
+<h2 class="header">This page is here to show off some small projects I have created in my free time.
+    Every single thing on this website, I have coded myself.</h2>
+<div class = "textHolder">
+    <h4>1. MineSweeper </h4>
+    <strong>Instructions:</strong> The objective of this game is to clear all the bombs in the grid. When a tile is left clicked it will display however many bombs
+    are touching it including diagonal tiles. If the tile is not touching any tiles, it will search the tiles beside it until it finds tiles which
+    are adjacent to bombs. Right clicking will place a flag on the tile. Once all the bombs are flagged, the game is won. If is bomb is left clicked
+    the game is over and all the remaning bombs will be displayed. Selecting "Easy", "Medium", or "Hard" will reset the game and generate 20,40, or 60 
+    bombs respectivily.
+</div>
+
+<script src = "minesweeper.js"> </script>
+<div class="textHolder">
+    <h4>2. Snakes</h4>
+    <strong>Instructions:</strong> The goal of this game is to grow the snake as long as possible. Inorder to grow the snake needs to consume food. If the snake 
+    runs into the walls or its own self the game is over.
+</div>
+<div id = "snakeContainer">
+    <canvas id="snake" width="600" height="600"> </canvas>
+    <script src = "snakes.js"></script>
+</div>
+<br>
+
+</body>
+</html>

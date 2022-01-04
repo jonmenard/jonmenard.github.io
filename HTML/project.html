@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="test.css">
+    <title>Jon Menard</title>
+</head>
+<div id="buttonH">
+    <button id="home" class="menu"  onclick="window.location.href = 'index.php';" value="Home">Home</button>
+    <button id="about" class="menu"  onclick="window.location.href = 'about.php';" value="About">About</button>
+    <button id="projects" class="menu"  onclick="window.location.href = 'project.php';" value="Projects">Projects</button>
+</div>
+
+<body>
+    
+   <div id="projectHolder" >
+        <div id = "top">
+            <h1 class="header">Projects </h1>
+            <br> a
+        </div>
+
+        <div class = "textHolder"  >
+            <h3>1. MineSweeper </h3>
+            <strong>Instructions:</strong> The objective of this game is to clear all the bombs in the grid. When a tile is left clicked it will display however many bombs
+            are touching it including diagonal tiles. If the tile is not touching any tiles, it will search the tiles beside it until it finds tiles which
+            are adjacent to bombs. Right clicking will place a flag on the tile. Once all the bombs are flagged, the game is won. If is bomb is left clicked
+            the game is over and all the remaning bombs will be displayed. Selecting "Easy", "Medium", or "Hard" will reset the game and generate 10, 25, or 40 
+            bombs respectivily.
+        </div>
+
+        <div id="minesweeperHolder">
+            <script src = "minesweeper.js"> </script>
+        </div>
+
+        <div class="textHolder">
+            <h3>2. Snakes</h3>
+            <strong>Instructions:</strong> The goal of this game is to grow the snake as long as possible. Inorder to grow, the snake needs to consume food. If the snake 
+            runs into the walls or its own self the game is over. Click 'reset' before starting a new game.
+        </div>
+
+        <div id = "snakeContainer">
+            <button id="resetSnake">Reset</button>
+            <br>
+            <canvas id="snake" width="600" height="600"> </canvas>
+            <script src = "snakes.js"></script>
+        </div>
+
+        <div class="textHolder">
+            <h3>3. Flappy Bird</h3>
+            <strong>Instructions:</strong> Try to get as far as possible. Press 'Enter' to start and any key to jump.
+        </div>
+
+        <div id = "flappybirdContainer">
+            <canvas id = "background" height = "600px" width = "600px"
+            style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
+            <canvas id = "pipes" height = "600px" width = "600px"
+            style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+            <canvas id = "bird" height = "600px" width = "600px"
+            style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
+            <canvas id = "gameOver" height = "600px" width = "600px"
+            style="position: absolute; left: 0; top: 0; z-index: 3;"></canvas>
+            <script src = "flappyBird.js"></script>   
+        </div> 
+        <div class="textHolder">
+            <h3>3. Evolutionary AI</h3>
+            <strong>Description: </strong>
+            This is an example of an extremely simple artificial intelligence. Using a ranking system, the top half of dots from the previous 
+            generation are duplicated and passed on to the next generation. Each dot's instruction is then mutated based off how well they did, 
+            and another attempt to reach the destination is attempted. The process is repeated endlessly. A perfect result will never be achieved,
+             since mutation will always occur. Over time the dots should make progress towards the destination, however because of how simple this algorithm
+              is, it is possible for a solution to never happen.<br><br>
+            <strong>Instructions: </strong>
+            In order to run a simulation, press Start. Clicking and dragging will draw rectangles that the dots must avoid. Pressing Undo will remove the last 
+            object drawn. Reset clears the entire screen. Pressing Stop will pause the simulation. Show More and Show Less will toggle the amount of generations 
+            that are run in the background before another one is shown.
+
+        </div>
+        <div id="aiContainer">
+            <div id="ai">
+                <div id="aiButtons">
+                    <button class = "aiButton" id= "start">Start</button>
+                    <button class = "aiButton" id= "stop">Stop</button>
+                    <button class = "aiButton" id= "resetAI">Reset</button>
+                    <button class = "aiButton" id= "remove">Undo</button>
+                    <button class = "aiButton" id= "show">Show More</button>
+                    <button class = "aiButton" id= "less">Show Less</button>
+                   
+                </div>
+                <canvas id = "screen" height="600px" width="600px"></canvas>
+                <script src = "ai.js"></script>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src = "jquery-3.4.1.js"></script>
+<script>
+    $(function(){
+        $("#projects").css({
+            color: 'white',
+            textDecoration: 'underline'
+        });
+    });
+</script>
+
+</html>

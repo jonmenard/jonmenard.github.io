@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="test.css">
+    <title>Jon Menard</title>
+</head>
+<div id="buttonH">
+    <button id="home" class="menu"  onclick="window.location.href = 'index.php';" value="Home">Home</button>
+    <button id="about" class="menu"  onclick="window.location.href = 'about.php';" value="About">About</button>
+    <button id="projects" class="menu"  onclick="window.location.href = 'project.php';" value="Projects">Projects</button>
+</div>
+
+<body>
+    <div id = "content" >
+        <div id = "top">
+            <h1 class="header">About Me </h1>
+            <img id = "profilePicture" src="profile.jpg">
+            <br> a
+        </div>
+        <div id= "aboutMeHolder">
+            <br>
+            <h1 class="header2"> Jon Menard</h1>
+            <h2 class="header2">3rd Year Software Engineering Student - Carleton University</h2>
+            <div id = "aboutMe" >
+                I am a student, currently in my third-year studies of Software Engineering at Carleton University. I was first introduced to software development five years ago when 
+                I took an "Intro to Coding" class in grade 11. From the moment I wrote my first line, "Hello world!" and saw it appear on the screen, I fell in love. I have 
+                since had experience writing in: 
+                <ul>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>PHP</li>
+                    <li>JavaScript</li>
+                    <li>Java</li>
+                    <li>C</li>
+                    <li>Lisp</li>
+                    <li>Python</li>
+                    <li>MySQL</li>
+                    <li>UNIX command line</li>
+            
+                </ul>
+                I have also gained experience working in groups using Github to host our projects. At the moment I am working on a elevator control system along with 4 other people that will run on 3 complete seperate computers. We will be using UDP datagram packets to comunicate between different threads inorder to communicate between computers. I have built my own computer and I am particularly strong in Java and Javascript. 
+                <br>
+                My passion for Software Engineering is fueled by trying to solve complex problems that seem impossible. I thoroughly enjoy coding the logic behind the function of the program. I have created this portfolio all on my own, coding everything from scratch in my free time. 
+                Shown in the projects section are four short projects; MineSweeper and Snakes, Flappy Bird and my first attempt at artificial intelligence using the genetic algorithm, which I have created to help illustrate my excitement for Software Engineering.
+                <br>
+                <br>
+                Outside of school, I enjoy staying active and having fun. 
+
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src = "jquery-3.4.1.js"></script>
+<script>
+    $(function(){
+        $("#about").css({
+            color: 'white',
+            textDecoration: 'underline'
+        });
+    });
+</script>
+
+</html>

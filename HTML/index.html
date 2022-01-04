@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="en" id = "html">
+<head>
+    <link rel="stylesheet" type="text/css" href="test.css">
+    <title>Jon Menard</title>
+</head>
+
+<div id="buttonH">
+    <button rel="preload" id="home" class="menu"  onclick="window.location.href = 'index.html';" value="Home">Home</button>
+    <button rel="preload" id="about" class="menu"  onclick="window.location.href = 'about.html';" value="About">About</button>
+    <button rel="preload"id="projects" class="menu"  onclick="window.location.href = 'project.html';" value="Projects">Projects</button>
+    <button rel="preload"id="login" class="menu loginPage"   value="login">Login</button>
+
+</div>
+
+
+
+<div id = "content" >
+    <p id="mainTitle">Jon Menard's Portfolio </p>
+</div>
+
+<body id="indexBody" >
+    <div class = "loginPage" id = "formDiv" hidden>
+        <img src="loginImg.png" id = "loginImg">
+        <button id="exit"> <img src="exit.png" id = "exitImg"></button>
+        <form  class = "loginPage" id = "form" method = "post" action = "loginToDatabase.php" >
+            <input type = "text" class = "loginPage" placeholder = "User Name" name = "uName" required>
+            <input type= "password" class = "loginPage" placeholder = "Password" name = "password" required>
+            <input class = "loginPage" id = "loginSubmit" type = "submit" value = "Log in" name = "loginSubmit">
+        </form>
+        <h1 class = "loginPage" id = "or">OR</h1> 
+        <button class = "loginPage" id="createAccount">Create Account</button>
+       
+    </div>
+</body>
+
+<script src = "jquery-3.4.1.js"></script>
+<script src = "index.js"></script>
+
+
+
+
+
+
+</html>

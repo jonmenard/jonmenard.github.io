@@ -1,0 +1,948 @@
+.custom-file-input::before {
+	position: absolute;
+	top: 2px;
+	background-color: red;
+	left: 75px;
+	vertical-align: top;
+	content: 'Select Profile Picture';
+	text-align: center;
+	display: inline-block;
+	background-color: rgb(20,20,20);
+	color:rgb(169,169,169);
+	font-size: 20px;
+	-webkit-user-select: none;
+	cursor: pointer;
+	width: 285px;
+	border-radius: 40px;
+	margin: auto;
+	padding: 8px;
+	height: 30px;
+}
+
+#eventDisplayDiv:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 15px solid transparent;
+	border-right-color: pink;
+	border-left: 0;
+	margin-top: -20px;
+	margin-left: -20px;
+	z-index: 6;
+}
+
+@font-face {
+	font-family: 'Material Icons';
+	font-style: normal;
+	font-weight: 400;
+	src: url(https://fonts.gstatic.com/s/materialicons/v53/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+}
+
+#aboutMeHolder{
+	position: relative;
+	text-align: left;
+	font-family: Helvetica, sans-serif;
+	color: RGB(20,20,20);
+	background-color: whitesmoke;
+	max-width: 100%;
+}
+
+#aboutMe{
+	position: relative;
+	text-align: left;
+	font-family: Helvetica;
+	font-size: 18px;
+	color: RGB(60,60,60);
+	line-height: 25px;
+	background-color: whitesmoke;
+	max-width: 75%;
+	margin-left: 12.5%;
+	padding-bottom: 10px;
+}
+
+.eventSubmit{
+	position: relative;
+	border-radius: 50%;
+	border: none;
+	height: 40px;
+	color: whitesmoke;
+	font-size: 20px;
+	background-color: rgb(20,20,20);
+}
+
+#aiButtons{
+	position: absolute;
+	right: 10px;
+	top: 2px;
+	max-width: 600px;
+	background-color: none;
+}
+
+.aiButton{
+	color: whitesmoke;
+	font-family: Helvetica, sans-serif;
+	font-size: 15px;
+	background-color: transparent;
+	border: none;
+	border-color: rgb(20,20,20);
+	text-align: center;
+}
+
+#aiContainer{
+	max-width: 600px;
+	position: relative;
+	margin: auto;
+	min-height: 600px;
+	width: auto;
+	text-align: center;
+}
+
+#ai{
+	position: relative;
+	width: 610px;
+	max-width: 610px;
+	min-height: 600px;
+	border: solid whitesmoke;
+}
+
+body {
+	position: relative;
+	top: 40px;
+	width: 99%;
+	min-width: 600px;
+	min-height: 400px;
+	text-align: center;
+	background-color: RGB(20,20,20);
+	padding-bottom: 100px;
+	border-top: dashed;
+	border-color: white;
+	border-width: 1px;
+	min-height: fit-content;
+}
+
+button:hover, input:hover {
+	text-decoration: underline;
+}
+
+#buttonH{
+	position: absolute;
+	top: -35px;
+	right: 10px;
+	padding-bottom: 2px;
+	font-family: Helvetica, sans-serif;
+}
+
+.calendarEventInput{
+	background: transparent;
+	border: none;
+	height: 35px;
+	width: 200px;
+	color: rgb(20,20,20);
+	left: 0px;
+}
+
+.calendarFormInput{
+	width: auto;
+	max-width: 200px;
+	min-height: 35px;
+	border-radius: 40px;
+	background-color: whitesmoke;
+	color: rgb(20,20,20);
+	border-color: rgb(20,20,20);
+	font-size: 20px;
+}
+
+#calendarForm{
+	white-space: nowrap;
+	display: inline;
+}
+
+#calendarHolder{
+	margin-top: 40px;
+	text-align: center;
+	width: 100%;
+	color: rgb(20,20,20);
+}
+
+#calendarInput::-webkit-calendar-picker-indicator {
+	color: rgb(20,20,20);
+	padding-right: 5px;
+	padding-left: 0px;
+	margin-left: 0px;
+}
+
+.calendarNumber{
+	position: absolute;
+	text-align: middle;
+	margin: 0px;
+	top: 0px;
+	right: 0px;
+	width: 40px;
+	height: 40px;
+	margin-top: 5px;
+	margin-right: 5px;
+	line-height: 40px;
+	border-radius: 50%;
+	background: transparent;
+	border-color: transparent;
+	border-style: solid;
+	border-width: 1px;
+}
+
+.calendarP{
+	position: relative;
+	text-align: left;
+	white-space: nowrap;
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	border-top: solid whitesmoke 1.5px;
+}
+
+
+.calendarRow{
+	position: relative;
+	width: 100%;
+}
+
+.calendarTD{
+	position: relative;
+	border: rgb(20,20,20);
+	border-style: solid;
+	border-width: 1px;
+	color: black;
+	height: 200px;
+	width: 200px;
+	max-width: 14.28%;
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+	font-family: Changa -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#calendar{
+	
+	table-layout: fixed;
+	position: relative;
+	margin-top: 10px;
+	margin-left: 5%;
+	margin-right: 5%;
+	width: 90%;
+	max-width: 90%;
+	background-color: rgb(240, 240, 240);
+	border:rgb(20,20,20);
+	border-width: 2px;
+	border-style: solid;
+	border-collapse: collapse;
+}
+
+#changefileID{
+	height: 50px;
+	width: 0px;
+	vertical-align: top;
+	text-align: center;
+	background: transparent;
+	color: transparent;
+}
+
+
+
+.custom-file-input::-webkit-file-upload-button {
+	visibility: hidden;
+	text-align: center;
+}
+
+
+
+.custom-file-input:hover::before {
+	color: white;
+}
+
+.difficulty{
+	height: 30px;
+	width: auto;
+	padding: 10px;
+	background:rgb(189, 189,189);
+	border: 4px soild white;
+	font-size: 28px;
+	font-weight: bolder;
+	background-size: 30px auto;
+	line-height: 0px;
+	text-align: center;
+	margin: 0px 0px 0px 0px;
+	position: static;
+}
+
+#dropdown {
+	z-index: 1;
+	border: solid black;
+	border-width: 2 2px;
+	background-color: black;
+	border-radius: 5px;
+	position: absolute;
+	right: 0px;
+	top: 40px;
+	width: auto;
+	height: auto;
+}
+
+.editProfile:hover{
+	color: white;
+}
+
+.editProfile{
+	margin: auto;
+	padding: 0px 20px 20px 20px;
+	color: rgb(200,200,200);
+	width: auto;
+	background: transparent;
+	font-size: 20px;
+	font-weight: 600;
+	text-align: center;
+	border: none;
+}
+
+#eventAdderDiv:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 16px solid transparent;
+	border-top-color: black;
+	border-bottom: 0;
+	margin-left: -16px;
+	margin-bottom: -16px;
+	z-index: 6;
+}
+
+#eventAdderDiv{
+	height: fit-content;
+	width: fit-content;
+	max-width: 300px;
+	padding: 10px;
+	border-style: outset;
+	background-color: whitesmoke;
+	z-index: 6;
+}
+
+#eventAdderForm{
+	display: block;
+}
+
+.eventAdderInformation{
+	color: black;
+	max-width: 250px;
+	margin-left: 10px;
+	text-align: left;
+	font-size: 20px;
+	margin: 10px;
+	width: fit-content;
+	vertical-align: center;
+}
+
+.eventAdderInputDiv{
+	vertical-align: center;
+	border: solid RGBA(60,60,60, 0.5);
+	border-width: 1px;
+	white-space: nowrap;
+	margin: 5px;
+	width: fit-content;
+	height: fit-content;
+	text-align: left;
+}
+
+.eventButtonHolder button:not(:last-child) {
+	border-left: none;
+}
+
+.eventButtonHolder button{
+	width: 50%;
+	background-color: transparent;
+	border: none;
+	border-left: 1px solid black;
+	border-top: 1px solid black;
+	color: black;
+	padding: 10px 0px;
+	cursor: pointer;
+	float: left;
+}
+
+.eventButtonHolder{
+	white-space: nowrap;
+}
+
+
+
+#eventDisplayDiv{
+	position: relative;
+	margin: none;
+	height: fit-content;
+	width: fit-content;
+	border-style: outset;
+	border-top-color: pink;
+	background-color: whitesmoke;
+	z-index: 6;
+	max-width: 250px;
+}
+
+.eventInformation{
+	display: inline;
+}
+
+#eventName{
+	font-weight: bold;
+	font-size: 22px;
+	margin-bottom: 1px;
+}
+
+#eventTime, #timer{
+	margin-top: 1px;
+	font-size: 15px;
+}
+
+#exitImg{
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-size: contain;
+	width: 30px;
+	height: 30px;
+}
+
+#exit{
+	border: none;
+	position: absolute;
+	top: 10px;
+	right: 5px;
+	width: 30px;
+	height: 30px;
+}
+
+#flag {
+	padding: -1;
+	width: 28px;
+	height: 28px;
+	background-size: 35px auto;
+	background-image: URL('https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Minesweeper_flag.svg/1024px-Minesweeper_flag.svg.png');
+	margin-left: -6px;
+	margin-top: -8px;
+	position: static;
+}
+
+#flappybirdContainer{
+	max-width: 600px;
+	position: relative;
+	margin: auto;
+	min-height: 600px;
+	height: fit-content;
+	width: auto;
+	text-align: center;
+}
+
+.flappybirdTr{
+	text-align: center;
+	font-size: 18px;
+	width: 100%;
+	color: rgb(255,122,91);
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+	font-weight: bold;
+	font-family: Changa -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.formDiv{
+	z-index: 10;
+	text-align: center;
+	border-radius: 40px;
+	position: fixed;
+	border: outset;
+	top: 30%;
+	right: 40%;
+	visibility: visible;
+	color: whitesmoke;
+	background-color: whitesmoke;
+	border-width: 5px;
+}
+
+.form{
+	height: 100%;
+	position: relative;
+	color: transparent;
+	width: 450px;
+	font-size: 20px;
+	text-align: center;
+}
+
+.gameHolder{
+	position: relative;
+	height: auto;
+	text-align: left;
+	font-family: Helvetica, sans-serif;
+	background-color: RGB(20,20,20);
+	max-width: 75%;
+	margin-left: 12.5%;
+}
+
+.header2{
+	text-align: center;
+	font-family: Helvetica, sans-serif;
+	color: RGB(20,20,20);
+}
+
+#headerCell{
+	color: white;
+}
+
+.header{
+	text-align: center;
+	font-family: Helvetica, sans-serif;
+	color: whitesmoke;
+}
+
+html{
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	background-size: cover;
+	background-repeat: round;
+	min-width: 100%;
+	background-color: white;
+	border-color: rgb(20,20,20);
+	border-width: 3px;
+	border-top: solid;
+}
+
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+}
+
+#inputHolder{
+	white-space: nowrap;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+	background: none;
+}
+
+#invalidCreateEvent{
+	text-align: center;
+	max-width: 250px;
+}
+
+#leaderboardTable{
+	z-index: 5;
+	border: none;
+	width: 200px;
+	height: 75px;
+	top: 216px;
+	left: 240px;
+	position: absolute;
+}
+
+#leaderboardsFlappyBird{
+	z-index: 6;
+	background-color: transparent;
+	border: none;
+	width: 75px;
+	height: 75px;
+	top: 263px;
+	left: 276px;
+	position: absolute;
+}
+
+#less:hover {
+	color: pink;
+}
+
+.loginErrorMessage{
+	color: red;
+	padding: -10px;
+}
+
+#loginImg{
+	padding: 10px;
+	background-size: contain;
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+}
+
+.loginPage{
+	border-radius: 40px;
+	background-color: rgb(20,20,20);
+	color:rgb(169,169,169);
+	font-size: 20px;
+	font-weight: bolder;
+	width: 300px;
+	margin: auto;
+	padding: 8px;
+	min-width: 300px;
+	-webkit-appearance: none;
+}
+
+#mainTitle{
+	position: absolute;
+	min-width: 100%;
+	top: 30%;
+	background-color: RGB(20,20,20);
+	color: whitesmoke;
+	font-size: 100px;
+	font-family: Helvetica, sans-serif;
+	white-space: nowrap;
+}
+
+.material-icons {
+	font-family: 'Material Icons';
+	font-style: normal;
+	font-size: 24px;
+	vertical-align: middle;
+	text-align: left;
+}
+
+.menu {
+	height: 20px;
+	min-height: 26px;
+	width: auto;
+	padding-left: 20px;
+	padding-right: 20px;
+	background: transparent;
+	color: rgb(20,20,20);
+	font-size: 20px;
+	font-weight: 600;
+	text-align: center;
+	border: none;
+}
+
+.mineSweeperButton {
+	height: 30px;
+	width: 30px;
+	padding: 4px;
+	background:rgb(189, 189,189);
+	border: 1px solid black;
+	font-size: 30px;
+	font-weight: bolder;
+	background-size: 30px auto;
+	line-height: 0px;
+	text-align: center;
+	position: static;
+	background-size: cover;
+	
+}
+
+#mineSweeperContainer{
+	position: relative;
+	height: auto;
+	width: 650px;
+	border-style:  outset;
+	margin: auto;
+	border-width: thin;
+	border-color: rgb(20,20,20);
+	border-style: outset;
+	background-color: rgb(189,189,189)
+}
+
+#minesweeperHolder{
+	background-color: transparent;
+	text-align: center;
+}
+
+.monthLabel{
+	text-align: center;
+	background-color: transparent;
+	border: none;
+	color: rgb(20,20,20);
+	font-size: 20px;
+}
+
+.optionB{
+	margin-bottom: 3px;
+}
+
+#or{
+	padding: 2px;
+	position: relative;
+	color:rgb(20,20,20);
+	font-size: 20px;
+}
+
+.overlay {
+	position:fixed;
+	display:none;
+	z-index: 5;
+	background-color: rgba(0, 0, 0, 0.8);
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+#person, #place{
+	font-size: 20px;
+}
+
+#poolManagementSystemHolder{
+	position: relative;
+	height: fit-content;
+	text-align: left;
+	font-family: Helvetica, sans-serif;
+	background-color: whitesmoke;
+	padding-bottom: 100px;
+	padding-top: 10px;
+	width: 100%;
+}
+
+#profilePicture{
+	position: relative;
+	text-align: center;
+	width: 400px;
+	margin-top: 10px;
+	border-radius: 250px;
+}
+
+#projectHeader{
+	position: absolute;
+	top: 0px;
+	right: 10px;
+	padding-bottom: 2px;
+	height: fit-content;
+	font-family: Helvetica, sans-serif;
+}
+
+.projectHolder{
+	position: relative;
+	height: fit-content;
+	text-align: left;
+	font-family: Helvetica, sans-serif;
+	background-color: RGB(20,20,20);
+	margin-left: 2.5%;
+	margin-right: 2.5%;
+}
+
+#remove:hover {
+	color: purple;
+}
+
+#resetAI:hover {
+	color: blue;
+}
+
+#resetSnake{
+	position: absolute;
+	top:23px;
+	right:2px;
+	width: auto;
+	color: red;
+	font-size: 20px;
+	background-color: black;
+	border: none;
+}
+
+#show:hover {
+	color: violet;
+}
+
+#snakeContainer{
+	max-width: 600px;
+	position: relative;
+	margin: auto;
+	height: 705;
+	width: auto;
+	text-align: center;
+}
+
+#tetrisContainer{
+
+	position: relative;
+	margin: auto;
+	height: auto;
+	width: 800px;
+	text-align: center;
+}
+
+
+.tetrisButton{
+	position: absolute;
+	width: auto;
+	color: black;
+	font-size: 50px;
+	font-family: "VT323";
+	background-color: transparent;
+	border: none;
+	z-index: 1;
+}
+
+#tetrisStart{
+	bottom:100px;
+	left:20px;
+}
+
+#tetrisAIStart{
+	bottom:100px;
+	right:20px;
+}
+
+#tetrus{
+	border: solid 2px black;
+	position: relative;
+	
+}
+
+#trackmyliftsIframe{
+	width: 100%;
+	height: 100%;
+}
+
+#snake{
+	border-style: outset;
+}
+
+#start:hover {
+	color: green;
+}
+
+#startFlappyBird{
+	z-index: 6;
+	background-color: transparent;
+	border: none;
+	width: 75px;
+	height: 75px;
+	top: 263px;
+	left: 139px;
+	position: absolute;
+}
+
+#stop:hover {
+	color: red;
+}
+
+
+.calendarColour{
+	background-color: red;
+	width: 10px;
+	position: relative;
+	border: 2px solid red;
+}
+
+
+.textHolder{
+	padding: 5px;
+	text-align: left;
+}
+
+.textHolder{
+	padding: 5px;
+	font-size: 25px;
+	color: whitesmoke;
+}
+
+textNode{
+	text-align: left;
+}
+
+#colorSelect{
+	background-color: yellow;
+}
+
+#colorSelect option[value = "pink"]{
+	background-color: pink;
+}
+
+th{
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+
+#thisMonthLabel{
+	font-weight: bold;
+	font-size: 25px;
+}
+
+#todayButton{
+	white-space: nowrap;
+	display: inline;
+}
+
+#todayCell{
+	position: relative;
+}
+
+.top{
+	padding-top: 10px;
+	color: RGB(20,20,20);
+}
+
+
+
+
+
+* {
+	box-sizing: border-box;
+	font-family: "Arial";
+}
+.wrapper-dropdown {
+    position: relative;
+    width: 200px;
+    background: #FFF;
+    color: #2e2e2e;
+    outline: none;
+    cursor: pointer;
+}
+.wrapper-dropdown > span {
+	width: 100%;
+	display: block;
+	border: 1px solid #ababab;
+	padding: 5px;
+}
+.wrapper-dropdown > span > span {
+  padding: 0 12px;
+  margin-right: 5px;
+}
+.wrapper-dropdown > span:after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: 16px;
+    top: calc(50% + 4px);
+    margin-top: -6px;
+	  border-width: 6px 6px 0 6px;
+    border-style: solid;
+	  border-color: #2e2e2e transparent;
+}
+
+.wrapper-dropdown .dropdown {
+    position: absolute;
+	  z-index: 10;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    font-weight: normal;
+	  list-style-type: none;
+	  padding-left: 0;
+	  margin: 0;
+	  border: 1px solid #ababab;
+	  border-top: 0;
+}
+
+.wrapper-dropdown .dropdown li {
+    display: block;
+    text-decoration: none;
+    color: #2e2e2e;
+	  padding: 5px;
+	  cursor: pointer;
+}
+
+.wrapper-dropdown .dropdown li > span {
+  padding: 0 12px;
+  margin-right: 5px;
+}
+
+.wrapper-dropdown .dropdown li:hover {
+    background: #eee;
+	  cursor: pointer;
+}
+
