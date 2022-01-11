@@ -182,6 +182,12 @@ const numberOfInstructions = 400;
 aIContex.fillStyle = "black";
 aIContex.fillRect(0,0,600,600);
 let eachInstruction = 0;
+
+let start = 0
+let end = 1;
+let offset = 0;
+
+
 let dots = makeDots();
 let number = 0;
 
@@ -270,13 +276,18 @@ function drawAI(){
         clearInterval(runAI);
         dots = rankDots();
         eachInstruction = 0;
+        start = 0
+        end = 1;
         number++;
         begin();
         runAI = setInterval(drawAI,0); 
     }else{
        
         load()
+        offset = end
+        count = 0
         for(let eachDot = 0; eachDot < numberOfDots; eachDot++){
+            
             if(dots[eachDot].bestDot == true){
                 aIContex.fillStyle = "blue";
                 aIContex.fillRect(dots[eachDot].posX, dots[eachDot].posY,8,8);
@@ -285,10 +296,38 @@ function drawAI(){
               //  contex.fillRect(dots[eachDot].posX + eachDot, dots[eachDot].posY,4,4);
               aIContex.fillRect(dots[eachDot].posX, dots[eachDot].posY,4,4);
             }
-            moveDots(dots,eachDot,eachInstruction);
+            if(eachDot >= start && eachDot < end){
+                instructionNumber = end - count
+                if(instructionNumber >= numberOfInstructions){
+                    instructionNumber = numberOfInstructions-1 - count
+                }
+                
+                moveDots(dots,eachDot,instructionNumber);
+                count++
+            }
+            //moveDots(dots,eachDot,eachInstruction);
+            
+            
+        }
+
+        //eachInstruction++;
+        if(end >= numberOfDots){
+            start++
+            eachInstruction++;
+            //console.log(start)
+        }
+
+        if(end < numberOfDots*2){
+            end++
+        }
+
+        
+
+        if(start >= numberOfDots){
+            
         }
     
-        eachInstruction++;
+        
     }
     
 }
@@ -302,7 +341,8 @@ function begin(){
         }
         dots = rankDots();
         eachInstruction = 0;
-        console.log(x);
+        start = 0;
+        end = 1;
         number++
         if(buttonStop){
             return;
@@ -385,11 +425,11 @@ function rankDots(){
         let yDistance = dot.posY - 50;
         let distance = (Math.pow(xDistance,2) + Math.pow(yDistance,2));
         if(dot.goal){
-            distance -= 10000;
+            distance -= 1000;
+            distance -= numberOfInstructions + (dot.steps * 5)
         }else if(dot.dead){
-            distance += 10000;
+            distance += 100 - dot.steps;
         }
-        distance += dot.steps;
         
         totalScore[eachDot] = distance;
         dot.goal = false;

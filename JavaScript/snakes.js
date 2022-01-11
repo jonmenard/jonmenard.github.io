@@ -1,8 +1,10 @@
 
         // creating the canvas 
     const cvs = document.getElementById("snake");
-    cvs.width = cvs.getBoundingClientRect().width;
-    cvs.height = cvs.getBoundingClientRect().height;
+    //cvs.width = cvs.getBoundingClientRect().width;
+    //cvs.height = cvs.getBoundingClientRect().height;
+
+    
     const ctx = cvs.getContext("2d");
 
     let resetButton = document.getElementById("resetSnake");
@@ -74,6 +76,7 @@
     //the function that draws everything to cavas 
     function draw(){
 
+        
         if(snake[0].x % box == 0 && snake[0].y % box == 0){
             direction(keyPressed);
         }
@@ -116,7 +119,9 @@
                 ctx.fillStyle="rgb(20,20,20)";
                 
             }
-            ctx.fillRect(snake[i].x,snake[i].y,box,box);   
+            ctx.fillRect(snake[i].x,snake[i].y,box,box); 
+            
+            
         }
 
         
