@@ -1,24 +1,32 @@
-<script src = "JavaScript/jquery-3.4.1.js"></script>
-<script> 
-$(function(){
-    $("#header").load("header.html"); 
-});
-</script>
-<div id="header"></div>
-<body>
+<html lang="en" id = "html"></html>
+
+    <script src = "JavaScript/jquery-3.4.1.js"></script>
+    <script>
+        $(function(){
+            $("header").load("header.html"); 
+            $("head").load("head.html"); 
+        }); 
+    </script>
+    <head>
+    </head>
+<body hidden>
+    <header></header>
     <div id = "content" >
         <div id = "top">
+            <br>
             <h1 class="header">About Me </h1>
             <img id = "profilePicture" src="Images/profile.jpg">
-            <br> a
+            <br><br>
         </div>
+
+        
         <div id= "aboutMeHolder">
             <br>
             <h1 class="header2"> Jon Menard</h1>
             <h2 class="header2">Software Engineering Graduate Student - Carleton University</h2>
             <div id = "aboutMe" >
                 I am a graduate Software Engineering student at Carleton University. My interest in software engineering started in 2016 when I took my first computer science class in Grade 11. The teacher gathered the class around his chalkboard and explained to us that we would be creating our very own webpage. 
-                He showed us a few lines of code and told us to try it ourselves. I wonder how was &lthtml&gt or &ltp&gt going to create a webpage. To my surprise, within a few minutes, my bright white screen displayed the words “Hello World!” in small black text. I was amazed there was a whole new language to discover; a language that came naturally to me and was exciting to learn. I immediately knew that software engineering was a place where I could thrive.  I have 
+                He showed us a few lines of code and told us to try it ourselves. I wonder how was &lthtml&gt or &ltp&gt going to create a webpage. To my surprise, within a few minutes, my bright white screen displayed the words "Hello World!" in small black text. I was amazed there was a whole new language to discover; a language that came naturally to me and was exciting to learn. I immediately knew that software engineering was a place where I could thrive.  I have 
                 since had experience writing in: 
                 <ul>
                     <li>HTML</li>
@@ -60,7 +68,10 @@ $(function(){
             color: 'black',
             textDecoration: 'underline'
         });
+
+        
     });
+
 </script>
 
 </html>

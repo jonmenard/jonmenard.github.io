@@ -1,14 +1,21 @@
-<html>
+<html lang="en" id = "html">
     <script src = "JavaScript/jquery-3.4.1.js"></script>
     <script> 
-    $(function(){
-        $("#header").load("header.html"); 
-    });
-    </script> 
+        $(function(){
+            $("header").load("header.html"); 
+            $("head").load("head.html"); 
+        });
+    </script>
+    <head>
+    </head>
+    
     <div id = "content" >
         <p id="mainTitle">Jon's Portfolio </p>
     </div>
-    <div id="header"></div>
-    <body id="indexBody" ></body>
+    
+    <body id="indexBody" hidden>
+        <header id="header"></header>
+
+    </body>
     <script src = "JavaScript/index.js"></script>
 </html>

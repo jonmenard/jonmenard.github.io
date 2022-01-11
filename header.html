@@ -1,44 +1,4 @@
-<html lang="en" id = "html">
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <!--<link rel="stylesheet" href="CSS/semantic.min.css">-->
-         
-<head>
-    <!-- Script for google anaylitics -->
-    <head>
-        <meta charset="utf-8">
-        <meta name="author" content="Jon Menard">
-        <meta name="description" content="A Personal Porfolio Created by Jon Menard">
-        <meta property="og:image" content="/Images/profile.jpg">
-        <meta property="og:description" content="Jon Menard's Portfolio contains information about Jon, as well as some of his projects and games he has created.">
-        <meta property="og:title" content="Jon Menard's Porfolio">
-    <script>
-        window.addEventListener('message', event => {
-            var request = event.data; 
-            var body = document.body, html = document.documentElement;
-            if(request == "width"){
-                var width = Math.max( body.scrollWidth, body.offsetWidth, 
-                        html.clientWidth, html.scrollWidth, html.offsetWidth );
-                console.log(width);
-                window.parent.postMessage({"width" : width}, "*");
-            }else if(request == "height"){
-                var height = Math.max( body.scrollHeight, body.offsetHeight, 
-                        html.clientHeight, html.scrollHeight, html.offsetHeight );
-                console.log(height);
-                window.parent.postMessage({"height" : height}, "*");
-            }
-        }); 
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-FN5PDGB3GH');
-    </script>
-    <link rel="stylesheet" type="text/css" href="CSS/websiteStyle.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=VT323">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FN5PDGB3GH"></script>
-    <title>Jon Menard's Portfolio</title>
-</head>
-
 <div id="buttonH">
     <button rel="preload" id="home" class="menu"  onclick="window.location.href = 'index.html';" value="Home">Home</button>
     <button rel="preload" id="about" class="menu"  onclick="window.location.href = 'about.html';" value="About">About</button>
@@ -46,6 +6,11 @@
     <button rel="preload"id="games" class="menu"  onclick="window.location.href = 'games.html';" value="Games">Games</button>
 </div>
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 
 <script src = "JavaScript/login.js"></script>
+<script>
+    $(document).ready(function() {
+        $("body").fadeIn("fast");
+    });
+</script>

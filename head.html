@@ -1,0 +1,36 @@
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!-- Script for google anaylitics -->
+
+    <meta charset="utf-8">
+    <meta name="author" content="Jon Menard">
+    <meta name="description" content="A Personal Porfolio Created by Jon Menard">
+    <meta property="og:image" content="/Images/profile.jpg">
+    <meta property="og:description" content="Jon Menard's Portfolio contains information about Jon, as well as some of his projects and games he has created.">
+    <meta property="og:title" content="Jon Menard's Porfolio">
+    
+    <script>
+        window.addEventListener('message', event => {
+            var request = event.data; 
+            var body = document.body, html = document.documentElement;
+            if(request == "width"){
+                var width = Math.max( body.scrollWidth, body.offsetWidth, 
+                        html.clientWidth, html.scrollWidth, html.offsetWidth );
+                console.log(width);
+                window.parent.postMessage({"width" : width}, "*");
+            }else if(request == "height"){
+                var height = Math.max( body.scrollHeight, body.offsetHeight, 
+                        html.clientHeight, html.scrollHeight, html.offsetHeight );
+                console.log(height);
+                window.parent.postMessage({"height" : height}, "*");
+            }
+        }); 
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-FN5PDGB3GH');
+    </script>
+    <link rel="stylesheet" type="text/css" href="CSS/websiteStyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=VT323">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FN5PDGB3GH"></script>
+    <title>Jon Menard's Portfolio</title>
