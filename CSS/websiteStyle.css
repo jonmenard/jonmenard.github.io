@@ -474,6 +474,20 @@ button:hover, input:hover {
 	text-align: center;
 }
 
+footer {
+position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  color: whitesmoke;
+}
+
+footer a{
+	color: whitesmoke;
+	
+}
+
+
 .gameHolder{
 	position: relative;
 	height: auto;
