@@ -733,7 +733,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 	width: auto;
 	color: red;
 	font-size: 20px;
-	background-color: black;
+	background-color: rgb(20,20,20);
 	border: none;
 }
 
