@@ -351,7 +351,7 @@ function begin(){
 } 
 
 function evolve(totalScore, best){
-
+    let bestDot = Object.assign({}, best);
     let bestDotsChildren = [];
     let i = 0;
     //sort all the scores for each dot, if they are lower than 50% than keep them
@@ -374,8 +374,11 @@ function evolve(totalScore, best){
         dot.dead = false;
         const score = {};
         Object.assign(score,dot);
-        dot.xInstruction = mutate(Object.assign({}, dot.xInstruction),score.score);
-        dot.yInstruction = mutate(Object.assign({}, dot.yInstruction),score.score);
+        if(dot.goal == false || Math.random() < 0.25){
+            dot.xInstruction = mutate(Object.assign({}, dot.xInstruction),score.score);
+            dot.yInstruction = mutate(Object.assign({}, dot.yInstruction),score.score);
+        }
+        dot.goal = false;
         newDots[eachDot] = Object.assign({}, dot);
     }
 
@@ -385,8 +388,11 @@ function evolve(totalScore, best){
         dot.dead = false;
         const score = {};
         Object.assign(score,dot);
-        dot.xInstruction = mutate(Object.assign({}, dot.xInstruction),score.score);
-        dot.yInstruction = mutate(Object.assign({}, dot.yInstruction),score.score);
+        if(dot.goal == false){
+            dot.xInstruction = mutate(Object.assign({}, dot.xInstruction),score.score);
+            dot.yInstruction = mutate(Object.assign({}, dot.yInstruction),score.score);
+        }
+        dot.goal = false;
         newDots[eachDot] = Object.assign({}, dot);  
         newDots[eachDot] = Object.assign({}, dot);  
     }
@@ -398,13 +404,17 @@ function evolve(totalScore, best){
         dot.id = i;
         const score = {};
         Object.assign(score,best);
-        dot.xInstruction = mutate(Object.assign({}, dot.xInstruction),0);
-        dot.yInstruction = mutate(Object.assign({}, dot.yInstruction),0);
+        if(dot.goal == false){
+            dot.xInstruction = mutate(Object.assign({}, dot.xInstruction),0);
+            dot.yInstruction = mutate(Object.assign({}, dot.yInstruction),0);
+        }
+        dot.goal = false;
         newDots[i] = Object.assign({}, dot);
     }
     
-    newDots[0] = Object.assign({}, best);
+    newDots[0] = Object.assign({}, bestDot);
     newDots[0].dead = false;
+    newDots[0].goal = false;
     newDots[0].bestDot = true;
     newDots[0].id = 0;
 
@@ -415,7 +425,7 @@ function evolve(totalScore, best){
 function rankDots(){
 
     let totalScore = [400];
-    let bestScore = 1000000;
+    let bestScore = 100000000000;
     let best;
 
     // ranking each dot with a score based off how close it got to the finishing point
@@ -423,16 +433,17 @@ function rankDots(){
         let dot = Object.assign({}, dots[eachDot]);
         let xDistance = dot.posX - 300;
         let yDistance = dot.posY - 50;
-        let distance = (Math.pow(xDistance,2) + Math.pow(yDistance,2));
+        let distance = Math.sqrt(Math.pow(xDistance,2) + Math.pow(yDistance,2));
         if(dot.goal){
-            distance -= 1000;
-            distance -= numberOfInstructions + (dot.steps * 5)
+            distance = dot.steps - numberOfInstructions
         }else if(dot.dead){
-            distance += 100 - dot.steps;
+            //distance -= dot.steps;
         }
+
+       
         
         totalScore[eachDot] = distance;
-        dot.goal = false;
+        
         dot.posX = 300;
         dot.posY = 550;
         dot.velX = 0; 

@@ -73,6 +73,13 @@
 		}
 	}  
 
+    function endGame(game){
+        clearInterval(game);
+        game = false;
+        
+        //document.removeEventListener("keydown",setDirection);
+    }
+
     //the function that draws everything to cavas 
     function draw(){
 
@@ -101,15 +108,14 @@
                 ctx.strokeStyle="rgb(20,20,20)";
                 ctx.strokeRect(snake[i].x,snake[i].y,box,box);
                 if(collisionHead()){
-                    clearInterval(game);
-                    game = false;
+                    endGame(game);
+                    
                 }    
                
             }else{
                 ctx.fillStyle = "white";
                 if(collisionBody(snake[i].x,snake[i].y)){
-                    clearInterval(game);
-                    game = false;
+                    endGame(game);
                 } 
             }
 
@@ -229,12 +235,11 @@
 
         document.removeEventListener("keydown",setDirection);
         document.addEventListener("keydown",setDirection);
-
         score = 0;
         if(!game){
             
         }else{
-            clearInterval(game);
+            endGame(game)
         }
         game =  setInterval(draw,4);
         d = stop;
@@ -245,7 +250,7 @@
         keyPressed = event.keyCode;
         if(keyPressed == 40 || keyPressed == 39 || keyPressed == 38 || keyPressed == 37 || keyPressed == 13 || keyPressed == 32){
            if(game){
-            event.preventDefault();
+                event.preventDefault();
            } 
         }
     }
@@ -259,7 +264,7 @@
      // call the draw function every 100ms;
      var game;
      draw();
-     document.addEventListener("keydown",setDirection);
+     //document.addEventListener("keydown",setDirection);
      
      
     

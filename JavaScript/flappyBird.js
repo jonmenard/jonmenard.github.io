@@ -315,7 +315,7 @@ function gameOver(){
             document.getElementById("flappybirdHighScore").value = highscore;
         }
     }
-    document.addEventListener("keydown",reset);
+    document.addEventListener("keydown",resetGame);
 }
 
 
@@ -337,8 +337,8 @@ function onload(){
   
 }
 
-function reset(event){
-    if(!game){
+function resetGame(event){
+    //if(!game){
         if(newgame){
 
         }else if(event.keyCode != 13){
@@ -353,11 +353,11 @@ function reset(event){
         bird.y = 300;
         jumpTime = 30;
         gracePeriod = 30;
-        document.removeEventListener("keydown",reset);
+        //document.removeEventListener("keydown",reset);
         document.addEventListener("keydown",jump);
         pipes = setInterval(makePipe,timeBetweenPipe * 1000);
         flappyGame = setInterval(drawCanvas,1);
-    }
+    //}
     newgame = false;
 }
 
@@ -368,15 +368,15 @@ let newgame = false;
 
 
 
-$('#startFlappyBird, #leaderboardsFlappyBird').click(function () {
+$('#startFlappyBird').click(function () {
     if (this.id == 'startFlappyBird') {
         if(flappyGame == null){
             $("#startFlappyBird").attr('disabled',true);
             //$("#leaderboardsFlappyBird").attr('disabled',true);
             //$('#leaderboardTable').hide()
             newgame = true;
-            document.removeEventListener("keydown",start);
-            reset();
+            //document.removeEventListener("keydown",reset);
+            resetGame();
         }
     }
 });
@@ -384,5 +384,5 @@ $('#startFlappyBird, #leaderboardsFlappyBird').click(function () {
  
 
 
-document.removeEventListener("keydown",reset);
+//document.removeEventListener("keydown",reset);
 window.addEventListener("load",onload);
