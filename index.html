@@ -1,34 +1,76 @@
 <html lang="en" id = "html">
     <script src = "JavaScript/jquery-3.4.1.js"></script>
-    <script> 
-        $(function(){
-            $("header").load("header.html"); 
-            $("head").load("head.html"); 
-            $("footer").load("footer.html"); 
-        });
-    </script>
     <head>
+            <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <!-- Script for google anaylitics -->
+
         <meta charset="utf-8">
         <meta name="author" content="Jon Menard">
         <meta name="description" content="A Personal Porfolio Created by Jon Menard">
         <meta property="og:image" content="./Images/profile.jpg">
         <meta property="og:description" content="Jon Menard's Portfolio contains information about Jon, as well as some of his projects and games he has created.">
         <meta property="og:title" content="Jon Menard's Porfolio">
+        
+        <script>
+            window.addEventListener('message', event => {
+                var request = event.data; 
+                var body = document.body, html = document.documentElement;
+                if(request == "width"){
+                    var width = Math.max( body.scrollWidth, body.offsetWidth, 
+                            html.clientWidth, html.scrollWidth, html.offsetWidth );
+                    console.log(width);
+                    window.parent.postMessage({"width" : width}, "*");
+                }else if(request == "height"){
+                    var height = Math.max( body.scrollHeight, body.offsetHeight, 
+                            html.clientHeight, html.scrollHeight, html.offsetHeight );
+                    console.log(height);
+                    window.parent.postMessage({"height" : height}, "*");
+                }
+            }); 
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-FN5PDGB3GH');
+        </script>
+        <link rel="stylesheet" type="text/css" href="CSS/websiteStyle.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=VT323">
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-FN5PDGB3GH"></script>
+        <title>Jon Menard's Portfolio</title>
+            
     </head>
-    <body id="indexBody" hidden>
+    <body id="indexBody">
     
     
    
-        <header id="header"></header>
+        <header id="header">
+            <div id="buttonH">
+                <a href="./index.html" id="home" class="menu"> Home</a>
+                <a href="./about.html" id="about" class="menu"  value="About">About</a>
+                <a href="./project.html" id="projects" class="menu" value="Projects">Projects</a>
+                <a href="./games.html" id="games" class="menu"   value="Games">Games</a>
+            </div>
+            
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+            
+            
+        </header>
         <div id = "content" >
             <h1 id="mainTitle">Jon's Portfolio </h1>
             <img id = "profilePicture" src="Images/profile.jpg" alt="Image of Jon Menard" hidden>
         </div>
         <footer>
-            
-
-            
-
+            <div>
+    
+                <h3> Contact Me</h3>
+                jonmenard@cmail.carleton.ca <br>
+                <p>
+                    <a class="footerElement" href = "https://github.com/jonmenard007" >Github</a>
+                    <a class="footerElement" href = "https://www.linkedin.com/in/jon-menard-j007/" >Linkedin</a>
+                    <a class="footerElement" href= "Documents/JonMenardResume_CV.pdf" title="" download>Resume</a>
+                </p>
+                <br>
+            </div>
         </footer>
 
     </body>
