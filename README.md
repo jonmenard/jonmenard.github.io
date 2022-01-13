@@ -1,2 +1,2 @@
-# jonmenard007.github.io
+# jonmenard.github.io
 Jon Menard's Portfolio
