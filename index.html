@@ -1,30 +1,32 @@
+<!DOCTYPE html>
 <html lang="en" id = "html">
     <script src = "JavaScript/jquery-3.4.1.js"></script>
     <script> 
         $(function(){
             $("header").load("header.html"); 
-            $("head").load("head.html"); 
+            $("head").load("head.html");
             $("footer").load("footer.html"); 
-        });
+            $(window).resize(function () {
+                $('#main-title-holder').css('height', $(window).height() * 0.82);
+                });
+            $(function(){ $(window).resize() });
+            });
     </script>
     <head>
-        <meta charset="utf-8">
-        <meta name="author" content="Jon Menard">
-        <meta name="description" content="A Personal Porfolio Created by Jon Menard">
-        <meta property="og:image" content="./Images/profile.jpg">
-        <meta property="og:description" content="Jon Menard's Portfolio contains information about Jon, as well as some of his projects and games he has created.">
-        <meta property="og:title" content="Jon Menard's Porfolio">
+
     </head>
-    <body id="indexBody" hidden>
+    <body id="indexBody">
     
     
    
         <header id="header">
         </header>
-        <div id = "content" >
-            <h1 id="mainTitle">Jon's Portfolio </h1>
-            <img id = "profilePicture" src="Images/profile.jpg" alt="Image of Jon Menard" hidden>
-        </div>
+        <main id = "content" >
+            <div id="main-title-holder">
+                <h1 id="mainTitle">Jon's Portfolio </h1>
+                <img id = "profilePicture" src="Images/profile.jpg" alt="Image of Jon Menard" hidden>
+            </div>
+        </main>
         <footer>
             
 
