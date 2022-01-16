@@ -63,6 +63,8 @@
 	padding-bottom: 10px;
 }
 
+
+
 .eventSubmit{
 	position: relative;
 	border-radius: 50%;
@@ -593,6 +595,11 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 	-webkit-appearance: none;
 }
 
+
+.main-nav{
+
+}
+
 #mainTitle{
 	position: absolute;
 	min-width: 100%;
@@ -625,22 +632,42 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 	font-weight: 600;
 	text-align: center;
 	border: none;
+	text-decoration: underline;
+}
+
+.footerElement{
+	width: auto;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.menu:hover{
+	color: white;
+	text-decoration: none;
 }
 
 .mineSweeperButton {
-	height: 30px;
-	width: 30px;
+	height: 31px;
+	width: 31px;
 	padding: 4px;
 	background:rgb(189, 189,189);
 	border: 1px solid black;
 	font-size: 30px;
 	font-weight: bolder;
-	background-size: 30px auto;
+	
 	line-height: 0px;
 	text-align: center;
 	position: static;
 	background-size: cover;
 	
+}
+
+.bomb{
+	background-image: URL('../Images/bomb.png') !important;
+}
+
+.flag{
+	background-image: URL('../Images/bomb.png') !important;
 }
 
 #mineSweeperContainer{
@@ -666,6 +693,35 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 	border: none;
 	color: #1b1c1d;;
 	font-size: 20px;
+}
+
+
+nav{
+	display: block;
+}
+
+
+.footer-list{
+	-webkit-box-pack: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin: 0;
+    padding: 0;
+}
+
+.nav-list{
+	-webkit-box-pack: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+}
+
+ol[role=list], ul[role=list] {
+    list-style: none;
 }
 
 .optionB{

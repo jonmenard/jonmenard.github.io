@@ -105,9 +105,10 @@ function drawMinesweeper(){
             let button = board[i][j].button;
 
             if(board[i][j].flagged == true){
+                console.log("should be flagged")
                 button.style.backgroundImage = "none"
                 button.style.backgroundSize = "30px 30px"
-                button.style.backgroundImage = "URL('../Images/flag.jpeg')"
+                button.style.backgroundImage = "URL('Images/flag.jpeg')"
             }
 
             if(board[i][j].type == "cleared"){
@@ -236,7 +237,7 @@ function showBombs(){
                 button.removeChild(button.firstChild);
             }
 
-            button.style.backgroundImage = "URL('../Images/bomb.png')"
+            button.style.backgroundImage = "URL('Images/bomb.png')"
             button.style.backgroundSize = "30px 30px"
             //button.style.backgroundImage = "URL('https://static-s.aa-cdn.net/img/ios/1168282474/a56bd269f247d1b7cca22b0f0e912eef?v=1')";
             }
@@ -267,17 +268,17 @@ function select(i,j){
 function clicked(MouseEvent){
     let x;
     let y;
-    if(event.target.tagName == "DIV"){
-        let button = event.target.parentElement;
+    if(MouseEvent.target.tagName == "DIV"){
+        let button = MouseEvent.target.parentElement;
         y = parseInt(button.id);
         x = parseInt(button.value);
         var newtext = document.createTextNode("");
         button.replaceChild(newtext,event.target);
     }else{
-     y = parseInt(event.target.id);
-     x = parseInt(event.target.value);
+     y = parseInt(MouseEvent.target.id);
+     x = parseInt(MouseEvent.target.value);
     }
-    if(event.button == 2){
+    if(MouseEvent.button == 2){
         flagButton(x,y);
     }else{
         if(firstClick){

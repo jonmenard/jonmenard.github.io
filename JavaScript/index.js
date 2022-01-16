@@ -16,7 +16,7 @@ $(function(){
 
 $(function(){
     $(title).on('click',function(){
-        $(title).fadeOut(1000, function(){
+        $(title).fadeOut(500, function(){
             window.location.href = 'about.html';
         });
     }); 
