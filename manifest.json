@@ -1,0 +1,22 @@
+{
+    "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+    "name": "Jon Menard's Portoflio",
+    "short_name": "Jon Menard",
+    "start_url": "https://jonmenard.github.io/about.html",
+    "display": "standalone",
+    "background_color": "#fff",
+    "description": "Jon Menard's Software Engineering Portfolio.",
+    "icons": [{
+      "src": "Images/icon.png.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }],
+    "related_applications": [{
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=cheeaun.hackerweb"
+    }],
+    "prefer_related_applications": true,
+    "theme-color": "#1b1c1d",
+    "background_color": "#1b1c1d"
+  }
+  
