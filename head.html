@@ -13,32 +13,18 @@
     <meta name="google-site-verification" content="htCpJGRqI7GM3uQLe3O-Te9jp7ie57YMHuNe2NNyQ0s" />
     
     
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2DZ8WLB359"></script>
     <script>
-        window.addEventListener('message', event => {
-            var request = event.data; 
-            var body = document.body, html = document.documentElement;
-            if(request == "width"){
-                var width = Math.max( body.scrollWidth, body.offsetWidth, 
-                        html.clientWidth, html.scrollWidth, html.offsetWidth );
-                console.log(width);
-                window.parent.postMessage({"width" : width}, "*");
-            }else if(request == "height"){
-                var height = Math.max( body.scrollHeight, body.offsetHeight, 
-                        html.clientHeight, html.scrollHeight, html.offsetHeight );
-                console.log(height);
-                window.parent.postMessage({"height" : height}, "*");
-            }
-        }); 
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-FN5PDGB3GH');
+
+        gtag('config', 'G-2DZ8WLB359');
     </script>
     <!-- <link rel="stylesheet" type="text/css" href="CSS/websiteStyle.css"> -->
     <link rel="stylesheet" media="screen and (min-width: 1200px)" href="CSS/websiteStyle.css">
     <link rel="stylesheet" media="screen and (max-width: 1200px)" href="CSS/websiteStyleMobile.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=VT323">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FN5PDGB3GH"></script>
     
     <title>Jon Menard's Portfolio</title>
