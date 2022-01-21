@@ -12,6 +12,15 @@
     </head>
 <body hidden>
     <header></header>
+    <script>
+        boxWidth = 0;
+        if (window.matchMedia('(max-width: 1300px)').matches) {
+            boxWidth = 40;
+        } else {
+            boxWidth = 44;
+        }
+        
+    </script>
     
     <div id = "content" >
         <div id = "top">
@@ -54,16 +63,16 @@
             </div>
             <div id = "flappybirdContainer">
                 <button id = "startFlappyBird"></button>
-                <button id = "leaderboardsFlappyBird"></button>
-                <table id = "leaderboardTable" hidden></table>
-                <canvas id = "background" height = "600px" width = "600px"
-                style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
-                <canvas id = "pipes" height = "600px" width = "600px"
-                style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
-                <canvas id = "bird" height = "600px" width = "600px"
-                style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
-                <canvas id = "gameOver" height = "600px" width = "600px"
-                style="position: absolute; left: 0; top: 0; z-index: 3;"></canvas>
+                <button id = "leaderboardsFlappyBird" hidden></button>
+                <table id = "leaderboardTable" class="flappyBirdCanvas" hidden></table>
+                <canvas id = "background" class="flappyBirdCanvas" height = "600px" width = "600px"
+                style="z-index: 0;"></canvas>
+                <canvas id = "pipes" class="flappyBirdCanvas" height = "600px" width = "600px"
+                style="z-index: 1;"></canvas>
+                <canvas id = "bird" class="flappyBirdCanvas" height = "600px" width = "600px"
+                style="z-index: 2;"></canvas>
+                <canvas id = "gameOver" class="flappyBirdCanvas" height = "600px" width = "600px"
+                style="z-index: 3;"></canvas>
                 <script src = "JavaScript/flappyBird.js"></script>   
             </div>
         </section>
@@ -89,8 +98,8 @@
                         <button class = "aiButton" id= "stop">Stop</button>
                         <button class = "aiButton" id= "resetAI">Reset</button>
                         <button class = "aiButton" id= "remove">Undo</button>
-                        <button class = "aiButton" id= "show">Show More</button>
-                        <button class = "aiButton" id= "less">Show Less</button>  
+                        <button class = "aiButton" id= "show">Show Less</button>
+                        <button class = "aiButton" id= "less">Show More</button>  
                     </div>
                     <canvas id = "screen" height="600px" width="600px"></canvas>
                     <script src = "JavaScript/ai.js"></script>
@@ -116,10 +125,12 @@
                 <br>
                 <button class = "tetrisButton" id="tetrisStart">Start Game</button>
                 <button class = "tetrisButton" id="tetrisAIStart">Start AI</button>
-                <canvas id="tetrus" width="800px" height = "800px"> 
+                <canvas id="tetrus" width="1000px" height = "1000px"> 
                     <button class = "tetrisButton" id="tetrisStart">Start Game</button>
                     <button class = "tetrisButton" id="tetrisAIStart">Start AI</button>
                 </canvas>
+                
+                
                 <script  src = "JavaScript/tetris/aiTetris.js"></script>
                 <script  src = "JavaScript/tetris/tetrisBox.js"></script>
                 <script  src = "JavaScript/tetris/tetrisObject.js"></script>

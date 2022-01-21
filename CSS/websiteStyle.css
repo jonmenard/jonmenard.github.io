@@ -51,7 +51,6 @@
 .aiButton{
 	color: whitesmoke;
 	font-family: Helvetica, sans-serif;
-	font-size: 15px;
 	background-color: transparent;
 	border: none;
 	border-color: #1b1c1d;;
@@ -59,19 +58,16 @@
 }
 
 #aiContainer{
-	max-width: 600px;
 	position: relative;
 	margin: auto;
-	min-height: 600px;
 	width: auto;
 	text-align: center;
 }
 
 #ai{
 	position: relative;
-	width: 610px;
-	max-width: 610px;
-	min-height: 600px;
+	margin: auto;
+	width: auto;
 	border: solid whitesmoke;
 }
 
@@ -226,7 +222,6 @@ button:hover, input:hover {
 }
 
 .difficulty{
-	height: 30px;
 	width: auto;
 	padding: 10px;
 	background:rgb(189, 189,189);
@@ -399,13 +394,18 @@ button:hover, input:hover {
 }
 
 #flappybirdContainer{
-	max-width: 600px;
 	position: relative;
-	margin: auto;
+	display: grid;
 	min-height: 600px;
 	height: fit-content;
-	width: auto;
+	width: fit-content;
+	margin: auto;
 	text-align: center;
+}
+
+.flappyBirdCanvas{
+	grid-column: 1;
+  	grid-row: 1;
 }
 
 .flappybirdTr{
@@ -627,19 +627,29 @@ main{
 }
 
 .mineSweeperButton {
-	height: 31px;
-	width: 31px;
-	padding: 4px;
+
+	margin: -1px !important;
+	padding: 4px !important;
 	background:rgb(189, 189,189);
 	border: 1px solid black;
 	font-size: 30px;
 	font-weight: bolder;
 	
-	line-height: 0px;
+	line-height: -1px !important;
 	text-align: center;
-	position: static;
+	float: left;
 	background-size: cover;
 	
+	
+}
+.float{
+	float: left
+	
+}
+
+.clear{
+	display: block;
+	clear: both;
 }
 
 .bomb{
@@ -653,16 +663,14 @@ main{
 #mineSweeperContainer{
 	position: relative;
 	height: auto;
-	width: 650px;
-	border-style:  outset;
 	margin: auto;
-	border-width: thin;
-	border-color: #1b1c1d;;
+
 	border-style: outset;
 	background-color: rgb(189,189,189)
 }
 
 #minesweeperHolder{
+	margin: auto;
 	background-color: transparent;
 	text-align: center;
 }
@@ -792,11 +800,10 @@ ol[role=list], ul[role=list] {
 }
 
 #snakeContainer{
-	max-width: 600px;
+	width: fit-content;
 	position: relative;
 	margin: auto;
-	height: 705;
-	width: auto;
+	height: auto;
 	text-align: center;
 }
 
@@ -805,7 +812,7 @@ ol[role=list], ul[role=list] {
 	position: relative;
 	margin: auto;
 	height: auto;
-	width: 800px;
+	width: fit-content;
 	text-align: center;
 }
 
@@ -856,8 +863,6 @@ ol[role=list], ul[role=list] {
 	border: none;
 	width: 75px;
 	height: 75px;
-	top: 263px;
-	left: 139px;
 	position: absolute;
 }
 

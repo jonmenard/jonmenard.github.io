@@ -3,21 +3,24 @@
 const backgroundCanvas = document.getElementById("background");
 const backgroundContex = backgroundCanvas.getContext("2d");
 
+backgroundContex.canvas.height  = 24 * boxWidth;
+backgroundContex.canvas.width  = 24 * boxWidth;
+
 let background = new Image();
 background.src = 'Images/flappyBackground.png';
 
 let sun = {
     img: new Image(),
-    x: 600,
-    y: 100
+    x: 24 * boxWidth,
+    y: 4 * boxWidth
 };
 sun.img.src = 'Images/sun.png';
 
 
 let boat = {
     img:  new Image(),
-    x: 375,
-    y: 500
+    x: 17 * boxWidth,
+    y: 20 * boxWidth
 };
 boat.img.src = 'Images/boat.png';
 
@@ -26,12 +29,21 @@ const pipeContex = canvas.getContext("2d");
 pipeContex.save();
 pipeContex.fillStyle = "red";
 
+pipeContex.canvas.height  = 24 * boxWidth;
+pipeContex.canvas.width  = 24 * boxWidth;
+
 
 const birdCanvas = document.getElementById("bird");
 const birdContex = birdCanvas.getContext("2d");
 
+birdContex.canvas.height  = 24 * boxWidth;
+birdContex.canvas.width  = 24 * boxWidth;
+
 const gameCanvas = document.getElementById("gameOver");
 const gameContex = gameCanvas.getContext("2d");
+
+gameContex.canvas.height  = 24 * boxWidth;
+gameContex.canvas.width  = 24 * boxWidth;
 
 
 
@@ -59,24 +71,24 @@ let falling = 0;
 let topPipes = [];
 let bottomPipes = [];
 let bird = {
-    x: 100,
-    y: 300,
+    x: 4 * boxWidth,
+    y: 12 * boxWidth,
 };
 
 
 
 function makePipe(){
 
-    let number =  Math.floor((Math.random() * 400));
+    let number =  Math.floor((Math.random() * (19 * boxWidth)));
     let topPipe = {
-        x: 600,
+        x: 24 * boxWidth,
         y: number
     };
 
     topPipes[topPipes.length] = topPipe;
     let bottomPipe = {
-        x: 600,
-        y: number + 150
+        x: 24 * boxWidth,
+        y: number + (12 * boxWidth)
     };
 
     bottomPipes[bottomPipes.length] = bottomPipe;
@@ -103,28 +115,28 @@ function drawPipes(){
 
     for(i = 0; i < topPipes.length; i++){
         
-        pipeContex.clearRect(bottomPipes[i].x + 40,0,4,600);
+        pipeContex.clearRect(bottomPipes[i].x + boxWidth * 2,0,4,boxWidth * 24);
         
-        pipeContex.drawImage(topPipeImg, topPipes[i].x,(topPipes[i].y - 300),40,300);
-        pipeContex.drawImage(bottomPipeImg, bottomPipes[i].x,bottomPipes[i].y,40,300);
+        pipeContex.drawImage(topPipeImg, topPipes[i].x,(topPipes[i].y - 12 * boxWidth),boxWidth * 2,12 * boxWidth);
+        pipeContex.drawImage(bottomPipeImg, bottomPipes[i].x,bottomPipes[i].y,boxWidth * 2,12 * boxWidth);
 
-        pipeContex.drawImage(bottomPipeImg, topPipes[i].x,-100,40,(topPipes[i].y-300)+100);
-        pipeContex.drawImage(topPipeImg, bottomPipes[i].x,bottomPipes[i].y+50,40,600);
+        pipeContex.drawImage(bottomPipeImg, topPipes[i].x,-4 * boxWidth,boxWidth * 2,(topPipes[i].y-boxWidth * 12)+4 * boxWidth);
+        pipeContex.drawImage(topPipeImg, bottomPipes[i].x,bottomPipes[i].y+2 * boxWidth,boxWidth * 2,24 * boxWidth);
         // move the pipes forward 2px
         bottomPipes[i].x = bottomPipes[i].x - 2;
         topPipes[i].x = topPipes[i].x - 2;
 
-        if((topPipes[i].x + 40) <= 0){
+        if((topPipes[i].x + boxWidth*2) <= 0){
             topPipes.pop;
             bottomPipes.pop;
         }
 
         // if pipe is in the same area the bird could be, check for collison
-        if((topPipes[i].x > 60 && topPipes[i].x < 135)){
+        if((topPipes[i].x > boxWidth * 2 && topPipes[i].x < boxWidth * 5)){
             if((bird.y) < topPipes[i].y){
                 gameOver();
             }
-            if((bird.y+40) > bottomPipes[i].y){
+            if((bird.y+boxWidth*2) > bottomPipes[i].y){
                 
                 gameOver();
             }else if(topPipes[i].x == bird.x){
@@ -138,19 +150,19 @@ function drawPipes(){
 
 function drawBackground(){
   
-    backgroundContex.drawImage(background,0,0,600,600);
-    backgroundContex.drawImage(sun.img, sun.x,sun.y, 50,50);
-    backgroundContex.drawImage(boat.img, boat.x,boat.y, 50,50);
+    backgroundContex.drawImage(background,0,0,24 * boxWidth,24 * boxWidth);
+    backgroundContex.drawImage(sun.img, sun.x,sun.y, 2 * boxWidth,2 * boxWidth);
+    backgroundContex.drawImage(boat.img, boat.x,boat.y, 2 * boxWidth,2 * boxWidth);
    
     sun.x -= 1;
     boat.x -= 1;
 
-    if(sun.x <=-50){
-        sun.x = 600;
+    if(sun.x <=-2 * boxWidth){
+        sun.x = 24 * boxWidth;
     }
 
-    if(boat.x <= -50){
-        boat.x = 600;
+    if(boat.x <= -2 * boxWidth){
+        boat.x = 24 * boxWidth;
     }
 
 }
@@ -159,49 +171,49 @@ function drawBackground(){
 function drawBird(){
 
     birdContex.save();
-    birdContex.clearRect(0,0,600,600);
+    birdContex.clearRect(0,0,24 * boxWidth,24 * boxWidth);
 
 
     birdContex.fillStyle = "rgb(255,161,74)";
     birdContex.strokeStyle = "rgb(41,52,46)";
-    birdContex.font = "bold 65px Changa One";
+    birdContex.font = "bold " + boxWidth*2.5 + "px Changa One";
     birdContex.lineWidth = 2;
-    birdContex.fillText(flappyScore, 20, 60);
-    birdContex.strokeText(flappyScore, 20, 60)
+    birdContex.fillText(flappyScore, boxWidth, boxWidth*2);
+    birdContex.strokeText(flappyScore, boxWidth, boxWidth*2)
 
     if(jumpTime > 0){
         bird.y -= 3;
         jumpTime -= 1;
         falling = 0;   
-        birdContex.translate(bird.x + 17, bird.y + 17);
+        birdContex.translate(bird.x + boxWidth, bird.y + boxWidth);
         birdContex.rotate(-15 * Math.PI / 180);
     }else if(gracePeriod > 0){
         gracePeriod--;
-        birdContex.translate(bird.x + 17, bird.y + 17);
+        birdContex.translate(bird.x + boxWidth, bird.y + boxWidth);
         birdContex.rotate(-15 * Math.PI / 180);
     }else{
         if(falling < 25){
             bird.y += 1;
             falling++;
-            birdContex.translate(bird.x + 17, bird.y + 17);
+            birdContex.translate(bird.x + boxWidth, bird.y + boxWidth);
             birdContex.rotate(15 * Math.PI / 180);
         }else if (falling < 50){
             bird.y += 2;
             falling++;
-            birdContex.translate(bird.x + 17, bird.y + 17);
+            birdContex.translate(bird.x + boxWidth, bird.y + boxWidth);
             birdContex.rotate(30 * Math.PI / 180); 
         }else if(falling < 100){
             bird.y += 3;
-            birdContex.translate(bird.x + 17, bird.y + 17);
+            birdContex.translate(bird.x + boxWidth, bird.y + boxWidth);
             birdContex.rotate(60 * Math.PI / 180); 
         }
     }
 
     if(wingflap < 30 && jumpTime > 0){
-    birdContex.drawImage(base_image, -17,-17,40,40); 
+    birdContex.drawImage(base_image, -boxWidth,-boxWidth,1.75 * boxWidth,1.75 * boxWidth); 
     wingflap++;
     }else{
-        birdContex.drawImage(flappy2, -17,-17,40,40); 
+        birdContex.drawImage(flappy2, -boxWidth,-boxWidth,1.75 * boxWidth,1.75 * boxWidth); 
         wingflap++;
         if(wingflap > 60){
         wingflap = 0;
@@ -213,7 +225,7 @@ function drawBird(){
 
 
 function collisonDetection(){
-    if(bird.y > 565){
+    if(bird.y > boxWidth * 23){
         gameOver();
     }
 }
@@ -225,14 +237,14 @@ function mainScreen(){
     gameContex.textAlign = "end"; 
     // rectangle that will hold score, best, leader board, and start new game
     gameContex.fillStyle = "rgb(222,215,147)";
-    gameContex.fillRect(75,200,450,200);
-    gameContex.strokeRect(75,200,450,200);
+    gameContex.fillRect(3 * boxWidth,8 * boxWidth, 18 * boxWidth,8 * boxWidth);
+    gameContex.strokeRect(3 * boxWidth,8 * boxWidth, 18 * boxWidth,8 * boxWidth);
 
     gameContex.fillStyle = "rgb(245,245,245)";
 
     // making the squares for the start and leaderboard
-    gameContex.fillRect(137.5,262.5,75,75);
-    gameContex.strokeRect(137.5,262.5,75,75);
+    gameContex.fillRect(5.5 * boxWidth,10.5 * boxWidth,3 * boxWidth,3 * boxWidth);
+    gameContex.strokeRect(5.5* boxWidth ,10.5 * boxWidth,3 * boxWidth,3 * boxWidth);
     
 
 
@@ -240,15 +252,19 @@ function mainScreen(){
     gameContex.beginPath();
     let height = 45.4663 /2;
     let length = 52.5 /2;
-    gameContex.moveTo(175 - length, 300 - height);
-    gameContex.lineTo(175 + length, 300);
-    gameContex.lineTo(175 - length,300 + height );
+    gameContex.moveTo(7 * boxWidth - length, 12 * boxWidth - height);
+    gameContex.lineTo(7 * boxWidth + length, 12 * boxWidth);
+    gameContex.lineTo(7 * boxWidth - length, 12 * boxWidth + height );
     gameContex.closePath();
 
     gameContex.lineWidth =3;
     gameContex.stroke();
     gameContex.fillStyle = "green";
     gameContex.fill();
+
+    $("#startFlappyBird").css("top", 11 * boxWidth);
+    $("#startFlappyBird").css("left", 6 * boxWidth);
+    
 
 
 }
@@ -259,10 +275,10 @@ function drawFlappyBird(){
     // displaying game over
     gameContex.fillStyle = "rgb(255,161,74)";
     gameContex.strokeStyle = "rgb(41,52,46)";
-    gameContex.font = "bold 65px Changa One";
+    gameContex.font = "bold " + boxWidth*2.5 + "px Changa One";
     gameContex.lineWidth = 2;
-    gameContex.fillText("FLAPPY BIRD", 300, 140);
-    gameContex.strokeText("FLAPPY BIRD", 300, 140);
+    gameContex.fillText("FLAPPY BIRD", 12 * boxWidth, 6 * boxWidth);
+    gameContex.strokeText("FLAPPY BIRD", 12 * boxWidth, 6 * boxWidth);
 }
 
 function gameOver(){
@@ -279,10 +295,10 @@ function gameOver(){
     // displaying game over
     gameContex.fillStyle = "rgb(255,161,74)";
     gameContex.strokeStyle = "rgb(41,52,46)";
-    gameContex.font = "bold 65px Changa One";
+    gameContex.font = "bold " + boxWidth*2.5 + "px Changa One";
     gameContex.lineWidth = 2;
-    gameContex.fillText("GAME OVER", 300, 140);
-    gameContex.strokeText("GAME OVER", 300, 140);
+    gameContex.fillText("GAME OVER", 12 * boxWidth, 6 * boxWidth);
+    gameContex.strokeText("GAME OVER", 12 * boxWidth, 6 * boxWidth);
 
    //diplay the main screen
    mainScreen();
@@ -291,9 +307,9 @@ function gameOver(){
     gameContex.lineWidth = 1;
     gameContex.strokeStyle = "rgb(0,0,0)";
     gameContex.fillStyle = "rgb(255,122,91)";
-    gameContex.font = "bold 18px Segoe UI";
-    gameContex.fillText("SCORE", 490, 240);
-    gameContex.fillText("BEST", 490, 320);
+    gameContex.font = "bold " + boxWidth*1 + "px Segoe UI";
+    gameContex.fillText("SCORE", 20 * boxWidth, 10 * boxWidth);
+    gameContex.fillText("BEST", 20 * boxWidth, 13 * boxWidth);
     //gameContex.strokeText("SCORE", 490, 240);
    // gameContex.strokeText("BEST", 490, 320);
 
@@ -302,11 +318,11 @@ function gameOver(){
     
     gameContex.fillStyle = "White";
     gameContex.strokeStyle = "rgb(41,52,46)";
-    gameContex.font = "bold 50px Changa One";
-    gameContex.fillText(flappyScore, 490, 290);
-    gameContex.strokeText(flappyScore, 490, 290);
-    gameContex.fillText(highscore, 490, 370);
-    gameContex.strokeText(highscore, 490, 370);
+    gameContex.font = "bold " + boxWidth*2 + "px Changa One";
+    gameContex.fillText(flappyScore, 20 * boxWidth, 12 * boxWidth);
+    gameContex.strokeText(flappyScore, 20 * boxWidth, 12 * boxWidth);
+    gameContex.fillText(highscore, 20 * boxWidth, 15 * boxWidth);
+    gameContex.strokeText(highscore, 20 * boxWidth, 15 * boxWidth);
 
     if(flappyScore > highscore){
         highscore = flappyScore;
@@ -325,8 +341,8 @@ let pipes;
 
 
 function jump(event){
-    jumpTime = 25;
-    gracePeriod = 30;
+    jumpTime = boxWidth;
+    gracePeriod = boxWidth;
     //event.preventDefault();
 }
 
@@ -344,19 +360,20 @@ function resetGame(event){
         }else if(event.keyCode != 13){
             return;
         }
-        gameContex.clearRect(0,0,600,600);
-        pipeContex.clearRect(0,0,600,600);
+        gameContex.clearRect(0,0,24 * boxWidth,24 * boxWidth);
+        pipeContex.clearRect(0,0,24 * boxWidth,24 * boxWidth);
         flappyScore = 0;
         topPipes = [];
         bottomPipes = [];
-        bird.x = 100;
-        bird.y = 300;
+        bird.x = 4 * boxWidth;
+        bird.y = 12 * boxWidth;
         jumpTime = 30;
         gracePeriod = 30;
         //document.removeEventListener("keydown",reset);
         document.addEventListener("keydown",jump);
-        pipes = setInterval(makePipe,timeBetweenPipe * 1000);
-        flappyGame = setInterval(drawCanvas,1);
+        document.addEventListener("click",jump);
+        pipes = setInterval(makePipe,timeBetweenPipe * boxWidth * 40);
+        flappyGame = setInterval(drawCanvas, 1);
     //}
     newgame = false;
 }

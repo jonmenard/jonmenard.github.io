@@ -2,17 +2,35 @@
 // HTML Elements
 const aiCanvas = document.getElementById("screen");
 const aIContex = aiCanvas.getContext("2d");
+
+const dotSize = Math.round(boxWidth / 8)
+
+aIContex.canvas.height  = 24 * boxWidth;
+aIContex.canvas.width  = 24 * boxWidth;
+
 const stopButton = document.getElementById("stop");
-stopButton.addEventListener("click",stopAI);
 const startButton = document.getElementById("start");
-startButton.addEventListener("click",startAI);
 const resButton = document.getElementById("resetAI");
-resButton.addEventListener("click",resetAI);
 const removeButton = document.getElementById("remove");
-removeButton.addEventListener("click",remove);
 const show = document.getElementById("show");
-show.addEventListener("click",showMore);
 const less = document.getElementById("less");
+
+
+$("#stop").css("font-size", boxWidth * .60  );
+$("#start").css("font-size", boxWidth * .60 );
+$("#resetAI").css("font-size", boxWidth * .60);
+$("#remove").css("font-size", boxWidth * .60);
+$("#show").css("font-size", boxWidth  * .60 );
+$("#less").css("font-size", boxWidth  * .60 );
+$("#ai").css("width", boxWidth * 24 + 10 );
+$("#aiContainer").css("max-width", boxWidth * 24 );
+
+
+stopButton.addEventListener("click",stopAI);
+startButton.addEventListener("click",startAI);
+resButton.addEventListener("click",resetAI);
+removeButton.addEventListener("click",remove);
+show.addEventListener("click",showMore);
 less.addEventListener("click",showLess);
 
 
@@ -60,16 +78,17 @@ function startAI(){
 
 function load(){
     aIContex.fillStyle = "rgb(20,20,20)";
-    aIContex.fillRect(0,0,600,600);
+    aIContex.fillRect(0,0,24 * boxWidth,24 * boxWidth);
     aIContex.fillStyle = "white";
-    aIContex.font = "20px Changa One";
-    aIContex.fillText("Generation: "+ number, 20, 20);
+    aIContex.font = boxWidth * .66 + "px Changa One";
+    aIContex.fillText("Generation: "+ number, boxWidth/2, boxWidth/2);
     if(iterations == 1){
-        aIContex.fillText("Showing every generation", 20, 40);
+        aIContex.fillText("Showing Every Generation", boxWidth/2, boxWidth + boxWidth/8);
     }else{
-        aIContex.fillText("Showing every " + iterations + " generations", 20, 40);
+        aIContex.fillText("Showing Every " + iterations + " Generations", boxWidth/2, boxWidth+ boxWidth/8);
     }
-    aIContex.fillRect(295,65,10,10);
+    aIContex.fillRect(11.5 * boxWidth,2 * boxWidth,boxWidth,boxWidth);
+    //if(dot.posX > boxWidth * 11 && dot.posX < boxWidth * 12 && dot.posY > boxWidth * 2 && dot.posY < boxWidth * 3){
     aIContex.fillStyle = "red";
     for(let i = 0; i < objectCounter; i++){
         let x = drawnObjects[i];
@@ -113,7 +132,7 @@ function drawObject() {
     
     aIContex.fillStyle = "red";
     aIContex.strokeStyle = "red";
-    aIContex.lineWidth = "10px";
+    aIContex.lineWidth = boxWidth / 2 + "px";
     aIContex.fillRect(leftX,topY,rightX-leftX,bottomY - topY);
 }
 
@@ -180,7 +199,7 @@ function findxy(res, e) {
 const numberOfDots = 400;
 const numberOfInstructions = 400;
 aIContex.fillStyle = "black";
-aIContex.fillRect(0,0,600,600);
+aIContex.fillRect(0,0,boxWidth * 24,boxWidth * 24);
 let eachInstruction = 0;
 
 let start = 0
@@ -198,8 +217,8 @@ function makeDots(){
 
     for(let i = 0; i < numberOfDots; i++){
         listOfDots[i] = {
-            posX: 300,
-            posY: 550,
+            posX: boxWidth * 12,
+            posY: boxWidth * 22,
             velX: 0,
             velY: 0,
             xInstruction: makeInstructions(),
@@ -250,16 +269,18 @@ function moveDots(dots,eachDot,eachInstruction){
         
         for(let i = 0; i < objectCounter; i++){
             let x = drawnObjects[i];
-            if(x.left < dot.posX && (x.left + x.width) > dot.posX && x.top < dot.posY && (x.top + x.height) > dot.posY){
+            if(x.left < dot.posX + dotSize && (x.left + x.width) > dot.posX && x.top - dotSize < dot.posY && (x.top + x.height) > dot.posY){
                 dot.dead = true;
             }
         }
 
-        if(dot.posX > 590 || dot.posX < 10 || dot.posY > 590 || dot.posY < 50){
+        if(dot.posX >= boxWidth * 24 - dotSize || dot.posX <= 1 || dot.posY >= boxWidth * 24 - dotSize || dot.posY < boxWidth * 2.1 - dotSize){
             dot.dead = true;
         }
 
-        if(dot.posX > 295 && dot.posX < 305 && dot.posY > 65 && dot.posY < 75){
+
+        // This is where the goal to reach is
+        if(dot.posX > boxWidth * 11.5 && dot.posX < boxWidth * 12.5 && dot.posY > boxWidth * 2 && dot.posY < boxWidth * 3){
             dot.dead = true;
             dot.goal = true;
         }
@@ -290,11 +311,11 @@ function drawAI(){
             
             if(dots[eachDot].bestDot == true){
                 aIContex.fillStyle = "blue";
-                aIContex.fillRect(dots[eachDot].posX, dots[eachDot].posY,8,8);
+                aIContex.fillRect(dots[eachDot].posX, dots[eachDot].posY,dotSize,dotSize);
             }else{
                 aIContex.fillStyle = "green";
               //  contex.fillRect(dots[eachDot].posX + eachDot, dots[eachDot].posY,4,4);
-              aIContex.fillRect(dots[eachDot].posX, dots[eachDot].posY,4,4);
+              aIContex.fillRect(dots[eachDot].posX, dots[eachDot].posY,dotSize,dotSize);
             }
             if(eachDot >= start && eachDot < end){
                 instructionNumber = end - count
@@ -431,8 +452,8 @@ function rankDots(){
     // ranking each dot with a score based off how close it got to the finishing point
     for(let eachDot = 0; eachDot < numberOfDots; eachDot++){
         let dot = Object.assign({}, dots[eachDot]);
-        let xDistance = dot.posX - 300;
-        let yDistance = dot.posY - 50;
+        let xDistance = dot.posX - boxWidth * 12;
+        let yDistance = dot.posY - boxWidth * 2;
         let distance = Math.sqrt(Math.pow(xDistance,2) + Math.pow(yDistance,2));
         if(dot.goal){
             distance = dot.steps - numberOfInstructions
@@ -444,8 +465,8 @@ function rankDots(){
         
         totalScore[eachDot] = distance;
         
-        dot.posX = 300;
-        dot.posY = 550;
+        dot.posX = boxWidth * 12;
+        dot.posY = boxWidth * 22;
         dot.velX = 0; 
         dot.velY = 0; 
         dot.steps = 0;

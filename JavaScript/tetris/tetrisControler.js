@@ -1,5 +1,5 @@
  //astetics for the game
- const boxWidth = 30;
+ 
  const boxHeight = boxWidth;
  const lineHeight = 1;
 

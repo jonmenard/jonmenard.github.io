@@ -5,13 +5,18 @@
     //cvs.height = cvs.getBoundingClientRect().height;
 
     
+
+
     const ctx = cvs.getContext("2d");
+
+    ctx.canvas.height  = 24 * boxWidth;
+    ctx.canvas.width  = 24 * boxWidth;
 
     let resetButton = document.getElementById("resetSnake");
     resetButton.addEventListener("click",resetSnake);
     
     //creating the units for the game
-    const box = 25;
+
     
     // importing the background and the food img      
     
@@ -21,16 +26,16 @@
     // creating the snake;
     let snake = [];
     snake[0] = {
-        x: 12 * box, 
-        y: 12 * box,
+        x: 12 * boxWidth, 
+        y: 12 * boxWidth,
         color: "rgb(86,217,0)"
     };  
      
 
     //creating the food for the game, which the snake will try to get 
     let food = {
-        x: 12 * box,
-        y: 13 * box
+        x: 12 * boxWidth,
+        y: 13 * boxWidth
     };
 
     //setting the score to zero
@@ -84,29 +89,54 @@
     function draw(){
 
         
-        if(snake[0].x % box == 0 && snake[0].y % box == 0){
+        if(snake[0].x % boxWidth == 0 && snake[0].y % boxWidth == 0){
             direction(keyPressed);
         }
                 
         //draw the ground
         //ctx.drawImage(groundImg,0,0);
         ctx.fillStyle = "rgb(20,20,20)";
-        ctx.fillRect(0,0,600,600);
+
+        
+
+        ctx.fillRect(0,0,24 * boxWidth,24 * boxWidth);
 
         ctx.fillStyle = "white"
-        ctx.fillRect(0,73,600,2);
+        ctx.fillRect(0,3 * boxWidth,24 * boxWidth - 2,2);
 
         //drawing the name 
         ctx.fillStyle = "rgb(86,217,0)";
-        ctx.font = "60px Changa One";
-        ctx.fillText("Snakes", 9*box, 2.25*box);
+        ctx.font = boxWidth*2.5 + "px Changa One";
+        ctx.fillText("Snakes", 9*boxWidth, 2.25*boxWidth);
 
         //draw all the cells of the snake
         for(let i = snake.length-1; i >= 0; i--){
             if(i == 0){
                 ctx.fillStyle = "rgb(86,217,0)"; 
                 ctx.strokeStyle="rgb(20,20,20)";
-                ctx.strokeRect(snake[i].x,snake[i].y,box,box);
+                ctx.fillRect(snake[i].x,snake[i].y,boxWidth,boxWidth);
+                ctx.fillStyle = "black";
+                ctx.beginPath();
+
+                if(d == "down"){
+                
+                    ctx.arc(snake[i].x + 1.5* boxWidth / 5, snake[i].y + 4 * boxWidth / 5, boxWidth / 8, 0, 2 * Math.PI);
+                    ctx.arc(snake[i].x + 3.5*boxWidth / 5, snake[i].y +  4 *boxWidth / 5, boxWidth / 8, 0, 2 * Math.PI);
+                  
+                }else if(d == "right"){
+                    ctx.arc(snake[i].x + 3.5* boxWidth / 5, snake[i].y + 3.5 * boxWidth / 5, boxWidth / 8, 0, 2 * Math.PI);
+                    ctx.arc(snake[i].x + 3.5*boxWidth / 5, snake[i].y +  1.5 * boxWidth / 5, boxWidth / 8, 0, 2 * Math.PI);
+                }else if(d == "left"){
+                    ctx.arc(snake[i].x + 1.5* boxWidth / 5, snake[i].y + 1.5 * boxWidth / 5, boxWidth / 8, 0, 2 * Math.PI);
+                    ctx.arc(snake[i].x + 1.5*boxWidth / 5, snake[i].y + 3.5 * boxWidth / 5, boxWidth / 8, 0, 2 * Math.PI);
+        
+                }else{
+                    ctx.arc(snake[i].x + 1.5* boxWidth / 5, snake[i].y + boxWidth / 5, boxWidth / 8, 0, 2 * Math.PI);
+                    ctx.arc(snake[i].x + 3.5*boxWidth / 5, snake[i].y + boxWidth / 5, boxWidth / 8, 0, 2 * Math.PI);
+                }
+                ctx.fill();
+                
+                //ctx.strokeRect(snake[i].x,snake[i].y,boxWidth,boxWidth);
                 if(collisionHead()){
                     endGame(game);
                     
@@ -117,15 +147,11 @@
                 if(collisionBody(snake[i].x,snake[i].y)){
                     endGame(game);
                 } 
+                ctx.fillRect(snake[i].x,snake[i].y,boxWidth,boxWidth); 
             }
 
             
-            
-            if((i +1)% box == 0){
-                ctx.fillStyle="rgb(20,20,20)";
-                
-            }
-            ctx.fillRect(snake[i].x,snake[i].y,box,box); 
+             
             
             
         }
@@ -136,11 +162,11 @@
         //drawing the food
         ctx.fillStyle = "red";
         ctx.beginPath();
-        ctx.arc(food.x + 12.5, food.y + 12.5, 12, 0, 2 * Math.PI);
+        ctx.arc(food.x + boxWidth / 2, food.y + boxWidth / 2, boxWidth / 2, 0, 2 * Math.PI);
         ctx.fill();
 
-       if(d == stop){
-        return;
+        if(d == stop){
+            return;
         }
 
 
@@ -150,21 +176,21 @@
 
         //geting the current travel direction and moving in that direction;
         if(d == "up"){
-            snakeY -= box / 25;
+            snakeY -= 2;
 
         }else if(d == "down"){
         
-            snakeY += box / 25;
+            snakeY += 2;
           
         }else if(d == "right"){
-            snakeX += box / 25;
+            snakeX += 2;
         }else if(d == "left"){
-            snakeX -= box / 25;
+            snakeX -= 2;
 
         }
 
         //checking to see if the food and head of the snake are in the same spot
-        if(snakeX == food.x && snakeY == food.y ){
+        if(Math.abs(food.x - snakeX) <= 3 && Math.abs(food.y - snakeY) <= 3){
             score++;
             count = 25;
             newFoodLocation();
@@ -188,8 +214,8 @@
 
         //drawing the score of the game
         ctx.fillStyle = "rgb(86,217,0)";
-        ctx.font = "60px Changa One";
-        ctx.fillText(score, 3*box, 2.25*box);
+        ctx.font = boxWidth*2.5 + "px Changa One";
+        ctx.fillText(score, 3*boxWidth, 2.25*boxWidth);
 
     }
 
@@ -204,7 +230,7 @@
     }
     function collisionHead(){
         //does the snake leave the border?
-        if(snake[0].x > (23 * box) ||  snake[0].x < 0 || snake[0].y < (3* box) || snake[0].y > (23*box) ){
+        if(snake[0].x > (23 * boxWidth) ||  snake[0].x < 0 || snake[0].y < (3* boxWidth) || snake[0].y > (23*boxWidth) ){
           return true; 
         }
         return false;
@@ -213,12 +239,12 @@
 
     function newFoodLocation(){
         food = {
-            x: Math.floor((Math.random() * 23 + 1)) * box,
-            y: Math.floor((Math.random() * 19 + 1)+ 4) * box
+            x: Math.floor((Math.random() * 23 + 1)) * boxWidth,
+            y: Math.floor((Math.random() * 19 + 1)+ 4) * boxWidth
         };
 
         for(let i = 0; i < snake.length; i++){
-            if(food.x == snake[i].x && food.y == snake[i].y){
+            if((food.x - snake[i].x) <= 2 && (food.y - snake[i].y) <= 2){
                newFoodLocation();
             }
         }
@@ -229,8 +255,8 @@
     function resetSnake(){
         snake = [];
         snake[0] = {
-            x: 12 * box, 
-            y: 12 * box
+            x: 12 * boxWidth, 
+            y: 12 * boxWidth
         };
 
         document.removeEventListener("keydown",setDirection);

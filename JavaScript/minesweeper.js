@@ -1,8 +1,8 @@
 //javascript for minesweeper
-const boxSize = 30;
+
 let board = [];
-let height = 13;
-let width = 20
+let height = 24;
+let width = 25
 let numberOfBombs = undefined;
 let clock = null;
 let firstClick = true;
@@ -17,19 +17,22 @@ function createBoard(){
     easyButton.addEventListener("click",makebombs,event);
     easyButton.appendChild(easyText);
     easyButton.className = "difficulty"
-    easyButton.value = 10;
+    easyButton.value = 20;
+    easyButton.style.height = boxWidth + "px ";
     var mediumButton = document.createElement("button");
     var mediumText = document.createTextNode("Medium");
     mediumButton.addEventListener("click",makebombs,event);
     mediumButton.appendChild(mediumText);
     mediumButton.className = "difficulty"
-    mediumButton.value = 25;
+    mediumButton.value = 50;
+    mediumButton.style.height = boxWidth + "px ";
     var hardButton = document.createElement("button");
     var hardText = document.createTextNode("Hard");
     hardButton.addEventListener("click",makebombs,event);
     hardButton.appendChild(hardText);
     hardButton.className = "difficulty"
-    hardButton.value = 40;
+    hardButton.value = 80;
+    hardButton.style.height = boxWidth + "px ";
     div.appendChild(easyButton);
     div.appendChild(mediumButton);
     div.appendChild(hardButton);
@@ -40,17 +43,24 @@ function createBoard(){
         for(let j = 0; j < width; j++){
             var btn = document.createElement("button");
             btn.setAttribute("class","mineSweeperButton");
+            if(j == 0 ){
+                btn.classList.add("clear");
+            }else{
+                btn.classList.add("float");
+            }  
             board[i][j] = {
                 type: "empty",
-                x: (i * boxSize),
-                y: (j * boxSize),
+                x: (i * boxWidth),
+                y: (j * boxWidth),
                 flagged: false,
                 bombsTouching: null,
                 button: btn
                 
             };
-            btn.style.left = j*boxSize + "px";
-            btn.style.top = 500+i*boxSize +"px";
+            //btn.style.left = j*boxWidth + "px";
+            //btn.style.top = boxWidth * 20 +i*boxWidth +"px";
+            btn.style.height = boxWidth + "px ";
+            btn.style.width = boxWidth + "px ";
            // btn.style.borderStyle = "outset";
             div.appendChild(btn);
             var newtext = document.createTextNode("");
@@ -58,11 +68,17 @@ function createBoard(){
             btn.id = j;
             btn.value =i;
             btn.addEventListener("click",clicked, MouseEvent);
-            btn.addEventListener("contextmenu",clicked, MouseEvent);  
+            btn.addEventListener("contextmenu",clicked, MouseEvent);
+            
         }
         var br = document.createElement("br");
         div.appendChild(br); 
     }
+
+    $("#minesweeperHolder").css("width", boxWidth * 24  );
+    $("#minesweeperHolder").css("height", boxWidth * 24  );
+    $("#mineSweeperContainer").css("width", boxWidth * 24 + 1);
+    $("#mineSweeperContainer").css("height", boxWidth * 24 );
 }  
 
 
@@ -105,9 +121,8 @@ function drawMinesweeper(){
             let button = board[i][j].button;
 
             if(board[i][j].flagged == true){
-                console.log("should be flagged")
                 button.style.backgroundImage = "none"
-                button.style.backgroundSize = "30px 30px"
+                button.style.backgroundSize = boxWidth+ "px " + boxWidth + "px"
                 button.style.backgroundImage = "URL('Images/flag.jpeg')"
             }
 
@@ -151,14 +166,25 @@ function drawMinesweeper(){
                 var newtext = document.createTextNode(bombCount);
                 button.setAttribute("STYLE","color:"+ color);
                // button.style.borderStyle = "inset";
-                button.style.left = i*boxSize + "px";
-                button.style.top = 500 + j*boxSize +"px";
+                button.style.left = i*boxWidth + "px";
+                button.style.top = boxWidth * 20 + j*boxWidth +"px";
                 while (button.firstChild) {
                     button.removeChild(button.firstChild);
-                  }
+                }
+
+                //button.innerText = bombCount
+                //newtext.style.margin = 0
+                //newtext.style.margin = 0 + "px ";
+                //newtext.style.padding = 0 + "px ";
+
                 button.appendChild(newtext);
+                button.style.height = boxWidth + "px ";
+                button.style.width = boxWidth + "px ";
+                button.style.width = boxWidth + "px ";
+                button.style.lineheight = 0 + "px ";
+                
             }
-        }
+        };
     }
     checkWin();
 }
@@ -172,8 +198,8 @@ function resetMineSweeper(){
             var newtext = document.createTextNode("");
             board[i][j].type = "empty";
           //  button.style.borderStyle = "outset";
-            button.style.left = i*boxSize + "px";
-            button.style.top = 500 + j*boxSize +"px";
+            button.style.left = i*boxWidth + "px";
+            button.style.top = boxWidth * 20 + j*boxWidth +"px";
             button.style.backgroundImage = "none";
             while (button.firstChild) {
                 button.removeChild(button.firstChild);
@@ -238,7 +264,7 @@ function showBombs(){
             }
 
             button.style.backgroundImage = "URL('Images/bomb.png')"
-            button.style.backgroundSize = "30px 30px"
+            button.style.backgroundSize = boxWidth+ "px " + boxWidth + "px"
             //button.style.backgroundImage = "URL('https://static-s.aa-cdn.net/img/ios/1168282474/a56bd269f247d1b7cca22b0f0e912eef?v=1')";
             }
         }
@@ -363,13 +389,13 @@ function checkBeside(i,j){
 }
 
 function rightmouse(e){
-    let i = Math.floor((e.clientX) / (boxSize)) - 1;
-    let j = Math.floor((e.clientY) / (boxSize)) - 5;
+    let i = Math.floor((e.clientX) / (boxWidth)) - 1;
+    let j = Math.floor((e.clientY) / (boxWidth)) - 5;
     
     if(e.shiftKey){
         flagButton(i,j);
     }
-    else if(i >= 0 && i < boxSize && j>=0 && j < boxSize){
+    else if(i >= 0 && i < boxWidth && j>=0 && j < boxWidth){
         select(i,j);
     }
     
