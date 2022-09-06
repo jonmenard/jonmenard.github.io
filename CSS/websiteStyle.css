@@ -1156,3 +1156,7 @@ th{
     color: red
 }
 
+.notice{
+	visibility: hidden;
+}
+
