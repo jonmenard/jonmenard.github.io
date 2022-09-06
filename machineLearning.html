@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" id = "html"></html>
+<script src = "JavaScript/jquery-3.4.1.js"></script>
+<script  src = "JavaScript/tf.min.js"></script>
+    <script> 
+        $(function(){
+            $("header").load("header.html"); 
+            $("head").load("head.html");
+            $("footer").load("footer.html");  
+        });
+        
+    </script>
+    <head>
+    </head>
+
+    <style>
+        img{
+            position: relative;
+            border: solid black 1px;
+        }
+
+        .image-view, img{
+            height: 225px;
+            width: 400px;
+            max-width: 400px;
+            max-height: 225px;
+
+        }
+
+        .void{
+            margin-bottom: 455px;
+
+        }
+    </style>
+<body hidden>
+    <header></header>
+    
+    
+    <div id = "content" >
+        <div id = "top">
+            <h1 class="header">Machine Learning Projects </h1>
+            <br>
+        </div>
+    </div>
+    <!-- <main id = "content" >
+        <div id="main-title-holder">
+            <h1 id="mainTitle">Jon's Portfolio </h1>
+            <img id = "profilePicture" src="Images/profile.jpg" alt="Image of Jon Menard" hidden>
+        </div>
+    </main> -->
+
+
+   <main id = "main-title-holder" class= "gameHolder void" >
+        <section>
+            <div class = "textHolder"  >
+                <h3>1. ML Car Detector </h3>
+                <strong>Instructions:</strong> Detect if a car is in an image using my trained machine learning model. Drag or drop an image 
+                to see if the model predicts the presence of a car in the image. The model was trainied using a 40,000 image dataset hand sorted by myself. 
+                The dataset is still in progress and the model will be re-trained once it is complete
+            </div>
+    
+            <div id="formContainer" class="ui massive white segment">
+                <form class="ui massive form" action = "/uploadfile" method="post" id="mlImageForm">
+                    <h2 class="ui dividing">Upload Images to Analyze</h2>
+                    <div class="ui icon input">
+                        <div id="drop-region">
+                            <div class="drop-message">
+                                Drag & Drop Images or Click to Upload
+                            </div>
+                            <div id="image-preview">
+                                <!-- <div class = "image-view"> 
+                                    <img src="00_7c1f7804-bb196f49.jpg" alt="Girl in a jacket">
+                                    <div class = "imgResult"> 
+                                    </div>
+                                    
+                                    
+                                    <div class = "overlay">
+                                        
+                                    </div>
+                                    <div class = "feedback">
+                                        
+                                                <button class="feedbackButton wrong" value="22_75844058-fe62-4697-ae4f-ab3886414e49.jpg">
+                                                    
+                                                        Wrong
+                                                </button>
+                                            
+                                                
+                                                <button class="feedbackButton correct" value="22_75844058-fe62-4697-ae4f-ab3886414e49.jpg">
+                                                    
+                                                        Correct
+                                                </button>
+                                                
+                                            
+                                    </div>
+                                </div>     -->
+                            </div>
+                        </div>  
+                    </div> 
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer></footer>
+</body>
+
+
+<script type="module" src = "JavaScript/carDetector.js"></script>
+<script>
+$(function(){
+    $("#machineLearning").before()
+});
+</script>
+</html>

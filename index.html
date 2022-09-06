@@ -7,7 +7,7 @@
             $("head").load("head.html");
             $("footer").load("footer.html"); 
             $(window).resize(function () {
-                $('#main-title-holder').css('height', $(window).height() * 0.82);
+                $('#main-title-holder').css('min-height', $(window).height() * 0.82);
                 });
             $(function(){ $(window).resize() });
             });
