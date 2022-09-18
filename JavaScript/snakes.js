@@ -148,17 +148,9 @@
                     endGame(game);
                 } 
                 ctx.fillRect(snake[i].x,snake[i].y,boxWidth,boxWidth); 
-            }
-
-            
-             
-            
-            
+            }  
         }
 
-        
-           
-       
         //drawing the food
         ctx.fillStyle = "red";
         ctx.beginPath();
@@ -207,8 +199,6 @@
             y: snakeY
         };
 
-
-
         //adding the head to the front of the snake
         snake.unshift(newHead);
 
@@ -219,7 +209,6 @@
 
     }
 
-   
 
     function collisionBody(x,y){
 
@@ -281,16 +270,9 @@
         }
     }
 
-    //detect when the user inputs a new direction
-    
-
-//<IMG  src = 'JumpIn.gif'
-   // borderStyle = "outset" ALIGN=right HSPACE=”50” VSPACE=”50”/>
-
      // call the draw function every 100ms;
      var game;
      draw();
-     //document.addEventListener("keydown",setDirection);
      
      
     
