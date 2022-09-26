@@ -299,7 +299,7 @@ function drawAI(){
         eachInstruction = 0;
         start = 0
         end = 1;
-        number++;
+        // number++;
         begin();
         runAI = setInterval(drawAI,0); 
     }else{
@@ -354,7 +354,7 @@ function drawAI(){
 }
 
 function begin(){
-    for(x = 1; x < iterations; x++){
+    for(x = 0; x < iterations; x++){
         for(j = 0; j < numberOfInstructions; j++){
             for(i = 0; i < numberOfDots; i++){
                 moveDots(dots,i,j); 
@@ -369,6 +369,7 @@ function begin(){
             return;
         }
     }
+    
 } 
 
 function evolve(totalScore, best){

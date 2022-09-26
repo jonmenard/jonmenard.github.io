@@ -34,7 +34,16 @@
     </style>
 <body hidden>
     <header></header>
-    
+
+    <script>
+        boxWidth = 0;
+        if (window.matchMedia('(max-width: 1300px)').matches) {
+            boxWidth = 40;
+        } else {
+            boxWidth = 44;
+        }
+        
+    </script>
     
     <div id = "content" >
         <div id = "top">
@@ -51,55 +60,86 @@
     </main> -->
 
     
-   <main id = "main-title-holder" class= "gameHolder void" >
-        <section>
-            <div class = "textHolder"  >
-                <h3>1. ML Car Detector </h3>
-                <strong>About:</strong> Detect if a car is in an image using my trained machine learning model. Drag or drop an image 
-                to see if the model predicts the presence of a car in the image. The model was trainied using a 40,000 image dataset hand sorted by myself. 
-                The dataset is still in progress and the model will be re-trained once it is complete. The dataset and model training source code can be found on my <a class="whiteHref" href = "https://github.com/jonmenard/mlCarDetector" >github page</a>
-            </div>
+   <main class= "gameHolder void" >
     
-            <div id="formContainer" class="ui massive white segment">
-                <form class="ui massive form" action = "/uploadfile" method="post" id="mlImageForm">
-                    <h2 class="ui dividing">Upload Images to Analyze</h2>
-                    <div class="ui icon input">
-                        <div id="drop-region">
-                            <div class="drop-message">
-                                Drag & Drop Images or Click to Upload
-                            </div>
-                            <div id="image-preview">
-                                <!-- <div class = "image-view"> 
-                                    <img src="00_7c1f7804-bb196f49.jpg" alt="Girl in a jacket">
-                                    <div class = "imgResult"> 
-                                    </div>
-                                    
-                                    
-                                    <div class = "overlay">
-                                        
-                                    </div>
-                                    <div class = "feedback">
-                                        
-                                                <button class="feedbackButton wrong" value="22_75844058-fe62-4697-ae4f-ab3886414e49.jpg">
-                                                    
-                                                        Wrong
-                                                </button>
-                                            
-                                                
-                                                <button class="feedbackButton correct" value="22_75844058-fe62-4697-ae4f-ab3886414e49.jpg">
-                                                    
-                                                        Correct
-                                                </button>
-                                                
-                                            
-                                    </div>
-                                </div>     -->
-                            </div>
-                        </div>  
-                    </div> 
-                </form>
+    <section> 
+        <div class="textHolder">
+            <h3>1. Evolutionary AI (Genetic Algorithm)</h3>
+            <strong>Description: </strong>
+            This is an example of an extremely simple artificial intelligence. Using a ranking system, the top half of dots from the previous 
+            generation are duplicated and passed on to the next generation. Each dot's instruction is then mutated based off how well they did, 
+            and another attempt to reach the destination is attempted. The process is repeated endlessly. A perfect result will never be achieved,
+            since mutation will always occur. Over time the dots should make progress towards the destination, however because of how simple this algorithm
+            is, it is possible for a solution to never happen. This algorithm is often refered to as the Genetic Algorithm<br><br>
+            <strong>Instructions: </strong>
+            In order to run a simulation, press Start. Clicking and dragging will draw rectangles that the dots must avoid. Pressing Undo will remove the last 
+            object drawn. Reset clears the entire screen. Pressing Stop will pause the simulation. Show More and Show Less will toggle the amount of generations 
+            that are run in the background before another one is shown.
+
+        </div>
+        <div id="aiContainer">
+            <div id="ai">
+                <div id="aiButtons">
+                    <button class = "aiButton" id= "start">Start</button>
+                    <button class = "aiButton" id= "stop">Stop</button>
+                    <button class = "aiButton" id= "resetAI">Reset</button>
+                    <button class = "aiButton" id= "remove">Undo</button>
+                    <button class = "aiButton" id= "show">Show Less</button>
+                    <button class = "aiButton" id= "less">Show More</button>  
+                </div>
+                <canvas id = "screen" height="600px" width="600px"></canvas>
+                <script src = "JavaScript/ai.js"></script>
             </div>
-        </section>
+        </div>
+    </section>
+    <section>
+        <div class = "textHolder"  >
+            <h3>1. ML Car Detector (Supervised Learning)</h3>
+            <strong>About:</strong> Detect if a car is in an image using my trained machine learning model. Drag or drop an image 
+            to see if the model predicts the presence of a car in the image. The model was trainied using a 40,000 image dataset hand sorted by myself. 
+            The dataset is still in progress and the model will be re-trained once it is complete. The dataset and model training source code can be found on my <a class="whiteHref" href = "https://github.com/jonmenard/mlCarDetector" >github page</a>
+        </div>
+
+        <div id="formContainer" class="ui massive white segment">
+            <form class="ui massive form" action = "/uploadfile" method="post" id="mlImageForm">
+                <h2 class="ui dividing">Upload Images to Analyze</h2>
+                <div class="ui icon input">
+                    <div id="drop-region">
+                        <div class="drop-message">
+                            Drag & Drop Images or Click to Upload
+                        </div>
+                        <div id="image-preview">
+                            <!-- <div class = "image-view"> 
+                                <img src="00_7c1f7804-bb196f49.jpg" alt="Girl in a jacket">
+                                <div class = "imgResult"> 
+                                </div>
+                                
+                                
+                                <div class = "overlay">
+                                    
+                                </div>
+                                <div class = "feedback">
+                                    
+                                            <button class="feedbackButton wrong" value="22_75844058-fe62-4697-ae4f-ab3886414e49.jpg">
+                                                
+                                                    Wrong
+                                            </button>
+                                        
+                                            
+                                            <button class="feedbackButton correct" value="22_75844058-fe62-4697-ae4f-ab3886414e49.jpg">
+                                                
+                                                    Correct
+                                            </button>
+                                            
+                                        
+                                </div>
+                            </div>     -->
+                        </div>
+                    </div>  
+                </div> 
+            </form>
+        </div>
+    </section>
     </main>
     <footer></footer>
 </body>
