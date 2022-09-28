@@ -1084,10 +1084,10 @@ th{
 }
 
 #image-preview {
-    margin: 0px;
+    margin: auto;
     position:relative;
-    display: flex;
-    flex-wrap: wrap;
+    /* display: flex;
+    flex-wrap: wrap; */
     /* width: min-content; */
     width: fit-content;
     max-width: 810px;
