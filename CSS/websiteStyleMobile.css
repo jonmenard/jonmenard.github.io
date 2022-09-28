@@ -48,7 +48,7 @@
 #aboutMe{
 	position: relative;
 	text-align: left;
-	font-family: Helvetica;
+	font-family: Arial, Helvetica, sans-serif;
 	font-size: 40px;
 	color: RGB(60,60,60);
 
@@ -608,8 +608,18 @@ main{
 
 }
 
+#indexBody{
+	cursor: pointer;
+}
+
+.header{
+	-webkit-text-stroke: 1.5px black; /* width and color */
+}
+
 #mainTitle{
 	font-size: 150px;
+	-webkit-text-stroke: 3px black; /* width and color */
+	
 }
 
 #subTitle{
@@ -627,6 +637,8 @@ main{
 	font-family: Helvetica, sans-serif;
 	margin: 0;
 	padding: 0;
+	-webkit-text-stroke: 1.5px black;
+	
 }
 
 #main-title-holder{
