@@ -77,8 +77,8 @@ function createBoard(){
 
     $("#minesweeperHolder").css("width", boxWidth * 24  );
     $("#minesweeperHolder").css("height", boxWidth * 24  );
-    $("#mineSweeperContainer").css("width", boxWidth * 24 + 1);
-    $("#mineSweeperContainer").css("height", boxWidth * 24 );
+    $("#mineSweeperContainer").css("width", boxWidth * 24);
+    $("#mineSweeperContainer").css("height", boxWidth * 24 + 2 );
 }  
 
 

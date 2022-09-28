@@ -7,12 +7,36 @@
 }
 
 #aboutMeHolder{
+	max-width: 70%;
+	margin: 10px 12.5%;
+}
+
+.sectionContainer{
 	position: relative;
 	text-align: left;
 	font-family: Helvetica, sans-serif;
 	color: #1b1c1d;;
 	background-color: whitesmoke;
+	border-radius: 50px;
 	max-width: 100%;
+	min-width: fit-content;
+	margin: 40px;
+	padding: 40px 20px;
+}
+
+.textHolder{
+	padding: 5px;
+	text-align: left;
+}
+
+.textHolder{
+	padding: 5px;
+	font-size: 25px;
+	color: black;
+}
+
+textNode{
+	text-align: left;
 }
 
 #aboutMe{
@@ -68,7 +92,7 @@
 	position: relative;
 	margin: auto;
 	width: auto;
-	border: solid whitesmoke;
+	
 }
 
 body {
@@ -401,6 +425,8 @@ button:hover, input:hover {
 	width: fit-content;
 	margin: auto;
 	text-align: center;
+	border: black;
+	border-style: outset;
 }
 
 .flappyBirdCanvas{
@@ -490,6 +516,11 @@ html{
 	scroll-behavior: smooth;
 }
 
+#screen{
+	border: black;
+	border-style: outset;
+}
+
 input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 }
@@ -568,28 +599,29 @@ main{
 
 }
 
-#mainTitle{
-	position: relative;
-    
-    bottom: 0;
-    left: 0;
-    right: 0;
-	margin: auto;
 
-	min-width: 100%;
-	
-	background-color: #1b1c1d;;
-	color: whitesmoke;
+
+#mainTitle{
 	font-size: 100px;
+}
+
+.verticalCenter{
+	display:table-cell;
+	vertical-align:middle
+}
+
+.indexPageTitles{
+	color: whitesmoke;
 	font-weight: lighter;
 	font-family: Helvetica, sans-serif;
-	white-space: nowrap;
+	margin: 0;
+	padding: 0;
 }
 
 #main-title-holder{
-	align-items: center;
-  	display: flex;
-  	justify-content: center;
+	text-align: center;
+	display:table;
+  	width: 100%;
 }
 
 .material-icons {
@@ -665,7 +697,7 @@ main{
 	position: relative;
 	height: auto;
 	margin: auto;
-
+	border: black;
 	border-style: outset;
 	background-color: rgb(189,189,189)
 }
@@ -840,7 +872,8 @@ ol[role=list], ul[role=list] {
 }
 
 #tetrus{
-	border: solid 2px black;
+	border: black;
+	border-style: outset;
 	position: relative;
 	
 }
@@ -853,6 +886,7 @@ ol[role=list], ul[role=list] {
 
 
 #snake{
+	border: black;
 	border-style: outset;
 }
 
@@ -882,20 +916,7 @@ ol[role=list], ul[role=list] {
 }
 
 
-.textHolder{
-	padding: 5px;
-	text-align: left;
-}
 
-.textHolder{
-	padding: 5px;
-	font-size: 25px;
-	color: whitesmoke;
-}
-
-textNode{
-	text-align: left;
-}
 
 #colorSelect{
 	background-color: yellow;
@@ -1009,12 +1030,14 @@ th{
 
 
 #mlImageForm{
-	border-radius:20px;
-	max-width: 840px;
+	/* border-radius:20px; */
+	border: black;
+	border-style: outset;
+	/* max-width: 840px; */
 	min-width: 800px;
 	
-	background-color: whitesmoke;
-	color: black;
+	background-color: rgb(20,20,20);
+	color: whitesmoke;
 	width: fit-content;
 	position: relative;
 	margin: auto;
@@ -1023,9 +1046,13 @@ th{
 	
 }
 
+#formContainer{
+	min-width: fit-content
+}
+
 #drop-region {
 	background-color: #4183c4;
-	border-radius:0px 0px 20px 20px;
+	/* border-radius:0px 0px 20px 20px; */
 	box-shadow:0 0 5px rgba(0,0,0,0);
 	width:100%;
 	padding:0px 15px;

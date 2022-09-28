@@ -29,7 +29,7 @@
         </div>
     </div>
    <main class= "gameHolder" >
-        <section>
+        <section class="sectionContainer">
             <div class = "textHolder"  >
                 <h3>1. MineSweeper </h3>
                 <strong>Instructions:</strong> The objective of this game is to clear all the bombs in the grid. When a tile is left clicked it will display however many bombs
@@ -38,30 +38,30 @@
                 the game is over and all the remaning bombs will be displayed. Selecting "Easy", "Medium", or "Hard" will reset the game and generate 10, 25, or 40 
                 bombs respectivily.
             </div>
-    
+            
             <div id="minesweeperHolder">
                 <script src = "JavaScript/minesweeper.js"> </script>
             </div>
         </section>
-        <section>
+        <section class="sectionContainer">
             <div class="textHolder">
                 <h3>2. Snakes</h3>
                 <strong>Instructions:</strong> The goal of this game is to grow the snake as long as possible. Inorder to grow, the snake needs to consume food. If the snake 
                 runs into the walls or its own self the game is over. Click 'reset' before starting a new game.
             </div>
-            <div id = "snakeContainer">
+            <div id = "snakeContainer" class="game">
                 <button id="resetSnake">Reset</button>
                 <br>
                 <canvas id="snake" width="600px" height="600px"> </canvas>
                 <script src = "JavaScript/snakes.js"></script>
             </div>
         </section>
-        <section>
+        <section class="sectionContainer">
             <div class="textHolder">
                 <h3>3. Flappy Bird</h3>
                 <strong>Instructions:</strong> Try to get as far as possible. Press play to start and any key to jump.
             </div>
-            <div id = "flappybirdContainer">
+            <div id = "flappybirdContainer" class="game">
                 <button id = "startFlappyBird"></button>
                 <button id = "leaderboardsFlappyBird" hidden></button>
                 <table id = "leaderboardTable" class="flappyBirdCanvas" hidden></table>
@@ -76,7 +76,7 @@
                 <script src = "JavaScript/flappyBird.js"></script>   
             </div>
         </section>
-        <section>
+        <section class="sectionContainer">
             <div class="textHolder">
                 <h3>4. Tetris</h3>
                 <strong>Description: </strong>
@@ -91,7 +91,7 @@
     
             </div>
     
-            <div id = "tetrisContainer">
+            <div id = "tetrisContainer" class="game">
                 <br>
                 <button class = "tetrisButton" id="tetrisStart">Start Game</button>
                 <button class = "tetrisButton" id="tetrisAIStart">Start AI</button>

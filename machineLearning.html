@@ -26,11 +26,6 @@
             max-height: 450px;
 
         }
-
-        .void{
-            margin-bottom: 455px;
-
-        }
     </style>
 <body hidden>
     <header></header>
@@ -60,9 +55,9 @@
     </main> -->
 
     
-   <main class= "gameHolder void" >
+   <main class= "gameHolder" >
     
-    <section> 
+    <section class="sectionContainer">
         <div class="textHolder">
             <h3>1. Evolutionary AI (Genetic Algorithm)</h3>
             <strong>Description: </strong>
@@ -92,7 +87,7 @@
             </div>
         </div>
     </section>
-    <section>
+    <section class="sectionContainer">
         <div class = "textHolder"  >
             <h3>1. ML Car Detector (Supervised Learning)</h3>
             <strong>About:</strong> Detect if a car is in an image using my trained machine learning model. Drag or drop an image 
@@ -150,5 +145,7 @@
 $(function(){
     $("#machineLearning").before()
 });
+
+$("#mlImageForm").css("width", boxWidth * 24 + 10 );
 </script>
 </html>
