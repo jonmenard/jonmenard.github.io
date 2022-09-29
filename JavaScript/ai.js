@@ -8,6 +8,7 @@ const dotSize = Math.round(boxWidth / 8)
 aIContex.canvas.height  = 24 * boxWidth;
 aIContex.canvas.width  = 24 * boxWidth;
 
+const information = document.getElementById("aiInformation");
 const stopButton = document.getElementById("stop");
 const startButton = document.getElementById("start");
 const resButton = document.getElementById("resetAI");
@@ -16,6 +17,7 @@ const show = document.getElementById("show");
 const less = document.getElementById("less");
 
 
+$("#aiInformation").css("font-size", boxWidth * .60  );
 $("#stop").css("font-size", boxWidth * .60  );
 $("#start").css("font-size", boxWidth * .60 );
 $("#resetAI").css("font-size", boxWidth * .60);
@@ -81,11 +83,14 @@ function load(){
     aIContex.fillRect(0,0,24 * boxWidth,24 * boxWidth);
     aIContex.fillStyle = "white";
     aIContex.font = boxWidth * .66 + "px Changa One";
-    aIContex.fillText("Generation: "+ number, boxWidth/2, boxWidth/2);
+    // aIContex.fillText("Generation: "+ number, boxWidth/2, boxWidth/2);
+    information.innerHTML = "Generation: "+ number;
     if(iterations == 1){
-        aIContex.fillText("Showing Every Generation", boxWidth/2, boxWidth + boxWidth/8);
+        information.innerHTML += "<br>Showing Every Generation";
+        // aIContex.fillText("Showing Every Generation", boxWidth/2, boxWidth + boxWidth/8);
     }else{
-        aIContex.fillText("Showing Every " + iterations + " Generations", boxWidth/2, boxWidth+ boxWidth/8);
+        information.innerHTML += "<br>Showing Every " + iterations + " Generations";
+        // aIContex.fillText("Showing Every " + iterations + " Generations", boxWidth/2, boxWidth+ boxWidth/8);
     }
     aIContex.fillRect(11.5 * boxWidth,2 * boxWidth,boxWidth,boxWidth);
     //if(dot.posX > boxWidth * 11 && dot.posX < boxWidth * 12 && dot.posY > boxWidth * 2 && dot.posY < boxWidth * 3){

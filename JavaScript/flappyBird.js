@@ -6,8 +6,17 @@ const backgroundContex = backgroundCanvas.getContext("2d");
 backgroundContex.canvas.height  = 24 * boxWidth;
 backgroundContex.canvas.width  = 24 * boxWidth;
 
+let clouds = {
+    img: new Image(),
+    x: -18 * boxWidth,
+    y: 15 * boxWidth
+};
+
+clouds.img.src = 'Images/clouds.png';
+
+
 let background = new Image();
-background.src = 'Images/flappyBackground.png';
+background.src = 'Images/backgroundblank.png';
 
 let sun = {
     img: new Image(),
@@ -143,12 +152,18 @@ function drawBackground(){
     backgroundContex.drawImage(background,0,0,24 * boxWidth,24 * boxWidth);
     backgroundContex.drawImage(sun.img, sun.x,sun.y, 2 * boxWidth,2 * boxWidth);
     backgroundContex.drawImage(boat.img, boat.x,boat.y, 2 * boxWidth,2 * boxWidth);
+    backgroundContex.drawImage(clouds.img, clouds.x,clouds.y, 48 * boxWidth,5 * boxWidth);
    
     sun.x -= 1;
-    boat.x -= 1;
+    boat.x -= 2;
+    clouds.x -= 1.5;
 
     if(sun.x <=-2 * boxWidth){
         sun.x = 24 * boxWidth;
+    }
+
+    if(clouds.x <= -37 * boxWidth){
+        clouds.x = 24 * boxWidth;
     }
 
     if(boat.x <= -2 * boxWidth){

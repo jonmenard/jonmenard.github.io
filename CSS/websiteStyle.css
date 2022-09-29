@@ -64,6 +64,17 @@ textNode{
 	background-color: #1b1c1d;;
 }
 
+#aiInformation{
+	color: whitesmoke;
+	font-family: Helvetica, sans-serif;
+	position: absolute;
+	left: 24px;
+	top: 2px;
+	max-width: 600px;
+	background-color: transparent;
+	text-align: left;
+}
+
 #aiButtons{
 	position: absolute;
 	right: 10px;
