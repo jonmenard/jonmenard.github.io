@@ -121,6 +121,8 @@ function createBoard(){
     $("#minesweeperHolder").css("height", 24 * boxWidth -5);
     $("#mineSweeperContainer").css("width", 24 * boxWidth -5);
     $("#mineSweeperContainer").css("height", 24 * boxWidth -5);
+
+    makebombs()
 }  
 
 
@@ -452,5 +454,5 @@ function startNewGame(){
 document.addEventListener('contextmenu', event => event.preventDefault());
 window.addEventListener("resize", createBoard);
 createBoard();
-makebombs()
+
 
