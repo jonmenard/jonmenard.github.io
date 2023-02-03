@@ -7,24 +7,35 @@ let numberOfBombs = undefined;
 let clock = null;
 let firstClick = true;
 let gameInProgress = false
+let difficulty
+let difficultyColors
+let colors  = ["RGB(70,0,255)","RGB(0,131,7)","RGB(255,0,0)","RGB(29,0,127)","RGB(136,0,0)","RGB(0,132,131)","RGB(0,0,0)","RGB(128,128,128)"]
+let selectedDifficulty
 
 function createBoard(){
+
+    console.log("here")
+
     var div = document.createElement("div");
     div.id = "mineSweeperContainer";
     var body = document.getElementById("minesweeperHolder");
+    body.innerHTML = '';20
     body.appendChild(div);
     var easyButton = document.createElement("button");
     var easyText = document.createTextNode("Easy");
     easyButton.addEventListener("click",makebombs,event);
     easyButton.appendChild(easyText);
     easyButton.className = "difficulty"
+    easyButton.id = "Easy"
     easyButton.value = 20;
     easyButton.style.height = boxWidth + "px ";
+    //easyButton.style.textDecoration = "underline green";
     var mediumButton = document.createElement("button");
     var mediumText = document.createTextNode("Medium");
     mediumButton.addEventListener("click",makebombs,event);
     mediumButton.appendChild(mediumText);
     mediumButton.className = "difficulty"
+    mediumButton.id = "Medium"
     mediumButton.value = 50;
     mediumButton.style.height = boxWidth + "px ";
     var hardButton = document.createElement("button");
@@ -32,11 +43,41 @@ function createBoard(){
     hardButton.addEventListener("click",makebombs,event);
     hardButton.appendChild(hardText);
     hardButton.className = "difficulty"
+    hardButton.id = "Hard"
     hardButton.value = 80;
     hardButton.style.height = boxWidth + "px ";
+
+
+    var expertButton = document.createElement("button");
+    var expertText = document.createTextNode("Expert");
+    expertButton.addEventListener("click",makebombs,event);
+    expertButton.appendChild(expertText);
+    expertButton.className = "difficulty"
+    expertButton.id = "Expert"
+    expertButton.value = 120;
+    expertButton.style.height = boxWidth + "px ";
+
+    difficulty = {
+       "Easy": easyButton,
+       "Medium":mediumButton,
+       "Hard":hardButton,
+       "Expert": expertButton
+    };
+
+    difficultyColors = {
+        "Easy": colors[0],
+        "Medium":colors[1],
+        "Hard":colors[2],
+        "Expert": colors[5]
+     };
+
+
+    selectedDifficulty = easyButton.id
+
     div.appendChild(easyButton);
     div.appendChild(mediumButton);
     div.appendChild(hardButton);
+    div.appendChild(expertButton);
     div.appendChild(document.createElement("br"));
 
     for(let i = 0; i < height; i++){
@@ -76,10 +117,10 @@ function createBoard(){
         div.appendChild(br); 
     }
 
-    $("#minesweeperHolder").css("width", boxWidth * 24  );
-    $("#minesweeperHolder").css("height", boxWidth * 24  );
-    $("#mineSweeperContainer").css("width", boxWidth * 24);
-    $("#mineSweeperContainer").css("height", boxWidth * 24 + 2 );
+    $("#minesweeperHolder").css("width", 24 * boxWidth -5); //1076 - 25
+    $("#minesweeperHolder").css("height", 24 * boxWidth -5);
+    $("#mineSweeperContainer").css("width", 24 * boxWidth -5);
+    $("#mineSweeperContainer").css("height", 24 * boxWidth -5);
 }  
 
 
@@ -88,15 +129,28 @@ function makebombs(event){
     let bombNumber;
     firstClick = true
     gameInProgress = true
+
+    for (var key in difficulty) {
+        difficulty[key].style.textDecoration = "none"
+    }
+
+
     if(event == undefined){
         if(numberOfBombs == undefined){
-            bombNumber = 10;
+            bombNumber = 20;
+            
         }else{
             bombNumber = numberOfBombs;
+            //difficulty["Easy"].style.textDecoration = "underline " + colors[0]
         }
     }else{
         bombNumber = parseInt(event.target.value);
+        selectedDifficulty = event.target.id
+        //console.log(list(difficulty).index('test'))
+        //
     }
+    difficulty[selectedDifficulty].style.textDecoration = "underline " + difficultyColors[selectedDifficulty]
+
     numberOfBombs = bombNumber;
     
     resetMineSweeper();
@@ -132,35 +186,13 @@ function drawMinesweeper(){
             }
                     
             let bombCount = board[i][j].bombsTouching;
-            let color;
+            let color
             if(bombCount == 0){
                 board[i][j].bombsTouching = null;
-            }else if(bombCount == 1){
-               
-                color = "RGB(70,0,255)";
-            }else if(bombCount == 2){
-                
-                color = "RGB(0,131,7)";
-            }else if(bombCount == 3){
-               
-                color =  "RGB(255,0,0)";
-            }else if(bombCount == 4){
-                
-                color = "RGB(29,0,127)";
-            }else if(bombCount == 5){
-                
-                color = "RGB(136,0,0)";
-            }else if(bombCount == 6){
-                
-                color = "RGB(0,132,131)";
+            }else{
+                color = colors[bombCount-1];
             }
-            else if(bombCount == 7){
-                
-                color = "RGB(0,0,0)";
-            }else if(bombCount == 8){
-                    
-                    color = "RGB(128,128,128)";
-            }
+            
             
             if(board[i][j].bombsTouching != null){
                 var newtext = document.createTextNode(bombCount);
@@ -418,5 +450,7 @@ function startNewGame(){
 }
 
 document.addEventListener('contextmenu', event => event.preventDefault());
+window.addEventListener("resize", createBoard);
 createBoard();
+makebombs()
 

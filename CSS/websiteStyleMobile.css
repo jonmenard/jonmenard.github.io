@@ -730,14 +730,14 @@ main{
 #mineSweeperContainer{
 	position: relative;
 	height: auto;
-	margin: auto;
+	/* margin: auto; */
 
 	border-style: outset;
 	background-color: rgb(189,189,189)
 }
 
 #minesweeperHolder{
-	margin: auto;
+	/* margin: auto; */
 	background-color: transparent;
 	text-align: center;
 }
@@ -1004,7 +1004,6 @@ th{
 
 
 * {
-	box-sizing: border-box;
 	font-family: "Arial";
 }
 .wrapper-dropdown {

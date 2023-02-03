@@ -694,7 +694,6 @@ main{
 	float: left;
 	background-size: cover;
 	
-	
 }
 .float{
 	float: left
@@ -717,14 +716,16 @@ main{
 #mineSweeperContainer{
 	position: relative;
 	height: auto;
-	margin: auto;
+	/* margin: auto; */
 	border: black;
 	border-style: outset;
 	background-color: rgb(189,189,189)
 }
 
 #minesweeperHolder{
-	margin: auto;
+	/* min-height: fit-content;
+	min-width: fit;
+	margin: auto; */
 	background-color: transparent;
 	text-align: center;
 }
@@ -977,7 +978,6 @@ th{
 
 
 * {
-	box-sizing: border-box;
 	font-family: "Arial";
 }
 .wrapper-dropdown {
