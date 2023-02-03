@@ -132,24 +132,21 @@ function makebombs(event){
     firstClick = true
     gameInProgress = true
 
-    for (var key in difficulty) {
-        difficulty[key].style.textDecoration = "none"
-    }
-
-
+    
     if(event == undefined){
         if(numberOfBombs == undefined){
             bombNumber = 20;
-            
+            difficulty["Easy"].style.textDecoration = "underline " + colors[0]
         }else{
             bombNumber = numberOfBombs;
-            //difficulty["Easy"].style.textDecoration = "underline " + colors[0]
+            
         }
     }else{
         bombNumber = parseInt(event.target.value);
         selectedDifficulty = event.target.id
-        //console.log(list(difficulty).index('test'))
-        //
+        for (var key in difficulty) {
+            difficulty[key].style.textDecoration = "none"
+        }
     }
     difficulty[selectedDifficulty].style.textDecoration = "underline " + difficultyColors[selectedDifficulty]
 
@@ -452,7 +449,7 @@ function startNewGame(){
 }
 
 document.addEventListener('contextmenu', event => event.preventDefault());
-window.addEventListener("resize", createBoard);
+//window.addEventListener("resize", createBoard);
 createBoard();
 
 
