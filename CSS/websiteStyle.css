@@ -716,7 +716,7 @@ main{
 #mineSweeperContainer{
 	position: relative;
 	height: auto;
-	/* margin: auto; */
+	margin: auto;
 	border: black;
 	border-style: outset;
 	background-color: rgb(189,189,189)
@@ -724,8 +724,8 @@ main{
 
 #minesweeperHolder{
 	/* min-height: fit-content;
-	min-width: fit;
-	margin: auto; */
+	/* min-width: fit; */
+	margin: auto;
 	background-color: transparent;
 	text-align: center;
 }
