@@ -6,6 +6,7 @@ let width = 25
 let numberOfBombs = undefined;
 let clock = null;
 let firstClick = true;
+let gameInProgress = false
 
 function createBoard(){
     var div = document.createElement("div");
@@ -85,7 +86,8 @@ function createBoard(){
 
 function makebombs(event){
     let bombNumber;
-    
+    firstClick = true
+    gameInProgress = true
     if(event == undefined){
         if(numberOfBombs == undefined){
             bombNumber = 10;
@@ -96,11 +98,9 @@ function makebombs(event){
         bombNumber = parseInt(event.target.value);
     }
     numberOfBombs = bombNumber;
-    if(firstClick){
-        firstClick = false;
-    }else{
-        resetMineSweeper();
-    }
+    
+    resetMineSweeper();
+    
     for(let i = 0; i < bombNumber; i++){
         let rowNumber = Math.floor((Math.random() * height));
         let collomNumber = Math.floor((Math.random() * width));
@@ -186,7 +186,9 @@ function drawMinesweeper(){
             }
         };
     }
-    checkWin();
+    if(gameInProgress){
+        checkWin();
+    }
 }
 
 
@@ -249,6 +251,7 @@ function checkWin(){
 
 function loose(){
     showBombs();
+    gameInProgress = false
     
 }
 
@@ -271,11 +274,12 @@ function showBombs(){
     }
 }
 
-function flagButton(i,j){ 
+function flagButton(i,j){
     if(board[i][j].flagged){
         board[i][j].flagged = false;
+        board[i][j].button.style.backgroundImage = "";
     } else{
-    board[i][j].flagged = true;
+        board[i][j].flagged = true;
     }
 }
 
@@ -305,17 +309,21 @@ function clicked(MouseEvent){
      x = parseInt(MouseEvent.target.value);
     }
     if(MouseEvent.button == 2){
-        flagButton(x,y);
+        if(gameInProgress && !firstClick){
+            flagButton(x,y);
+        }
     }else{
-        if(firstClick){
-            board[x][y].type = "cleared";
-            first(x,y);
-            board[x][y].bombsTouching = select(x,y);
-            firstClick = false;
+        if(gameInProgress || firstClick){
+            if(firstClick){
+                board[x][y].type = "cleared";
+                first(x,y);
+                board[x][y].bombsTouching = select(x,y);
+                firstClick = false;
 
-        }else{
-            board[x][y].flagged = false;
-            select(x,y);
+            }else{
+                board[x][y].flagged = false;
+                select(x,y);
+            }
         }
        
     }
