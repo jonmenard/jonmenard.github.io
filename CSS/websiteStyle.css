@@ -730,6 +730,26 @@ main{
 	text-align: center;
 }
 
+
+.mineCounter{
+	float: right;
+
+	width: 100px;
+	padding: 0px 7px 0px 0px;
+	background:rgb(189, 189,189);
+	border: none;
+	font-size: 28px;
+	font-weight: bolder;
+	/* background-size: 30px auto; */
+	/* line-height: 1px; */
+	align-items:center;
+    justify-content:right;
+	margin: 0px 1px 0px 0px;
+	/* position: static; */
+	display: flex;
+
+}
+
 .monthLabel{
 	text-align: center;
 	background-color: transparent;

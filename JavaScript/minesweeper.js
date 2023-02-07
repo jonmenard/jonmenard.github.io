@@ -11,6 +11,8 @@ let difficulty
 let difficultyColors
 let colors  = ["RGB(70,0,255)","RGB(0,131,7)","RGB(255,0,0)","RGB(29,0,127)","RGB(136,0,0)","RGB(0,132,131)","RGB(0,0,0)","RGB(128,128,128)"]
 let selectedDifficulty
+let undiscovered
+var bombsLeft
 
 function createBoard(){
 
@@ -40,7 +42,19 @@ function createBoard(){
     mediumButton.style.height = boxWidth + "px ";
     var hardButton = document.createElement("button");
     var hardText = document.createTextNode("Hard");
-    hardButton.addEventListener("click",makebombs,event);
+
+
+    bombsLeft = document.createElement("div");
+    bombsLeft.disabled = true;
+    bombsLeft.className = "mineCounter "
+    // bombsLeftText = document.createTextNode("80");
+    //bombsLeftText.className = "mineCounter "
+    bombsLeft.style.height = boxWidth + "px ";
+    // bombsLeft.appendChild(bombsLeftText);
+
+
+
+    hardButton.addEventListener("click",makebombs,event,);
     hardButton.appendChild(hardText);
     hardButton.className = "difficulty"
     hardButton.id = "Hard"
@@ -78,6 +92,7 @@ function createBoard(){
     div.appendChild(mediumButton);
     div.appendChild(hardButton);
     div.appendChild(expertButton);
+    div.appendChild(bombsLeft);
     div.appendChild(document.createElement("br"));
 
     for(let i = 0; i < height; i++){
@@ -127,7 +142,7 @@ function createBoard(){
 
 
 
-function makebombs(event){
+function makebombs(event, i, j){
     let bombNumber;
     firstClick = true
     gameInProgress = true
@@ -151,18 +166,12 @@ function makebombs(event){
     difficulty[selectedDifficulty].style.textDecoration = "underline " + difficultyColors[selectedDifficulty]
 
     numberOfBombs = bombNumber;
+    undiscovered = bombNumber;
+    bombsLeft.innerHTML = undiscovered
     
     resetMineSweeper();
     
-    for(let i = 0; i < bombNumber; i++){
-        let rowNumber = Math.floor((Math.random() * height));
-        let collomNumber = Math.floor((Math.random() * width));
-        if(board[rowNumber][collomNumber].type == "bomb" || board[rowNumber][collomNumber].type == "cleared"){
-            i--;  
-        }else{
-            board[rowNumber][collomNumber].type = "bomb";
-        }
-    }
+    
     drawMinesweeper();
 }
 
@@ -307,11 +316,15 @@ function showBombs(){
 
 function flagButton(i,j){
     if(board[i][j].flagged){
+        undiscovered++
+        
         board[i][j].flagged = false;
         board[i][j].button.style.backgroundImage = "";
     } else{
         board[i][j].flagged = true;
+        undiscovered--;
     }
+    bombsLeft.innerHTML = undiscovered
 }
 
 function select(i,j){
@@ -362,13 +375,13 @@ function clicked(MouseEvent){
 }
 
 
-function first(i,j){
+function first(a,b){
 
     for(let x = -1; x < 2; x++){
         for(let y = -1; y < 2; y++){
             if(x != 0 || y != 0 ){
-                let xValue = i+x;
-                let yValue = j+y;
+                let xValue = a+x;
+                let yValue = b+y;
                 if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
                     board[xValue][yValue].type == "cleared";
                 }
@@ -377,19 +390,65 @@ function first(i,j){
     }
 
     makebombs(undefined);
-    board[i][j].type = "empty";
 
-    for(let x = -1; x < 2; x++){
-        for(let y = -1; y < 2; y++){
-            if(x != 0 || y != 0 ){
-                let xValue = i+x;
-                let yValue = j+y;
-                if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
-                    board[xValue][yValue].type = "empty";
+    let bombNumber = numberOfBombs
+    for(let i = 0; i < bombNumber; i++){
+        let rowNumber = Math.floor((Math.random() * height));
+        let collomNumber = Math.floor((Math.random() * width));
+        if(board[rowNumber][collomNumber].type == "bomb" || board[rowNumber][collomNumber].type == "cleared"){
+            i--;  
+        }else{
+            board[rowNumber][collomNumber].type = "bomb";
+        }
+
+        if(a != undefined && b != undefined){
+            for(let x = -1; x < 2; x++){
+                for(let y = -1; y < 2; y++){
+                    if(x != 0 || y != 0 ){
+                        let xValue = a+x;
+                        let yValue = b+y;
+                        if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
+                            if(board[xValue][yValue].type == "bomb"){
+                                board[xValue][yValue].type = "empty"
+                                i--;
+                            }
+                        }
+                    }
                 }
             }
+
+            if(board[a][b].type == "bomb" || board[a][b].type == "cleared"){
+                board[a][b].type = "empty"
+                i--;
+            }
         }
+
+        drawMinesweeper();
+
+
     }
+
+
+
+
+    // board[i][j].type = "empty";
+
+    // for(let x = -1; x < 2; x++){
+    //     for(let y = -1; y < 2; y++){
+    //         if(x != 0 || y != 0 ){
+    //             let xValue = i+x;
+    //             let yValue = j+y;
+    //             if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
+    //                 if(board[xValue][yValue].type == "bomb" ){
+    //                     undiscovered--
+    //                 }
+                    
+    //                 board[xValue][yValue].type = "empty";
+    //             }
+    //         }
+    //     }
+    // }
+    bombsLeft.innerHTML = undiscovered
 }
 
 
