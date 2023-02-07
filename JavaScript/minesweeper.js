@@ -135,7 +135,7 @@ function createBoard(){
     $("#minesweeperHolder").css("width", 24 * boxWidth -5); //1076 - 25
     $("#minesweeperHolder").css("height", 24 * boxWidth -5);
     $("#mineSweeperContainer").css("width", 24 * boxWidth -5);
-    $("#mineSweeperContainer").css("height", 24 * boxWidth -5);
+    $("#mineSweeperContainer").css("height", 24 * boxWidth -3);
 
     makebombs()
 }  
