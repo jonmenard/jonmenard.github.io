@@ -172,6 +172,9 @@ function createBoard(){
 
 
 function makebombs(event, i, j){
+
+    
+
     let bombNumber;
     firstClick = true
     gameInProgress = true
@@ -642,7 +645,7 @@ function solveSelfLimit(i,j,bombTiles, a,b){
                     if( (!board[xValue][yValue].flagged) && board[xValue][yValue].bombsTouching == null && board[xValue][yValue].type != "cleared"){
                         flagButton(xValue,yValue);
                         //board[xValue][yValue].bombsTouching * 
-                        console.log(notShared + ' ' + bombs + " " + shared)
+                        //console.log(notShared + ' ' + bombs + " " + shared)
                         drawMinesweeper()
                         return true
                     }
@@ -720,7 +723,7 @@ function isBoundaryTile(i,j){
                 let xValue = i+x;
                 let yValue = j+y;
                 if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
-                    if(board[xValue][yValue].bombsTouching > 0){
+                    if(board[xValue][yValue].bombsTouching != 0 && board[xValue][yValue].bombsTouching != null){
                         return true
                     }
                 }
@@ -762,18 +765,30 @@ function findSubsections(tiles) {
         dfs(tile, subsection);
         subSections.push(subsection);
     }
+
+
+
+
+    subSections.sort((a, b) => a.length - b.length);
     
     return subSections;
 }
 
 
-function makeSubBoard(minHeight, maxHeight, minWidth, maxWidth){
+function makeSubBoard(minY, maxY, minX, maxX){
     var subBoard = []
-    var _minHeight = Math.max(0,minHeight-1)
-    var _maxHeight = Math.min(height,maxHeight+1)
-    for(let i = _minHeight-1; i <= _maxHeight+1; i++){
+    
+
+    var _minHeight = Math.max(0,minY-2)
+    var _maxHeight = Math.min(height,maxY+2)
+
+    var _minWidth = Math.max(0,minX-2)
+    var _maxWidth = Math.min(height,maxX+2)
+
+
+    for(let i = _minHeight; i <= _maxHeight; i++){
         subBoard[i] = []
-        for(let j = minWidth-1; j <= maxWidth+1; j++){
+        for(let j = _minWidth; j <= _maxWidth; j++){
             if(i >= 0 && i < height && j >= 0 && j < width){
 
                 let tile = Object.assign({}, board[i][j])
@@ -806,7 +821,7 @@ function bruteForce(){
 
     console.log("inside brute force")
     let boundryTiles = []
-    //emptyTiles = []
+    let unClickedTiles = []
 
     for(let i = 0; i < height; i++){
         for(let j = 0; j < width; j++){
@@ -815,10 +830,9 @@ function bruteForce(){
 
             if(isBoundaryTile(i,j)){
                 boundryTiles.push(tile)
+            }else if(isUnclickedTile(i,j)){
+                unClickedTiles.push(tile)
             }
-            //}else if(isUnclickedTile(i,j)){
-                //emptyTiles.push(tile)
-            //}
         }
     }
 
@@ -837,10 +851,17 @@ function bruteForce(){
     let bombsProbArray = []
     let solved = false;
     let combinationsFound = []
+    let minimumRequired = 0
     for (const subSection of subSections) {
+
+        if(subSection.length > 41){
+            continue
+        }
+
         let possibleBombs = new Set()
         let possibleBombsArray = []
         let attempts = [0]
+        let minBombs = [undiscovered]
         if(!gameInProgress)
             return
 
@@ -863,11 +884,14 @@ function bruteForce(){
         }
 
         let subBoard = makeSubBoard(minHeight, maxHeight, minWidth, maxWidth)
-        bruteForceRecursive(subSection, subBoard,minHeight,minWidth, maxHeight - minHeight,maxWidth-minWidth, 0, possibleBombs, 0, possibleBombsArray, attempts) // fill possible bombs with valid bomb loctations
+        console.log("Attempting bruteforce for " + subSection.length + " tile large section")
+        bruteForceRecursive(subSection, subBoard,minHeight,minWidth, maxHeight - minHeight,maxWidth-minWidth, 0, possibleBombs, 0, possibleBombsArray, attempts, minBombs) // fill possible bombs with valid bomb loctations
         
         if(possibleBombsArray.length > 0){
             combinationsFound.push(attempts[0])
-            console.log(attempts[0])
+            console.log(attempts[0] + " different bomb combinations were found")
+            console.log(minBombs[0] + " is the minimum number of bombs for a solution")
+            minimumRequired += minBombs[0]
             bombsProbArray.push(possibleBombsArray)
         }
         if(possibleBombs.size != 0 && gameInProgress){
@@ -901,6 +925,7 @@ function bruteForce(){
 
         let lowestProb = Infinity
         let selection = null
+        
         for(let i = 0; i < bombsProbArray.length; i++){
             const bombs = bombsProbArray[i]
         
@@ -931,8 +956,21 @@ function bruteForce(){
 
 
         }
+
         let [x, y] = selection.split(',').map(Number);
-        console.log(lowestProb, x, y, selection)
+        if(unClickedTiles.length > 0){
+            let randomUnclikedProb = (undiscovered - minimumRequired) / unClickedTiles.length
+            //console.log(randomUnclikedProb)
+            if(randomUnclikedProb < lowestProb){
+                console.log("Non-Boundary tile had lower prob " + randomUnclikedProb +  " vs " + lowestProb)
+                lowestProb = randomUnclikedProb
+                let randomTile = unClickedTiles[Math.floor(Math.random()*unClickedTiles.length)];
+                x = randomTile.height;
+                y = randomTile.width;
+            }
+        }
+            
+
         console.log("No Solution going to click lowest prob")
         randomClick = true
         randomProb = lowestProb
@@ -940,7 +978,18 @@ function bruteForce(){
         randomClick = false
 
     }else{
-        console.log("Brute force failed " + bombsProbArray.length)
+
+        console.log("Subsection is too long to solve ")
+        let randomUnclikedProb = (undiscovered) / unClickedTiles.length
+        let lowestProb = randomUnclikedProb
+        let randomTile = unClickedTiles[Math.floor(Math.random()*unClickedTiles.length)];
+        let x = randomTile.height;
+        let y = randomTile.width;
+            
+        randomClick = true
+        randomProb = lowestProb
+        board[x][y].button.click()
+        randomClick = false
     }
 
     
@@ -949,17 +998,19 @@ function bruteForce(){
 
 }
 
-function bruteForceRecursive(subSection, _board,minHeight, minWidth, height_b, width_b, k, possibleBombs, newBombs, possibleBombsArray, attempts){
+function bruteForceRecursive(subSection, _board,minHeight, minWidth, height_b, width_b, k, possibleBombs, newBombs, possibleBombsArray, attempts, minBombs){
     //console.log(subSection)
     //console.log(_board)
     let flagCount = checkBoardValidity(_board, minHeight, minWidth, height_b, width_b)
     if(flagCount < 0)
         return
 
+    if(newBombs > bombsLeft){
+        return
+    }
+
     if(k == subSection.length){ // a valid solution was found for this subsection of boundrytiles
-        if(newBombs > bombsLeft){
-            return
-        }
+        
 
         // for(let i = 0; i <= height_b; i++){
         //     for(let j = 0; j <= width_b; j++){
@@ -971,10 +1022,13 @@ function bruteForceRecursive(subSection, _board,minHeight, minWidth, height_b, w
 
         for (const tile of subSection){
             //console.log("Adding possible bombs")
-            
             if(_board[tile.height][tile.width].flagged){
                 possibleBombs.add(_board[tile.height][tile.width].button) // add the x y tile to the set (no duplicates)
                 possibleBombsArray.push(_board[tile.height][tile.width].button)
+            }
+
+            if(minBombs[0] > newBombs){
+                minBombs[0] = newBombs
             }
             
         }
@@ -991,10 +1045,10 @@ function bruteForceRecursive(subSection, _board,minHeight, minWidth, height_b, w
     let y = tileCoord.width
 
     _board[x][y].flagged = true // try with it being a mine
-    bruteForceRecursive(subSection, _board, minHeight, minWidth, height_b, width_b, k+1,possibleBombs, newBombs+1, possibleBombsArray, attempts)
+    bruteForceRecursive(subSection, _board, minHeight, minWidth, height_b, width_b, k+1,possibleBombs, newBombs+1, possibleBombsArray, attempts, minBombs)
     _board[x][y].flagged = false
     _board[x][y].knownEmpty = true // try with it being a known empty
-    bruteForceRecursive(subSection, _board, minHeight, minWidth, height_b, width_b, k+1, possibleBombs, newBombs,possibleBombsArray, attempts)
+    bruteForceRecursive(subSection, _board, minHeight, minWidth, height_b, width_b, k+1, possibleBombs, newBombs,possibleBombsArray, attempts,minBombs)
     _board[x][y].knownEmpty = false
 }
 
@@ -1017,7 +1071,7 @@ function checkAroundTile(_board, i, j){
 
     let neighbours = 0
     let flags = 0
-    let undiscoveredBombs = 0
+    let undiscoveredTiles = 0
     let knownEmpty = 0
 
     for(let x = -1; x < 2; x++){
@@ -1031,11 +1085,11 @@ function checkAroundTile(_board, i, j){
                     if(tile.bombsTouching != null && tile.bombsTouching != 0){
                         neighbours++;
                     }else if(tile.flagged){
-                        flags++
-                    }else if(tile.bombsTouching == null && (!tile.flagged) && tile.type != "cleared"){
-                        undiscoveredBombs++  
+                        flags++;
+                    }else if(tile.bombsTouching == null){
+                        undiscoveredTiles++;  
                         if(tile.knownEmpty){
-                            knownEmpty++
+                            knownEmpty++;
                         }
                     }
                 }
@@ -1043,20 +1097,28 @@ function checkAroundTile(_board, i, j){
         }
     }
 
-    return [neighbours, flags, undiscoveredBombs, knownEmpty]
+    return [neighbours, flags, undiscoveredTiles, knownEmpty]
 }
 
 
-function checkBoardValidity(_board, minHeight, minWidth, height_b, width_b){
+function checkBoardValidity(_board, minY, minX, heightY, widthX){
     let flagged = 0
-    for(let i = minHeight; i <= minHeight + height_b; i++){
-        for(let j = minWidth; j <= minWidth + width_b; j++){
+
+
+    let _minHeight = Math.max(0,minY-1)
+    let _maxHeight = Math.min(height-1,minY+heightY+1)
+
+    let _minWidth = Math.max(0,minX-1)
+    let _maxWidth = Math.min(width-1,minX+widthX+1)
+
+
+
+    for(let i = _minHeight; i <= (_maxHeight); i++){
+        for(let j = _minWidth; j <= (_maxWidth); j++){
             let tile = _board[i][j]
 
-            if(tile.flagged)
-                flagged++
-
-
+            
+        
             if(tile.bombsTouching != 0 && tile.bombsTouching != null){
                 let status = checkAroundTile(_board, i, j)
 
