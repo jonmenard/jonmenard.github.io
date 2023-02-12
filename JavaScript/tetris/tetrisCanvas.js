@@ -93,8 +93,8 @@ class TetrisCanvas{
         this.ctx.fillStyle = "black";
         this.ctx.font = boxWidth*1.25 + "px VT323";
         this.ctx.textAlign = "center";
-        this.ctx.fillText("Next",this.offsetLeft - boxWidth * 3.5 ,boxWidth * 9);
-        this.ctx.fillText("Hold",this.offsetLeft + boxWidth * 13.5 + 12 * this.lineHeight,boxWidth * 9);
+        this.ctx.fillText("Hold",this.offsetLeft - boxWidth * 3.5 ,boxWidth * 9);
+        this.ctx.fillText("Next",this.offsetLeft + boxWidth * 13.5 + 12 * this.lineHeight,boxWidth * 9);
         $("#tetrisAIStart").css("right", boxWidth/2 * 1 );
         $("#tetrisStart").css("left", boxWidth/2 * 1);
     }

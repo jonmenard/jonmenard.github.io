@@ -728,6 +728,39 @@ main{
 	background-image: URL('../Images/bomb.png') !important;
 }
 
+.center{
+	width: 100%;
+	/* display: inline; */
+	min-height: 45px;
+	display: block;
+	clear: both;
+}
+
+.right{
+	
+	/* width: min-content; */
+	position: absolute;
+	display: inline;
+	right: 0px;
+}
+
+.solver{
+	width: auto;
+	padding: 10px;
+	background:rgb(189, 189,189);
+	border: none;
+	border-left: 2px solid black !important;
+	border-width: 2px;
+	font-size: 28px;
+	font-weight: bolder;
+	background-size: 30px auto;
+	line-height: 0px;
+	text-align: center;
+	margin-top: 0px;
+	/* margin: -2px -1px 0px -1px !important; */
+	float: right;
+}
+
 #mineSweeperContainer{
 	position: relative;
 	height: auto;

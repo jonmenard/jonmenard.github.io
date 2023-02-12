@@ -118,8 +118,10 @@ body {
 	background-color: #1b1c1d;;
 }
 
+
+
 button:hover, input:hover {
-	text-decoration: underline;
+	text-decoration: underline !important;
 }
 
 #buttonH{
@@ -723,6 +725,7 @@ main{
 
 #mineSweeperContainer{
 	position: relative;
+	text-align: center;
 	height: auto;
 	margin: auto;
 	margin-left: -1px;
@@ -732,6 +735,22 @@ main{
 	background-color: rgb(189,189,189)
 }
 
+.center{
+	width: 100%;
+	/* display: inline; */
+	min-height: 45px;
+	display: block;
+	clear: both;
+}
+
+.right{
+	
+	/* width: min-content; */
+	position: absolute;
+	display: inline;
+	right: 0px;
+}
+
 #minesweeperHolder{
 	/* min-height: fit-content;
 	/* min-width: fit; */
@@ -739,6 +758,25 @@ main{
 	background-color: transparent;
 	text-align: center;
 }
+
+.solver{
+	width: auto;
+	padding: 10px;
+	background:rgb(189, 189,189);
+	border: none;
+	border-left: 2px solid black !important;
+	border-width: 2px;
+	font-size: 28px;
+	font-weight: bolder;
+	background-size: 30px auto;
+	line-height: 0px;
+	text-align: center;
+	margin-top: 0px;
+	/* margin: -2px -1px 0px -1px !important; */
+	float: right;
+}
+
+
 
 
 .mineCounter{
