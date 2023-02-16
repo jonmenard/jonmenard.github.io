@@ -32,11 +32,11 @@
         <section class="sectionContainer">
             <div class = "textHolder"  >
                 <h3>1. MineSweeper </h3>
-                <strong>Instructions:</strong> The objective of this game is to clear all the bombs in the grid. When a tile is left clicked it will display however many bombs
-                are touching it including diagonal tiles. If the tile is not touching any tiles, it will search the tiles beside it until it finds tiles which
-                are adjacent to bombs. Right clicking will place a flag on the tile. Once all the bombs are flagged, the game is won. If is bomb is left clicked
-                the game is over and all the remaning bombs will be displayed. Selecting "Easy", "Medium", "Hard" or "Expert" will reset the game and generate 20, 50, 80 or 120 
-                bombs respectivily. <br><br> In additon to the game, there is an AI solver which uses various algorithms and techniques to analyze the Minesweeper board and make educated guesses about which cells contain mines. You can active the AI solver by pressing the solve button at the top right
+                <strong>Instructions:</strong> The objective of Minesweeper is to clear a rectangular board containing hidden "mines" or bombs without detonating any of them, with help from clues about the number of neighboring mines in each cell.
+                The board is divided into cells, which can either be blank or contain a number indicating the number of mines in adjacent cells (including diagonals). To win the game, you must flag all the mines and reveal all the other cells. You lose the game if you reveal a cell containing a mine.
+                To reveal a cell, simply click on it. If the cell does not contain a mine, it will reveal the number of adjacent mines, or be blank if there are no adjacent mines. If the cell does contain a mine, the game is over and you lose.
+                To flag a cell as containing a mine, right-click on it. If you flag all the mines and reveal all the other cells, you win. Selecting "Easy", "Medium", "Hard" or "Expert" will reset the game and generate 20, 50, 80 or 120 
+                bombs. <br><br> In additon to the game, there is an AI solver which uses various algorithms and techniques to analyze the Minesweeper board and make educated guesses about which cells contain mines. You can active the AI solver by pressing the solve button at the top right
             </div>
             
             <div id="minesweeperHolder">
