@@ -1,56 +1,98 @@
 //javascript for minesweeper
 
-let board = [];
-let height = 24;
-let width = 25
+const colors  = ["RGB(70,0,255)","RGB(0,131,7)","RGB(255,0,0)","RGB(29,0,127)","RGB(136,0,0)","RGB(0,132,131)","RGB(0,0,0)","RGB(128,128,128)"]
+const tileColor = "rgb(187,189,189)"
+const emptyTileColor = "rgb(150,150,150)"
+
+
+let height = 20
+let width = 30
+
+if (window.matchMedia('(max-width: 1200px)').matches) {
+    height = 25
+    width = 22
+}
+
+const board = []
 let numberOfBombs = undefined;
-let clock = null;
 let firstClick = true;
 let gameInProgress = false
+let placeFlags = false
 let difficulty
 let difficultyColors
-let colors  = ["RGB(70,0,255)","RGB(0,131,7)","RGB(255,0,0)","RGB(29,0,127)","RGB(136,0,0)","RGB(0,132,131)","RGB(0,0,0)","RGB(128,128,128)"]
 let selectedDifficulty
 let undiscovered
 let solver = null
-
 let tilesToClick = null
 let clickIndex = 0
-
 let randomClick = false
 let randomProb = 0
-
 var bombsLeft
+var clickFlagsButton
+var solverLoader
+
+function createMenuButton(id, className, value, linkedFunction){
+    var button = document.createElement("button");
+    var text = document.createTextNode(id);
+
+    button.appendChild(text)
+    button.className = className
+    button.style.height = boxWidth + "px";
+    button.id = id
+    button.value = value
+    button.addEventListener("click",linkedFunction);
+    
+    return button
+}
+
+function toggleFlags(event){
+    
+    placeFlags = !placeFlags
+    if(placeFlags){
+        event.target.style.backgroundImage = "URL('Images/flagSelected.png')"
+        // event.target.style.border = "2px solid RGB(255,0,0)"
+        
+        
+    }else{
+        event.target.style.backgroundImage = "URL('Images/flag.jpeg')"
+    }
+}
+
 
 function createBoard(){
-
-    console.log("here")
-
+    var body = document.getElementById("minesweeperHolder");
     var div = document.createElement("div");
     div.id = "mineSweeperContainer";
-    var body = document.getElementById("minesweeperHolder");
-    body.innerHTML = '';20
+    body.innerHTML = '';
     body.appendChild(div);
-    var easyButton = document.createElement("button");
-    var easyText = document.createTextNode("Easy");
-    easyButton.addEventListener("click",makebombs,event);
-    easyButton.appendChild(easyText);
-    easyButton.className = "difficulty"
-    easyButton.id = "Easy"
-    easyButton.value = 20;
-    easyButton.style.height = boxWidth + "px ";
-    //easyButton.style.textDecoration = "underline green";
-    var mediumButton = document.createElement("button");
-    var mediumText = document.createTextNode("Medium");
-    mediumButton.addEventListener("click",makebombs,event);
-    mediumButton.appendChild(mediumText);
-    mediumButton.className = "difficulty"
-    mediumButton.id = "Medium"
-    mediumButton.value = 50;
-    mediumButton.style.height = boxWidth + "px ";
-    var hardButton = document.createElement("button");
-    var hardText = document.createTextNode("Hard");
 
+    var easyButton = createMenuButton("Easy", "difficulty", 20, makebombs)
+    var mediumButton = createMenuButton("Medium", "difficulty", 50, makebombs)
+    var hardButton = createMenuButton("Hard", "difficulty", 80, makebombs)
+    var expertButton = createMenuButton("Expert", "difficulty", 120, makebombs)
+    var solveButton = createMenuButton("Solve ", "solver", "solve", runSolver)
+    clickFlagsButton = createMenuButton("","toggleFlag", 0, toggleFlags)
+    clickFlagsButton.style.backgroundImage = "none"
+    clickFlagsButton.style.backgroundSize = boxWidth+ "px " + boxWidth + "px"
+    clickFlagsButton.style.backgroundImage = "URL('Images/flag.jpeg')"
+    clickFlagsButton.style.height = boxWidth + "px ";
+    clickFlagsButton.style.width = boxWidth + "px ";
+    clickFlagsButton.style.minHeight = boxWidth + "px ";
+    clickFlagsButton.style.minWidth = boxWidth + "px ";
+
+
+    
+    solveButton.style.lineHeight = boxWidth + "px"
+
+    solverLoader =  document.createElement("div");
+    solverLoader.style.height = boxWidth/3 + "px ";
+    solverLoader.style.lineHeight = boxWidth/3 + "px ";
+    solverLoader.style.width = boxWidth/3 + "px ";
+    
+    solverLoader.className = "loader"
+    solveButton.appendChild(solverLoader);
+    solverLoader.style.visibility = "hidden";
+    
     var rightDiv =  document.createElement("div");
     rightDiv.className = "right "
 
@@ -59,42 +101,10 @@ function createBoard(){
 
     bombsLeft = document.createElement("div");
     bombsLeft.disabled = true;
-    bombsLeft.className = "mineCounter "
-    // bombsLeftText = document.createTextNode("80");
-    //bombsLeftText.className = "mineCounter "
+    bombsLeft.className = "mineCounter"
     bombsLeft.style.height = boxWidth + "px ";
-    // bombsLeft.appendChild(bombsLeftText);
-
-
-
-    hardButton.addEventListener("click",makebombs,event,);
-    hardButton.appendChild(hardText);
-    hardButton.className = "difficulty"
-    hardButton.id = "Hard"
-    hardButton.value = 80;
-    hardButton.style.height = boxWidth + "px ";
-
-
-    var expertButton = document.createElement("button");
-    var expertText = document.createTextNode("Expert");
-    expertButton.addEventListener("click",makebombs,event);
-    expertButton.appendChild(expertText);
-
-    expertButton.className = "difficulty"
-    expertButton.id = "Expert"
-    expertButton.value = 120;
-    expertButton.style.height = boxWidth + "px ";
-
-    var solveButton = document.createElement("button");
-    var solveText = document.createTextNode("Solve");
-    solveButton.addEventListener("click",runSolver,event);
-    solveButton.appendChild(solveText);
-
-
-
-    solveButton.className = " solver"
-    solveButton.style.height = boxWidth + "px ";
-
+    
+    
     difficulty = {
        "Easy": easyButton,
        "Medium":mediumButton,
@@ -109,29 +119,45 @@ function createBoard(){
         "Expert": colors[5]
      };
 
-
-    selectedDifficulty = easyButton.id
-
-    centerDiv.appendChild(easyButton);
-    centerDiv.appendChild(mediumButton);
-    centerDiv.appendChild(hardButton);
-    centerDiv.appendChild(expertButton);
-    rightDiv.appendChild(solveButton);
-    rightDiv.appendChild(bombsLeft);
-    div.appendChild(centerDiv);
-    centerDiv.appendChild(rightDiv);
     
 
+    var table =  document.createElement("table");
+    table.setAttribute("class","mineSweeperTable");
+    div.appendChild(table)
+
+    
+
+    var headerRow = table.insertRow();
+    var menu = [easyButton,mediumButton,hardButton,expertButton, bombsLeft, solveButton]
+    
+    var start = Math.floor((Math.floor(width/3) - 4) / 2)
+    console.log(start)
+    var j = 0
+    for (j; j < width;) {
+        var cell = headerRow.insertCell();
+        cell.colSpan = 3; // span all x columns
+        // cell.innerText = "Column " + (j + 1);
+        if(j >= start * 3 && (j/3 - start) < menu.length){
+            cell.appendChild(menu[j/3 - start])
+        }
+        cell.classList.add("mineSweeperCell");
+        j += 3
+        if(j >= width){
+            cell.appendChild(clickFlagsButton)
+        }
+    }
+    
+    selectedDifficulty = easyButton.id
+
     for(let i = 0; i < height; i++){
-        board[i] = [];  
+        board[i] = [];
+        var row = table.insertRow();  
         for(let j = 0; j < width; j++){
+            var cell = row.insertCell();
             var btn = document.createElement("button");
+            cell.setAttribute("class", "mineSweeperCell")
             btn.setAttribute("class","mineSweeperButton");
-            if(j == 0 ){
-                btn.classList.add("clear");
-            }else{
-                btn.classList.add("float");
-            }  
+            
             board[i][j] = {
                 type: "empty",
                 x: (i * boxWidth),
@@ -143,37 +169,29 @@ function createBoard(){
                 knownEmpty: false,
                 
             };
-            //btn.style.left = j*boxWidth + "px";
-            //btn.style.top = boxWidth * 20 +i*boxWidth +"px";
+            
+            cell.style.height = boxWidth + "px ";
+            cell.style.width = boxWidth + "px ";
             btn.style.height = boxWidth + "px ";
             btn.style.width = boxWidth + "px ";
-           // btn.style.borderStyle = "outset";
-            div.appendChild(btn);
-            var newtext = document.createTextNode("");
-            btn.appendChild(newtext);
+            btn.style.minHeight = boxWidth + "px ";
+            btn.style.minWidth = boxWidth + "px ";
+            
+            cell.appendChild(btn);
             btn.id = j;
             btn.value =i;
             btn.addEventListener("click",clicked, MouseEvent);
             btn.addEventListener("contextmenu",clicked, MouseEvent);
             
         }
-        var br = document.createElement("br");
-        div.appendChild(br); 
     }
-    centerDiv.style.height = boxWidth + 1;
-    $("#minesweeperHolder").css("width", 24 * boxWidth -5); //1076 - 25
-    $("#minesweeperHolder").css("height", 24 * boxWidth -5);
-    $("#mineSweeperContainer").css("width", 24 * boxWidth -5);
-    $("#mineSweeperContainer").css("height", 24 * boxWidth -3);
 
     makebombs()
 }  
 
 
 
-function makebombs(event, i, j){
-
-    
+function makebombs(event){
 
     let bombNumber;
     firstClick = true
@@ -187,7 +205,6 @@ function makebombs(event, i, j){
             difficulty["Easy"].style.textDecorationColor = colors[0]
         }else{
             bombNumber = numberOfBombs;
-            
         }
     }else{
         bombNumber = parseInt(event.target.value);
@@ -205,8 +222,6 @@ function makebombs(event, i, j){
     bombsLeft.innerHTML = undiscovered
     
     resetMineSweeper();
-    
-    
     drawMinesweeper();
 }
 
@@ -224,12 +239,10 @@ function drawMinesweeper(){
             }
 
             if(board[i][j].type == "cleared"){
-                button.style.background = "rgb(150,150,150)"
-                button.disabled = true;
+                button.style.background = emptyTileColor
+                // button.disabled = true;
             }
 
-            
-                    
             let bombCount = board[i][j].bombsTouching;
             let color
             if(bombCount == 0){
@@ -238,33 +251,10 @@ function drawMinesweeper(){
                 color = colors[bombCount-1];
             }
             
-            
-            if(board[i][j].bombsTouching != null && board[i][j].bombsTouching != 0){
-                var newtext = document.createTextNode(bombCount);
-                button.setAttribute("STYLE","color:"+ color);
-               // button.style.borderStyle = "inset";
-                button.style.left = i*boxWidth + "px";
-                button.style.top = boxWidth * 20 + j*boxWidth +"px";
-                while (button.firstChild) {
-                    button.removeChild(button.firstChild);
-                }
-
-                // if(board[i][j].lastClicked){
-                //     board[i][j].lastClicked = false
-                //     button.setAttribute("STYLE","color:"+ "yellow");
-                // }
-
-                //button.innerText = bombCount
-                //newtext.style.margin = 0
-                //newtext.style.margin = 0 + "px ";
-                //newtext.style.padding = 0 + "px ";
-
-                button.appendChild(newtext);
-                button.style.height = boxWidth + "px ";
-                button.style.width = boxWidth + "px ";
-                button.style.width = boxWidth + "px ";
-                button.style.lineheight = 0 + "px ";
-                
+            if(isTouchingBomb(i,j)){
+                button.style.color = color
+                button.style.backgroundColor = tileColor
+                button.innerHTML = bombCount;
             }
 
             if(board[i][j].lastClicked){
@@ -278,23 +268,19 @@ function drawMinesweeper(){
 }
 
 
-
 function resetMineSweeper(){
+
+    if(placeFlags){
+        clickFlagsButton.click()
+    }
     for(let i = 0; i < height; i++){
         for(let j = 0; j < width; j++){
             let button = board[i][j].button;
-            var newtext = document.createTextNode("");
             board[i][j].type = "empty";
-          //  button.style.borderStyle = "outset";
-            button.style.left = i*boxWidth + "px";
-            button.style.top = boxWidth * 20 + j*boxWidth +"px";
             button.style.backgroundImage = "none";
-            while (button.firstChild) {
-                button.removeChild(button.firstChild);
-              }
-            button.appendChild(newtext);
-            button.style.borderColor = "black";
-            button.style.backgroundColor = "rgb(187,189,189)"
+            button.innerHTML= "";
+            button.style.border = "none";
+            button.style.backgroundColor = tileColor
             button.disabled = false;
             bombCount = undefined;
             board[i][j].flagged = false;
@@ -302,16 +288,19 @@ function resetMineSweeper(){
             board[i][j].knownEmpty = false
         }
     }
-
 }
 
+function clearSolver(){
+    clearInterval(solver)
+    solverLoader.style.visibility = "hidden";
+}
 
 function checkWin(){
 
     let count = 0;
     for(let i = 0; i < height; i++){
         for(let j = 0; j < width; j++){
-            if(board[i][j].flagged == true && board[i][j].type == "bomb"){
+            if(board[i][j].flagged && board[i][j].type == "bomb"){
                 count++;
             }
        
@@ -319,28 +308,28 @@ function checkWin(){
     }
     if(count == numberOfBombs){
         gameInProgress = false
+        clearSolver()
         alert("you win");
         showBombs();
-        clearInterval(solver)
         return;
     }
 
     for(let i = 0; i < height; i++){
         for(let j = 0; j < width; j++){
-            if(board[i][j].type != "bomb" && board[i][j].button.disabled == false){
+            if(board[i][j].type != "bomb" && board[i][j].type != "cleared"){
                 return;
             }
         }
     }
     gameInProgress = false
+    clearSolver()
     alert("you win");
-    clearInterval(solver)
     showBombs();
 
 }
 
 function loose(){
-    clearInterval(solver) 
+    clearSolver() 
     if(randomClick){
         alert("Solver Failed: random click had " + (randomProb * 100).toFixed(2) + "% chance of hitting bomb");
     }
@@ -358,22 +347,21 @@ function showBombs(){
             
             if(board[i][j].type == "bomb" && !board[i][j].flagged){
                 let button = board[i][j].button;
-                while (button.firstChild) {
-                    button.removeChild(button.firstChild);
-                }
-
-            button.style.backgroundImage = "URL('Images/bomb.png')"
-            button.style.backgroundSize = boxWidth+ "px " + boxWidth + "px"
-            //button.style.backgroundImage = "URL('https://static-s.aa-cdn.net/img/ios/1168282474/a56bd269f247d1b7cca22b0f0e912eef?v=1')";
+                button.style.backgroundImage = "URL('Images/bomb.png')"
+                button.style.backgroundSize = boxWidth+ "px " + boxWidth + "px"
             }
         }
     }
 }
 
 function flagButton(i,j){
+
+    if(board[i][j].type == "cleared"){
+        return
+    }
+
     if(board[i][j].flagged){
         undiscovered++
-        
         board[i][j].flagged = false;
         board[i][j].button.style.backgroundImage = "";
     } else{
@@ -381,21 +369,24 @@ function flagButton(i,j){
         undiscovered--;
     }
     bombsLeft.innerHTML = undiscovered
+    drawMinesweeper()
 }
 
 function select(i,j){
     
     if(board[i][j].type == "empty"){
         board[i][j].type = "cleared";
-        board[i][j].bombsTouching = checkBeside(i,j);    
-        
+        board[i][j].bombsTouching = checkBeside(i,j);      
     }else if(board[i][j].type == "bomb"){
-        board[i][j].button.style.borderColor = "RGB(255,0,0)";
+        board[i][j].button.style.border = "2px solid RGB(255,0,0)";
         loose();
     }
 }
 
 function clicked(MouseEvent){
+
+    MouseEvent.preventDefault()
+
     let x;
     let y;
     if(MouseEvent.target.tagName == "DIV"){
@@ -408,11 +399,12 @@ function clicked(MouseEvent){
      y = parseInt(MouseEvent.target.id);
      x = parseInt(MouseEvent.target.value);
     }
-    if(MouseEvent.button == 2){
+    if(MouseEvent.button == 2 || placeFlags){
         if(gameInProgress && !firstClick){
             flagButton(x,y);
         }
     }else{
+        
         if(gameInProgress || firstClick){
             if(firstClick){
                 board[x][y].type = "cleared";
@@ -431,10 +423,108 @@ function clicked(MouseEvent){
     drawMinesweeper();
 }
 
+function clear(i,j){
+    board[i][j].type = "cleared";
+    return true
+}
+
+function clearAndClick(i,j){
+    board[i][j].type = "empty"
+    select(i,j)
+    return true   
+}
+
+function first(a,b){
+
+    makebombs(undefined);
+    actOnNeighbours(0, a, b, 0, clear, false)
+
+    for(let i = 0; i < numberOfBombs; i++){
+        let rowNumber = Math.floor((Math.random() * height));
+        let collomNumber = Math.floor((Math.random() * width));
+        if(board[rowNumber][collomNumber].type == "bomb" || board[rowNumber][collomNumber].type == "cleared"){
+            i--;  
+        }else{
+            board[rowNumber][collomNumber].type = "bomb";
+        }
+    }
+
+    clearAndClick(a,b)
+    actOnNeighbours(0, a, b, 0, clearAndClick, false)
+    drawMinesweeper();
+    bombsLeft.innerHTML = undiscovered
+}
+
+
+function checkBeside(i,j){   
+    let count = 0;
+    for(let x = -1; x < 2; x++){
+        for(let y = -1; y < 2; y++){
+            if(x != 0 || y != 0 ){
+                let xValue = i+x;
+                let yValue = j+y;
+                if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
+                    if(board[xValue][yValue].type == "bomb" ){
+                     count++;   
+                    }
+                }
+            }
+        }
+    }
+    if(count == 0){
+        actOnNeighbours(0, i, j, 0, select, false)
+    }
+   
+    return count;
+}
+
+
+function actOnNeighbours(radius, i,j,bombsRemaining, action, returnOnFirst){
+
+    actionTaken = false
+
+    for(let x = -1 - radius; x < 2 + radius; x++){
+        for(let y = -1 - radius ; y < 2 + radius; y++){
+            if(x != 0 || y != 0 ){
+                let xValue = i+x;
+                let yValue = j+y;
+                if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
+                    actionTaken = action(xValue, yValue,bombsRemaining, i, j)
+                    if(returnOnFirst && actionTaken){
+                        return true
+                    }
+                }
+            }
+        }
+    }
+
+    return actionTaken
+}
+
+
+function flagUndiscovered(xValue, yValue, bombsRemaining, i, j){
+    if(isUnclickedTile(xValue,yValue)){
+        flagButton(xValue,yValue);
+        return true                        
+    }
+    return false
+}
+
+function clickUndiscovered(xValue, yValue, bombsRemaining, i, j){
+    if(isUnclickedTile(xValue,yValue)){
+        board[xValue][yValue].button.click()
+        return true
+    }
+    return false
+}
+
+
 function runSolver(){
-    clearInterval(solver)
+    clearSolver()
+    solverLoader.style.visibility = "visible";
     solver = setInterval(solve, 10);
 }
+
 
 function solve(){
 
@@ -442,20 +532,12 @@ function solve(){
         var i = Math.floor(Math.random() * 10);
         var j = Math.floor(Math.random() * 10);
         board[i][j].button.click()
-        //return
-
     }
 
-    let checkRadius = 1
-    
     let solution = true
-
-    let counter  = 1000
-
     if(gameInProgress ){
         
         solution = false
-        //await sleep(10);
         findButton:
         for(let i = 0; i < height; i++){
             for(let j = 0; j < width; j++){
@@ -464,7 +546,6 @@ function solve(){
                     continue;
                 }
 
- 
                 var bombTiles = board[i][j].bombsTouching;
                 var undiscoveredTiles = 0
 
@@ -474,132 +555,53 @@ function solve(){
                             let xValue = i+x;
                             let yValue = j+y;
                             if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
-
-                                if(board[xValue][yValue].bombsTouching == null && (!board[xValue][yValue].flagged) && board[xValue][yValue].type != "cleared"){
-                                    undiscoveredTiles++;
+                                if(isUnclickedTile(xValue,yValue)){
+                                    undiscoveredTiles++; // the number of tiles around that have an unknown stes
                                 }
 
                                 if(board[xValue][yValue].flagged){
-                                    bombTiles--;
+                                    bombTiles--; // the number of tiles around which are flagged (bombs)
                                 }
                             }
                         }
                     }
                 }
 
-                if(bombTiles == undiscoveredTiles){
-                    //console.log("they are equal")
-                    for(let x = -1; x < 2; x++){
-                        for(let y = -1; y < 2; y++){
-                            if(x != 0 || y != 0 ){
-                                let xValue = i+x;
-                                let yValue = j+y;
-                                if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
-                                    if((!board[xValue][yValue].flagged) && board[xValue][yValue].bombsTouching == null && board[xValue][yValue].type != "cleared"){
-                                        flagButton(xValue,yValue);
-                                        solution = true
-                                        drawMinesweeper()
-                                        //console.log("click 1" + i + " " + j)
-                                        break findButton
-                                    }
-                                }
-                            }
-                        }
+                if(bombTiles == undiscoveredTiles){ // the remaining tiles are all bombs
+                    solution = actOnNeighbours(0,i,j,bombTiles,flagUndiscovered, true)
+                    if(solution){
+                        break findButton
                     }
                 }
 
-                if((bombTiles == 0 && undiscoveredTiles > 0)){
-                    //console.log("they is more")
-                    for(let x = -1; x < 2; x++){
-                        for(let y = -1; y < 2; y++){
-                            if(x != 0 || y != 0 ){
-                                let xValue = i+x;
-                                let yValue = j+y;
-                                if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
-                                    if( (!board[xValue][yValue].flagged) && board[xValue][yValue].bombsTouching == null && board[xValue][yValue].type != "cleared"){
-                                        solution = true
-                                        board[xValue][yValue].button.click()
-                                        //drawMinesweeper()
-                                        //console.log("click 2 " + board[i][j].bombsTouching + " " +  i + " " + j)
-                                        break findButton
-                                    }
-                                }
-                            }
-                        }
+                if((bombTiles == 0 && undiscoveredTiles > 0)){ // the reamining tiles are safe
+                    solution = actOnNeighbours(0,i,j,bombTiles,clickUndiscovered, true)
+                    if(solution){
+                        break findButton
                     }
                 }
 
                 if(undiscoveredTiles > 0 && bombTiles == 1){
-                    for(let x = -1; x < 2; x++){
-                        for(let y = -1; y < 2; y++){
-                            if(x != 0 || y != 0 ){
-                                let xValue = i+x;
-                                let yValue = j+y;
-                                if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
-                                    if(board[xValue][yValue].bombsTouching > 0){
-
-                                        if(solveNeighbourLimit(i, j, xValue, yValue)){
-                                            //console.log("usedNeightbourSolve" + i + " " + j + " " + xValue + " " + yValue)
-                                            solution = true
-                                            break findButton
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                    solution = actOnNeighbours(0,i,j,bombTiles,solveNeighbourLimit, true)
+                    if(solution){
+                        break findButton
                     }
                 }
-
 
                 if(undiscoveredTiles > 0 && bombTiles > 1){
-                    for(let x = -2; x < 3; x++){
-                        for(let y = -2; y < 3; y++){
-                            if(x != 0 || y != 0 ){
-                                let xValue = i+x;
-                                let yValue = j+y;
-                                if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
-                                    if(board[xValue][yValue].bombsTouching > 0){
-
-                                        if(solveSelfLimit(i, j, bombTiles, xValue, yValue)){
-                                            //console.log("usedSolveSelfLimt" + i + " " + j + " " + xValue + " " + yValue)
-                                            solution = true
-                                            break findButton
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                    solution = actOnNeighbours(1,i,j,bombTiles, solveSelfLimit, true)
+                    if(solution){
+                        break findButton
                     }
                 }
-
-                
-                
-
-
             }
         }
-        //drawMinesweeper()
     }
-    if(!solution)
+    if(!solution) // if no progress was made last loop, solve using bruteforce
         bruteForce()
 }
 
-
-
-
-function solveBombsRemaining(){
-
-}
-
-
-function solveSelfLimit(i,j,bombTiles, a,b){
-
-
-    // bombs left more than 1 
-    // neighbour has 0 not shared
-    // all bombs can't be
-
-
+function solveSelfLimit(a,b,bombTiles, i,j){ // the current tile may require more bombs then the neighbour can have, making non-shared tiles bombs
 
     let radius = 2
     let shared = 0
@@ -607,23 +609,26 @@ function solveSelfLimit(i,j,bombTiles, a,b){
     let remainingSquares = 0
     let bombs = board[a][b].bombsTouching
 
+    if(!(bombs > 0)){
+        return false
+    }
+
     for(let x = (-1 - radius); x < (2 + radius); x++){
         for(let y = (-1 - radius); y < (2 + radius); y++){
-            
             let xValue = i+x;
             let yValue = j+y;
             if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
 
-                if(board[xValue][yValue].bombsTouching == null && (!board[xValue][yValue].flagged) && board[xValue][yValue].type != "cleared"){
-                    if(Math.max(Math.abs(xValue - a), Math.abs(yValue - b)) == 1 && Math.max(Math.abs(xValue - i),Math.abs(yValue - j)) == 1){
+                if(isUnclickedTile(xValue,yValue)){
+                    if(isTouching(xValue, yValue, a, b) && isTouching(xValue, yValue, i, j)){
                         shared++
-                    }else if (Math.max(Math.abs(xValue - a), Math.abs(yValue - b)) == 1 && Math.max(Math.abs(xValue - i),Math.abs(yValue - j)) > 1){
+                    }else if (isTouching(xValue, yValue, a, b) && !isTouching(xValue, yValue, i, j)){
                         notShared++
                     }else{
                         remainingSquares++
                     }
                 }else if(board[xValue][yValue].flagged){
-                    if(Math.max(Math.abs(xValue - a), Math.abs(yValue - b)) == 1){
+                    if(isTouching(xValue, yValue, a, b)){
                         bombs--
                     }
                 }
@@ -631,40 +636,42 @@ function solveSelfLimit(i,j,bombTiles, a,b){
         }
     }
 
-
     if((notShared == 0 && shared > 0 && bombs == 1 && remainingSquares < bombTiles) ){
         for(let x = -1; x < 2; x++){
             for(let y = -1; y < 2; y++){
-
                 let xValue = i+x;
                 let yValue = j+y;
                 if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
-                    if(Math.max(Math.abs(xValue - a), Math.abs(yValue - b)) == 1){
+                    if(isTouching(xValue, yValue, a, b)){
                         continue
                     }
-                    if( (!board[xValue][yValue].flagged) && board[xValue][yValue].bombsTouching == null && board[xValue][yValue].type != "cleared"){
+                    if(isUnclickedTile(xValue,yValue)){
                         flagButton(xValue,yValue);
-                        //board[xValue][yValue].bombsTouching * 
-                        //console.log(notShared + ' ' + bombs + " " + shared)
-                        drawMinesweeper()
                         return true
                     }
                 }
             }
         }
-
     }
 
     return false
 
 }
 
-function solveNeighbourLimit(i,j, a, b){
+function isTouching(i1, j1, i2, j2){
+    return (Math.max(Math.abs(i1 - i2), Math.abs(j1 - j2)) == 1)
+}
+
+function solveNeighbourLimit(a,b,bombsRemaining, i, j){ // a neighbouring tile may need a shared tiles, making non shared tiles safe
 
     let radius = 1
     let shared = 0
     let notShared = 0
     let bombs = board[a][b].bombsTouching
+
+    if(!(bombs > 0)){
+        return false
+    }
 
     for(let x = (-1 - radius); x < (2 + radius); x++){
         for(let y = (-1 - radius); y < (2 + radius); y++){
@@ -673,14 +680,14 @@ function solveNeighbourLimit(i,j, a, b){
             let yValue = j+y;
             if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
 
-                if(board[xValue][yValue].bombsTouching == null && (!board[xValue][yValue].flagged) && board[xValue][yValue].type != "cleared"){
-                    if(Math.max(Math.abs(xValue - a), Math.abs(yValue - b)) == 1 && Math.max(Math.abs(xValue - i),Math.abs(yValue - j)) == 1){
+                if(isUnclickedTile(xValue,yValue)){
+                    if(isTouching(xValue, yValue, a, b) && isTouching(xValue, yValue, i, j)){
                         shared += 1
-                    }else if (Math.max(Math.abs(xValue - a), Math.abs(yValue - b)) == 1 && Math.max(Math.abs(xValue - i),Math.abs(yValue - j)) > 1){
+                    }else if (isTouching(xValue, yValue, a, b) && !isTouching(xValue, yValue, i, j)){
                         notShared += 1
                     }
                 }else if(board[xValue][yValue].flagged){
-                    if(Math.max(Math.abs(xValue - a), Math.abs(yValue - b)) == 1){
+                    if(isTouching(xValue, yValue, a, b)){
                         bombs--
                     }
                 }
@@ -691,46 +698,36 @@ function solveNeighbourLimit(i,j, a, b){
     if((notShared < bombs && shared > 0) ){
         for(let x = -1; x < 2; x++){
             for(let y = -1; y < 2; y++){
-
                 let xValue = i+x;
                 let yValue = j+y;
                 if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
-                    if(Math.max(Math.abs(xValue - a), Math.abs(yValue - b)) == 1){
+                    if(isTouching(xValue, yValue, a, b)){
                         continue
                     }
-                    if( (!board[xValue][yValue].flagged) && board[xValue][yValue].bombsTouching == null && board[xValue][yValue].type != "cleared"){
+                    if(isUnclickedTile(xValue,yValue)){
                         board[xValue][yValue].button.click()
-                    //board[xValue][yValue].bombsTouching * 
-                        //console.log(notShared + ' ' + bombs + " " + shared)
                         return true
                     }
                 }
             }
         }
-
     }
 
     return false
 }
 
+function isTouchingBomb(i,j){
+    if(board[i][j].bombsTouching != 0 && board[i][j].bombsTouching != null){
+        return true
+    }
+    return false
+}
 
 function isBoundaryTile(i,j){
     if(!isUnclickedTile(i,j))
         return false
-    for(let x = -1; x < 2; x++){
-        for(let y = -1; y < 2; y++){
-            if(x != 0 || y != 0 ){
-                let xValue = i+x;
-                let yValue = j+y;
-                if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
-                    if(board[xValue][yValue].bombsTouching != 0 && board[xValue][yValue].bombsTouching != null){
-                        return true
-                    }
-                }
-            }
-        }
-    }
-    return false
+
+    return actOnNeighbours(0,i,j,0,isTouchingBomb, true)
 }
 
 function isUnclickedTile(i,j){
@@ -766,9 +763,6 @@ function findSubsections(tiles) {
         subSections.push(subsection);
     }
 
-
-
-
     subSections.sort((a, b) => a.length - b.length);
     
     return subSections;
@@ -783,7 +777,7 @@ function makeSubBoard(minY, maxY, minX, maxX){
     var _maxHeight = Math.min(height,maxY+2)
 
     var _minWidth = Math.max(0,minX-2)
-    var _maxWidth = Math.min(height,maxX+2)
+    var _maxWidth = Math.min(width,maxX+2)
 
 
     for(let i = _minHeight; i <= _maxHeight; i++){
@@ -803,7 +797,7 @@ function makeSubBoard(minY, maxY, minX, maxX){
 
 function clickBoard() {
     if(tilesToClick == null){
-        clearInterval(solver)
+        clearSolver()
         runSolver()
     }else{
         tilesToClick[clickIndex].button.click()
@@ -819,17 +813,16 @@ function bruteForce(){
     if(!gameInProgress)
         return
 
-    console.log("inside brute force")
-    let boundryTiles = []
+    let boundaryTiles = []
     let unClickedTiles = []
 
     for(let i = 0; i < height; i++){
         for(let j = 0; j < width; j++){
 
-            let tile = {"height": i, "width": j}
+            const tile = {"height": i, "width": j}
 
             if(isBoundaryTile(i,j)){
-                boundryTiles.push(tile)
+                boundaryTiles.push(tile)
             }else if(isUnclickedTile(i,j)){
                 unClickedTiles.push(tile)
             }
@@ -838,15 +831,12 @@ function bruteForce(){
 
     let subSections
     if(undiscovered < 10){
-        subSections = [boundryTiles]
+        subSections = [boundaryTiles]
     }else{
-        subSections = findSubsections(boundryTiles)
+        subSections = findSubsections(boundaryTiles)
     }
 
 
-    //let numOutSquares = emptyTiles.length - boundryTiles.length;
-    
-    
     console.log(subSections.length + " subsections found")
     let bombsProbArray = []
     let solved = false;
@@ -895,7 +885,6 @@ function bruteForce(){
             bombsProbArray.push(possibleBombsArray)
         }
         if(possibleBombs.size != 0 && gameInProgress){
-            //console.log(possibleBombs)
             tilesToClick = []
             clickIndex = -1
             for(const tile of subSection){
@@ -904,25 +893,18 @@ function bruteForce(){
 
                 tilesToClick.push(board[tile.height][tile.width])
                 clickIndex++
-                //board[tile.height][tile.width].button.click()
-                //console.log("tile clicked ", tile.height, tile.width)
                 solved = true
                 if(solved){
-                    clearInterval(solver)
+                    clearSolver()
+                    solverLoader.style.visibility = "visible";
                     solver = setInterval(clickBoard, 10);
                     return
                 }
             }
-            
-
-            
-
         }
     }
     
     if(!solved && bombsProbArray.length > 0){
-        
-
         let lowestProb = Infinity
         let selection = null
         
@@ -999,48 +981,30 @@ function bruteForce(){
 }
 
 function bruteForceRecursive(subSection, _board,minHeight, minWidth, height_b, width_b, k, possibleBombs, newBombs, possibleBombsArray, attempts, minBombs){
-    //console.log(subSection)
-    //console.log(_board)
-    let flagCount = checkBoardValidity(_board, minHeight, minWidth, height_b, width_b)
-    if(flagCount < 0)
+    if(!checkBoardValidity(_board, minHeight, minWidth, height_b, width_b))
         return
 
     if(newBombs > bombsLeft){
         return
     }
 
-    if(k == subSection.length){ // a valid solution was found for this subsection of boundrytiles
-        
-
-        // for(let i = 0; i <= height_b; i++){
-        //     for(let j = 0; j <= width_b; j++){
-        //         //console.log("Adding possible bombs")
-        //         possibleBombs.add(_board[minHeight + i][minWidth + j].button) // add the x y tile to the set (no duplicates)
-        //         possibleBombsArray.push(_board[minHeight + i][minWidth + j].button)
-        //     }
-        // }
-
+    if(k == subSection.length){ // a valid solution was found for this subsection of boundary tiles
         for (const tile of subSection){
-            //console.log("Adding possible bombs")
             if(_board[tile.height][tile.width].flagged){
-                possibleBombs.add(_board[tile.height][tile.width].button) // add the x y tile to the set (no duplicates)
-                possibleBombsArray.push(_board[tile.height][tile.width].button)
+                possibleBombs.add(_board[tile.height][tile.width].button) // add the bomb tiles to the set (no duplicates)
+                possibleBombsArray.push(_board[tile.height][tile.width].button) 
             }
 
             if(minBombs[0] > newBombs){
                 minBombs[0] = newBombs
             }
-            
         }
 
         attempts[0] = attempts[0] + 1
         return
     }
 
-
-    // either a tile is a mine or not. Try both
-    //console.log(k)
-    let tileCoord = subSection[k]
+    let tileCoord = subSection[k] // either the boundary  tile is a mine or not. Try both
     let x = tileCoord.height
     let y = tileCoord.width
 
@@ -1102,27 +1066,19 @@ function checkAroundTile(_board, i, j){
 
 
 function checkBoardValidity(_board, minY, minX, heightY, widthX){
-    let flagged = 0
-
-
+    
     let _minHeight = Math.max(0,minY-1)
     let _maxHeight = Math.min(height-1,minY+heightY+1)
 
     let _minWidth = Math.max(0,minX-1)
     let _maxWidth = Math.min(width-1,minX+widthX+1)
 
-
-
     for(let i = _minHeight; i <= (_maxHeight); i++){
         for(let j = _minWidth; j <= (_maxWidth); j++){
             let tile = _board[i][j]
-
-            
-        
+                    
             if(tile.bombsTouching != 0 && tile.bombsTouching != null){
                 let status = checkAroundTile(_board, i, j)
-
-
 
                 let flagCount = status[1]
                 let undiscoveredTiles = status[2]
@@ -1130,158 +1086,20 @@ function checkBoardValidity(_board, minY, minX, heightY, widthX){
                 
                 //check 1 - are too many bombs toching this tile
                 if(flagCount > tile.bombsTouching){
-                    return -1
+                    return false
                 }
 
                 //check 2 - have we assumed too many tiles are not bombs
                 if( (undiscoveredTiles - knownEmpty ) < (tile.bombsTouching- flagCount) ){ // maybe - flagCount
-                    return -1
+                    return false
                 }
             }
         }
     }
 
-    return flagged
-            
-
+    return true
 }
 
-
-
-function first(a,b){
-
-    for(let x = -1; x < 2; x++){
-        for(let y = -1; y < 2; y++){
-            if(x != 0 || y != 0 ){
-                let xValue = a+x;
-                let yValue = b+y;
-                if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
-                    board[xValue][yValue].type == "cleared";
-                }
-            }
-        }
-    }
-
-    makebombs(undefined);
-
-    let bombNumber = numberOfBombs
-    for(let i = 0; i < bombNumber; i++){
-        let rowNumber = Math.floor((Math.random() * height));
-        let collomNumber = Math.floor((Math.random() * width));
-        if(board[rowNumber][collomNumber].type == "bomb" || board[rowNumber][collomNumber].type == "cleared"){
-            i--;  
-        }else{
-            board[rowNumber][collomNumber].type = "bomb";
-        }
-
-        if(a != undefined && b != undefined){
-            for(let x = -1; x < 2; x++){
-                for(let y = -1; y < 2; y++){
-                    if(x != 0 || y != 0 ){
-                        let xValue = a+x;
-                        let yValue = b+y;
-                        if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
-                            if(board[xValue][yValue].type == "bomb"){
-                                board[xValue][yValue].type = "empty"
-                                i--;
-                            }
-                        }
-                    }
-                }
-            }
-
-            if(board[a][b].type == "bomb" || board[a][b].type == "cleared"){
-                board[a][b].type = "empty"
-                i--;
-            }
-        }
-
-        drawMinesweeper();
-
-
-    }
-
-
-
-
-    // board[i][j].type = "empty";
-
-    // for(let x = -1; x < 2; x++){
-    //     for(let y = -1; y < 2; y++){
-    //         if(x != 0 || y != 0 ){
-    //             let xValue = i+x;
-    //             let yValue = j+y;
-    //             if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
-    //                 if(board[xValue][yValue].type == "bomb" ){
-    //                     undiscovered--
-    //                 }
-                    
-    //                 board[xValue][yValue].type = "empty";
-    //             }
-    //         }
-    //     }
-    // }
-    bombsLeft.innerHTML = undiscovered
-}
-
-
-
-function checkBeside(i,j){   
-    let count = 0;
-    for(let x = -1; x < 2; x++){
-        for(let y = -1; y < 2; y++){
-            if(x != 0 || y != 0 ){
-                let xValue = i+x;checkBeside
-                let yValue = j+y;
-                if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
-                    if(board[xValue][yValue].type == "bomb" ){
-                        
-                     count++;   
-                    }
-                }
-            }
-        }
-    }
-    if(count == 0){
-        for(let x = -1; x < 2; x++){
-            for(let y = -1; y < 2; y++){
-                if(x != 0 || y != 0 ){
-                    xValue = i+x;
-                    yValue = j+y;
-                    if(xValue >= 0 && xValue < height && yValue >= 0 && yValue < width){
-                        select(xValue,yValue);
-                    }
-                }
-            }
-        }
-    }
-   
-    return count;
-}
-
-function rightmouse(e){
-    let i = Math.floor((e.clientX) / (boxWidth)) - 1;
-    let j = Math.floor((e.clientY) / (boxWidth)) - 5;
-    
-    if(e.shiftKey){
-        flagButton(i,j);
-    }
-    else if(i >= 0 && i < boxWidth && j>=0 && j < boxWidth){
-        select(i,j);
-    }
-    
-}
-
-function startNewGame(){
-        clock = new Date();
-        document.removeEventListener("keydown",startNewGame);
-       document.addEventListener("mousedown",rightmouse,MouseEvent);
-        game = setInterval(draw,10);
-    
-}
-
-document.addEventListener('contextmenu', event => event.preventDefault());
-//window.addEventListener("resize", createBoard);
 createBoard();
 
 
