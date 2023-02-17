@@ -1,37 +1,35 @@
 
         // creating the canvas 
     const cvs = document.getElementById("snake");
-    //cvs.width = cvs.getBoundingClientRect().width;
-    //cvs.height = cvs.getBoundingClientRect().height;
-
-    
-
-
     const ctx = cvs.getContext("2d");
-
     ctx.canvas.height  = 24 * boxWidth;
     ctx.canvas.width  = 24 * boxWidth;
-
-    let resetButton = document.getElementById("resetSnake");
+    
+    const textDiv = document.getElementById("SnakesTitle");
+    const scoreDiv = document.getElementById("SnakesScore");
+    const resetButton = document.getElementById("resetSnake");
+    
+    textDiv.style.font = boxWidth*2.5 + "px Changa One";
+    textDiv.style.left = 9*boxWidth + "px"
+    scoreDiv.style.font = boxWidth*2.5 + "px Changa One";
+    scoreDiv.style.left = 3*boxWidth + "px"
     resetButton.addEventListener("click",resetSnake);
     
-    //creating the units for the game
+    const snakeColor = "rgb(86,217,0)"
+    
+    
 
-    
-    // importing the background and the food img      
-    
     let keyPressed = null;
     let count = 10;
 
     // creating the snake;
     let snake = [];
     snake[0] = {
-        x: 12 * boxWidth, 
+        x: 12 * boxWidth, // spwan in the middle of canvas
         y: 12 * boxWidth,
-        color: "rgb(86,217,0)"
+        color: snakeColor
     };  
      
-
     //creating the food for the game, which the snake will try to get 
     let food = {
         x: 12 * boxWidth,
@@ -39,14 +37,20 @@
     };
 
     //setting the score to zero
-    let score = 0;
+    let score;
+    setScore(0)
     
-    let d = stop;
+    
+    let d = "stop";
     //switch the direction the snake is moving in
+
+    function setScore(newScore){
+        score = newScore
+        scoreDiv.innerHTML = score
+    }
+
+
     function direction(keyCode){
-
-
-       
         switch (keyCode){
             case 83:
             case 40:  // change to move down
@@ -74,46 +78,37 @@
                 d = "left";
             }
 				break;
-			
 		}
 	}  
 
     function endGame(game){
         clearInterval(game);
         game = false;
-        
-        //document.removeEventListener("keydown",setDirection);
+        cvs.style.touchAction = "auto"
     }
 
     //the function that draws everything to cavas 
     function draw(){
 
         
-        if(snake[0].x % boxWidth == 0 && snake[0].y % boxWidth == 0){
+        if(snake[0].x % boxWidth == 0 && snake[0].y % boxWidth == 0){ // chnage Snake direction only when it at 0,0 of new box
             direction(keyPressed);
         }
-                
-        //draw the ground
-        //ctx.drawImage(groundImg,0,0);
-        ctx.fillStyle = "rgb(20,20,20)";
-
         
-
+        
+        //Background
+        ctx.fillStyle = "rgb(20,20,20)";
         ctx.fillRect(0,0,24 * boxWidth,24 * boxWidth);
 
         ctx.fillStyle = "white"
         ctx.fillRect(0,3 * boxWidth,24 * boxWidth - 2,2);
 
-        //drawing the name 
-        ctx.fillStyle = "rgb(86,217,0)";
-        ctx.font = boxWidth*2.5 + "px Changa One";
-        ctx.fillText("Snakes", 9*boxWidth, 2.25*boxWidth);
 
         //draw all the cells of the snake
         for(let i = snake.length-1; i >= 0; i--){
             if(i == 0){
-                ctx.fillStyle = "rgb(86,217,0)"; 
-                ctx.strokeStyle="rgb(20,20,20)";
+                ctx.fillStyle = snakeColor; 
+                ctx.strokeStyle = snakeColor;
                 ctx.fillRect(snake[i].x,snake[i].y,boxWidth,boxWidth);
                 ctx.fillStyle = "black";
                 ctx.beginPath();
@@ -138,10 +133,8 @@
                 
                 //ctx.strokeRect(snake[i].x,snake[i].y,boxWidth,boxWidth);
                 if(collisionHead()){
-                    endGame(game);
-                    
+                    endGame(game);  
                 }    
-               
             }else{
                 ctx.fillStyle = "white";
                 if(collisionBody(snake[i].x,snake[i].y)){
@@ -157,7 +150,7 @@
         ctx.arc(food.x + boxWidth / 2, food.y + boxWidth / 2, boxWidth / 2, 0, 2 * Math.PI);
         ctx.fill();
 
-        if(d == stop){
+        if(d == "stop"){
             return;
         }
 
@@ -169,29 +162,25 @@
         //geting the current travel direction and moving in that direction;
         if(d == "up"){
             snakeY -= 2;
-
         }else if(d == "down"){
-        
             snakeY += 2;
-          
         }else if(d == "right"){
             snakeX += 2;
         }else if(d == "left"){
             snakeX -= 2;
-
         }
 
         //checking to see if the food and head of the snake are in the same spot
         if(Math.abs(food.x - snakeX) <= 3 && Math.abs(food.y - snakeY) <= 3){
-            score++;
+            setScore(score + 1)
             count = 25;
             newFoodLocation();
-       }else if(count <= 0){
+        }else if(count <= 0){
            //remove the tail
             snake.pop();
             
-       }
-       count--; 
+        }
+        count--; 
        
         // creating the new head of the snake
         let newHead = {
@@ -200,29 +189,17 @@
         };
 
         //adding the head to the front of the snake
-        snake.unshift(newHead);
-
-        //drawing the score of the game
-        ctx.fillStyle = "rgb(86,217,0)";
-        ctx.font = boxWidth*2.5 + "px Changa One";
-        ctx.fillText(score, 3*boxWidth, 2.25*boxWidth);
+        snake.unshift(newHead); 
 
     }
 
 
     function collisionBody(x,y){
-
-        // does the snake hit its self?
-        if(x == snake[0].x && y == snake[0].y){
-            return true;
-        }
+        return (x == snake[0].x && y == snake[0].y)
     }
     function collisionHead(){
         //does the snake leave the border?
-        if(snake[0].x > (23 * boxWidth) ||  snake[0].x < 0 || snake[0].y < (3* boxWidth) || snake[0].y > (23*boxWidth) ){
-          return true; 
-        }
-        return false;
+        return (snake[0].x > (23 * boxWidth) ||  snake[0].x < 0 || snake[0].y < (3* boxWidth) || snake[0].y > (23*boxWidth))
     }
 
 
@@ -235,10 +212,9 @@
         for(let i = 0; i < snake.length; i++){
             if((food.x - snake[i].x) <= 2 && (food.y - snake[i].y) <= 2){
                newFoodLocation();
+               return
             }
         }
-
-
     }
 
     function resetSnake(){
@@ -250,14 +226,15 @@
 
         document.removeEventListener("keydown",setDirection);
         document.addEventListener("keydown",setDirection);
-        score = 0;
+        setScore(0)
         if(!game){
             
         }else{
             endGame(game)
         }
         game =  setInterval(draw,4);
-        d = stop;
+        cvs.style.touchAction = "none"
+        d = "stop";
 
     }
 
@@ -269,6 +246,65 @@
            } 
         }
     }
+
+
+    document.addEventListener('touchstart', handleTouchStart, false);        
+document.addEventListener('touchmove', handleTouchMove, false);
+
+
+// suppor for mobile players
+
+var xDown = null;                                                        
+var yDown = null;
+
+function getTouches(evt) {
+  return evt.touches ||             // browser API
+         evt.originalEvent.touches; // jQuery
+}                                                     
+                                                                         
+function handleTouchStart(evt) {
+    const firstTouch = getTouches(evt)[0];                                      
+    xDown = firstTouch.clientX;                                      
+    yDown = firstTouch.clientY;                                      
+};                                                
+                                                                         
+function handleTouchMove(evt) {
+
+    
+
+    if ( ! xDown || ! yDown ) {
+        return;
+    }
+
+    // if(game){
+    //     evt.preventDefault();
+    //     evt.stopPropagation();
+    // } 
+
+    var xUp = evt.touches[0].clientX;                                    
+    var yUp = evt.touches[0].clientY;
+
+    var xDiff = xDown - xUp;
+    var yDiff = yDown - yUp;
+
+                                                                  
+    if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
+        if ( xDiff > 0 ) {
+           keyPressed = 37
+        } else {
+            keyPressed = 39
+        }                       
+    } else {
+        if ( yDiff > 0 ) {
+            keyPressed = 38
+        } else { 
+            keyPressed = 40
+        }                                                                 
+    }
+    /* reset values */
+    xDown = null;
+    yDown = null;                                             
+};
 
      // call the draw function every 100ms;
      var game;

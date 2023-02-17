@@ -1015,6 +1015,31 @@ ol[role=list], ul[role=list] {
 	border: none;
 }
 
+#SnakesScore{
+	position: absolute;
+	top:23px;
+	left: 132px;
+	font-family: "Changa One";
+	color: rgb(86,217,0);
+	width: auto;
+	font-size: 110px;
+	background-color: rgb(20,20,20);
+	border: none;
+}
+
+
+#SnakesTitle{
+	position: absolute;
+	font-family: "Changa One";
+	top:23px;
+	left: 396px;
+	width: auto;
+	color: rgb(86,217,0);
+	font-size: 110px;
+	background-color: rgb(20,20,20);
+	border: none;
+}
+
 #show:hover {
 	color: violet;
 }

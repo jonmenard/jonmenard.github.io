@@ -13,7 +13,7 @@
 <body hidden>
     <header></header>
     <script>
-        boxWidth = 0;
+        var boxWidth = 0;
         if (window.matchMedia('(max-width: 1200px)').matches) {
             boxWidth = 40;
         } else {
@@ -50,9 +50,11 @@
                 runs into the walls or its own self the game is over. Click 'reset' before starting a new game.
             </div>
             <div id = "snakeContainer" class="game">
+                <div id="SnakesTitle">Snakes</div>
+                <div id="SnakesScore">0</div>
                 <button id="resetSnake">Reset</button>
                 <br>
-                <canvas id="snake" width="600px" height="600px"> </canvas>
+                <canvas id="snake"> </canvas>
                 <script src = "JavaScript/snakes.js"></script>
             </div>
         </section>
