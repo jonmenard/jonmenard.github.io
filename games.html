@@ -14,12 +14,15 @@
     <header></header>
     <script>
         const pixleRatio = window.devicePixelRatio || 1
+        var boxWidthRatio
         if (window.matchMedia('(max-width: 1300px)').matches) {
             boxWidth = 44
+            boxWidthRatio = 44
         } else {
             boxWidth = 44;
+            boxWidthRatio = 44 * 1.5 * pixleRatio//* scale;
         }
-        const boxWidthRatio = 44 * 1.5 * pixleRatio//* scale;
+         
         
     </script>
     
@@ -126,7 +129,7 @@
 
     let tetrisCanvas = document.getElementById("tetris");
     tetrisCanvas.style.maxHeight = "1050px"
-    
+
     let snakeCanvas = document.getElementById("snake");
     snakeCanvas.style.maxHeight = "1050px"
 
