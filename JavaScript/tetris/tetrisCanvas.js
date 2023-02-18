@@ -1,37 +1,37 @@
 class TetrisCanvas{
 
     constructor(lineHeight,boxHeight,boxWidth){
-        this.cvs = document.getElementById("tetrus");
+        this.cvs = document.getElementById("tetris");
         this.ctx = this.cvs.getContext("2d");
-        this.offsetLeft = 7 * boxWidth - lineHeight * 6;
-        this.offsetTop = 3.66 * boxWidth;
+        this.offsetLeft = 7 * boxWidthRatio - lineHeight * 6;
+        this.offsetTop = 3.66 * boxWidthRatio;
         this.lineHeight = lineHeight;
-        boxWidth = boxHeight
-        boxWidth = boxWidth
+        // boxWidthRatio = boxWidthRatio
+        // boxWidthRatio = boxWidthRatio
     }
 
     draw(rowsBelow,game,tilesCleared){
 
 
-        this.ctx.canvas.height  = 25 * boxWidth;
-        this.ctx.canvas.width  = 24 * boxWidth;
+        this.ctx.canvas.height  = 25 * boxWidthRatio;
+        this.ctx.canvas.width  = 24 * boxWidthRatio;
 
         this.ctx.fillStyle = "white";
-        this.ctx.fillRect(0,0,28 * boxWidth,29 * boxWidth);
+        this.ctx.fillRect(0,0,28 * boxWidthRatio,29 * boxWidthRatio);
 
         this.ctx.fillStyle = "grey";
         for(let verticalLineNumber = 1; verticalLineNumber <= 19; verticalLineNumber++){
-            this.ctx.fillRect(this.offsetLeft, (this.offsetTop + boxWidth * verticalLineNumber) + (this.lineHeight * verticalLineNumber), 10 * boxWidth + 10, this.lineHeight);
+            this.ctx.fillRect(this.offsetLeft, (this.offsetTop + boxWidthRatio * verticalLineNumber) + (this.lineHeight * verticalLineNumber), 10 * boxWidthRatio + 10, this.lineHeight);
         }
 
         for(let horizontalLineNumber = 0; horizontalLineNumber <= 10; horizontalLineNumber++){
-            this.ctx.fillRect(this.offsetLeft + (boxWidth * horizontalLineNumber) + (this.lineHeight * horizontalLineNumber),this.offsetTop,this.lineHeight,20 * boxWidth + 20)
+            this.ctx.fillRect(this.offsetLeft + (boxWidthRatio * horizontalLineNumber) + (this.lineHeight * horizontalLineNumber),this.offsetTop,this.lineHeight,20 * boxWidthRatio + 20)
         }
 
         this.ctx.lineWidth = 3;
         this.ctx.strokeStyle="rgba(0,0,0,1)";
 
-        this.ctx.strokeRect(this.offsetLeft + 0.75 ,this.offsetTop + 1.5 , 10 * boxWidth + 11.5 ,20 * boxWidth + 20);
+        this.ctx.strokeRect(this.offsetLeft + 0.75 ,this.offsetTop + 1.5 , 10 * boxWidthRatio + 11.5 ,20 * boxWidthRatio + 20);
 
         //drawing boxes
         this.drawBox(rowsBelow,game[0],game[1]);
@@ -45,8 +45,8 @@ class TetrisCanvas{
 
     drawTitle(){
         let factor = 2;
-        let width = boxWidth / factor;
-        let height = boxWidth / factor;
+        let width = boxWidthRatio / factor;
+        let height = boxWidthRatio / factor;
         let line = this.lineHeight / factor;
         factor /= 2;
         let t = [[0,0],[0,1],[0,2],[1,1],[2,1],[3,1],[4,1]];
@@ -79,10 +79,10 @@ class TetrisCanvas{
     drawScore(score){
 
         this.ctx.fillStyle = "black";
-        this.ctx.font = boxWidth*1.25 + "px VT323";
+        this.ctx.font = boxWidthRatio*1.25 + "px VT323";
         this.ctx.textAlign = "right";
         const zeroPad = (num, places) => String(num).padStart(places, '0')
-        this.ctx.fillText(zeroPad(score, 7), this.offsetLeft + 16 * boxWidth + 12 * this.lineHeight  , this.offsetTop - .5 * boxWidth);
+        this.ctx.fillText(zeroPad(score, 7), this.offsetLeft + 16 * boxWidthRatio + 12 * this.lineHeight  , this.offsetTop - .5 * boxWidthRatio);
 
 
         
@@ -91,12 +91,12 @@ class TetrisCanvas{
 
     drawLabels(){
         this.ctx.fillStyle = "black";
-        this.ctx.font = boxWidth*1.25 + "px VT323";
+        this.ctx.font = boxWidthRatio*1.25 + "px VT323";
         this.ctx.textAlign = "center";
-        this.ctx.fillText("Hold",this.offsetLeft - boxWidth * 3.5 ,boxWidth * 9);
-        this.ctx.fillText("Next",this.offsetLeft + boxWidth * 13.5 + 12 * this.lineHeight,boxWidth * 9);
-        $("#tetrisAIStart").css("right", boxWidth/2 * 1 );
-        $("#tetrisStart").css("left", boxWidth/2 * 1);
+        this.ctx.fillText("Hold",this.offsetLeft - boxWidthRatio * 3.5 ,boxWidthRatio * 9);
+        this.ctx.fillText("Next",this.offsetLeft + boxWidthRatio * 13.5 + 12 * this.lineHeight,boxWidthRatio * 9);
+        $("#tetrisAIStart").css("right", boxWidthRatio/2 * 1 );
+        $("#tetrisStart").css("left", boxWidthRatio/2 * 1);
     }
 
     // draw all the boxes
@@ -108,13 +108,13 @@ class TetrisCanvas{
                 let column = box.column;
                 let row = box.row;
                 this.ctx.fillStyle = box.color;
-                this.ctx.fillRect(this.offsetLeft + (column) * (boxWidth + this.lineHeight) + this.lineHeight, this.offsetTop + (row) * (boxWidth + this.lineHeight )+ this.lineHeight,boxWidth,boxWidth)
+                this.ctx.fillRect(this.offsetLeft + (column) * (boxWidthRatio + this.lineHeight) + this.lineHeight, this.offsetTop + (row) * (boxWidthRatio + this.lineHeight )+ this.lineHeight,boxWidthRatio,boxWidthRatio)
 
                 this.ctx.fillStyle = "black"
-                this.ctx.fillRect(this.offsetLeft- 0.25 + (column) * (boxWidth + this.lineHeight) + this.lineHeight, this.offsetTop - 0.25 + (row) * (boxWidth + this.lineHeight )+ this.lineHeight,boxWidth + 2.5 ,2.5)
-                this.ctx.fillRect(this.offsetLeft- 0.25 + (column) * (boxWidth + this.lineHeight) + this.lineHeight, this.offsetTop - 0.25 + (row) * (boxWidth + this.lineHeight )+ this.lineHeight,2.5,boxWidth + 2.5)
-                this.ctx.fillRect(this.offsetLeft- 0.25 + (column) * (boxWidth + this.lineHeight) + this.lineHeight, this.offsetTop - 0.25 + (row + 1) * (boxWidth + this.lineHeight )+ this.lineHeight,boxWidth + 2.5,2.5)
-                this.ctx.fillRect(this.offsetLeft- 0.25 + (column + 1) * (boxWidth + this.lineHeight) + this.lineHeight, this.offsetTop - 0.25 + (row) * (boxWidth + this.lineHeight )+ this.lineHeight,2.5,boxWidth + 2.5)
+                this.ctx.fillRect(this.offsetLeft- 0.25 + (column) * (boxWidthRatio + this.lineHeight) + this.lineHeight, this.offsetTop - 0.25 + (row) * (boxWidthRatio + this.lineHeight )+ this.lineHeight,boxWidthRatio + 2.5 ,2.5)
+                this.ctx.fillRect(this.offsetLeft- 0.25 + (column) * (boxWidthRatio + this.lineHeight) + this.lineHeight, this.offsetTop - 0.25 + (row) * (boxWidthRatio + this.lineHeight )+ this.lineHeight,2.5,boxWidthRatio + 2.5)
+                this.ctx.fillRect(this.offsetLeft- 0.25 + (column) * (boxWidthRatio + this.lineHeight) + this.lineHeight, this.offsetTop - 0.25 + (row + 1) * (boxWidthRatio + this.lineHeight )+ this.lineHeight,boxWidthRatio + 2.5,2.5)
+                this.ctx.fillRect(this.offsetLeft- 0.25 + (column + 1) * (boxWidthRatio + this.lineHeight) + this.lineHeight, this.offsetTop - 0.25 + (row) * (boxWidthRatio + this.lineHeight )+ this.lineHeight,2.5,boxWidthRatio + 2.5)
             }
         }
 
@@ -124,10 +124,10 @@ class TetrisCanvas{
                 let row = box.row + rowAdded
                 let column = box.column;
                 this.ctx.fillStyle = "black";
-                this.ctx.fillRect(this.offsetLeft- 0.25 + (column) * (boxWidth + this.lineHeight) + this.lineHeight, this.offsetTop - 0.25 + (row) * (boxWidth + this.lineHeight )+ this.lineHeight,boxWidth + 2.5 ,2.5)
-                this.ctx.fillRect(this.offsetLeft- 0.25 + (column) * (boxWidth + this.lineHeight) + this.lineHeight, this.offsetTop - 0.25 + (row) * (boxWidth + this.lineHeight )+ this.lineHeight,2.5,boxWidth + 2.5)
-                this.ctx.fillRect(this.offsetLeft- 0.25 + (column) * (boxWidth + this.lineHeight) + this.lineHeight, this.offsetTop - 0.25 + (row + 1) * (boxWidth + this.lineHeight )+ this.lineHeight,boxWidth + 2.5,2.5)
-                this.ctx.fillRect(this.offsetLeft- 0.25 + (column + 1) * (boxWidth + this.lineHeight) + this.lineHeight, this.offsetTop - 0.25 + (row) * (boxWidth + this.lineHeight )+ this.lineHeight,2.5,boxWidth + 2.5)
+                this.ctx.fillRect(this.offsetLeft- 0.25 + (column) * (boxWidthRatio + this.lineHeight) + this.lineHeight, this.offsetTop - 0.25 + (row) * (boxWidthRatio + this.lineHeight )+ this.lineHeight,boxWidthRatio + 2.5 ,2.5)
+                this.ctx.fillRect(this.offsetLeft- 0.25 + (column) * (boxWidthRatio + this.lineHeight) + this.lineHeight, this.offsetTop - 0.25 + (row) * (boxWidthRatio + this.lineHeight )+ this.lineHeight,2.5,boxWidthRatio + 2.5)
+                this.ctx.fillRect(this.offsetLeft- 0.25 + (column) * (boxWidthRatio + this.lineHeight) + this.lineHeight, this.offsetTop - 0.25 + (row + 1) * (boxWidthRatio + this.lineHeight )+ this.lineHeight,boxWidthRatio + 2.5,2.5)
+                this.ctx.fillRect(this.offsetLeft- 0.25 + (column + 1) * (boxWidthRatio + this.lineHeight) + this.lineHeight, this.offsetTop - 0.25 + (row) * (boxWidthRatio + this.lineHeight )+ this.lineHeight,2.5,boxWidthRatio + 2.5)
         } 
     }
 
@@ -135,7 +135,7 @@ class TetrisCanvas{
 
         this.ctx.lineWidth = 3;
         this.ctx.strokeStyle="rgba(0,0,0,1)";
-        this.ctx.strokeRect(this.offsetLeft + boxWidth * 11 + 12 * this.lineHeight, this.offsetTop + 1.5,boxWidth * 5 ,boxWidth * 4);
+        this.ctx.strokeRect(this.offsetLeft + boxWidthRatio * 11 + 12 * this.lineHeight, this.offsetTop + 1.5,boxWidthRatio * 5 ,boxWidthRatio * 4);
         let blockType = holdObject[0].blockType
         let r; 
         let c;
@@ -158,20 +158,20 @@ class TetrisCanvas{
                 let column = box.column - 2;
                 let row = box.row;
                 this.ctx.fillStyle = box.color;
-                this.ctx.fillRect(this.offsetLeft + boxWidth * (13.5 + column - c) + 12 * this.lineHeight,    boxWidth * (4.5 - r + row),     boxWidth,boxWidth)
+                this.ctx.fillRect(this.offsetLeft + boxWidthRatio * (13.5 + column - c) + 12 * this.lineHeight,    boxWidthRatio * (4.5 - r + row),     boxWidthRatio,boxWidthRatio)
 
                 this.ctx.fillStyle = "black"
-                this.ctx.fillRect(this.offsetLeft + boxWidth * (13.5 + column - c) + 12 * this.lineHeight,     boxWidth * (4.5  - r + row),     boxWidth + 2.5 ,2.5)
-                this.ctx.fillRect(this.offsetLeft + boxWidth * (13.5 + column - c) + 12 * this.lineHeight,     boxWidth * (4.5  - r + row),     2.5,boxWidth + 2.5)
-                this.ctx.fillRect(this.offsetLeft + boxWidth * (13.5 + column - c) + 12 * this.lineHeight,     boxWidth * (4.5  - r + row + 1), boxWidth + 2.5,2.5)
-                this.ctx.fillRect(this.offsetLeft + boxWidth * (13.5 + column + 1 - c) + 12 * this.lineHeight, boxWidth * (4.5  - r + row),     2.5,boxWidth + 2.5)
+                this.ctx.fillRect(this.offsetLeft + boxWidthRatio * (13.5 + column - c) + 12 * this.lineHeight,     boxWidthRatio * (4.5  - r + row),     boxWidthRatio + 2.5 ,2.5)
+                this.ctx.fillRect(this.offsetLeft + boxWidthRatio * (13.5 + column - c) + 12 * this.lineHeight,     boxWidthRatio * (4.5  - r + row),     2.5,boxWidthRatio + 2.5)
+                this.ctx.fillRect(this.offsetLeft + boxWidthRatio * (13.5 + column - c) + 12 * this.lineHeight,     boxWidthRatio * (4.5  - r + row + 1), boxWidthRatio + 2.5,2.5)
+                this.ctx.fillRect(this.offsetLeft + boxWidthRatio * (13.5 + column + 1 - c) + 12 * this.lineHeight, boxWidthRatio * (4.5  - r + row),     2.5,boxWidthRatio + 2.5)
         }
     }
 
     drawNext(nextObject){
         this.ctx.lineWidth = 3;
         this.ctx.strokeStyle="rgba(0,0,0,1)";
-        this.ctx.strokeRect(this.offsetLeft - boxWidth * 6, this.offsetTop + 1.5 ,boxWidth * 5, boxWidth * 4);
+        this.ctx.strokeRect(this.offsetLeft - boxWidthRatio * 6, this.offsetTop + 1.5 ,boxWidthRatio * 5, boxWidthRatio * 4);
         if(nextObject != undefined){
             let blockType = nextObject[0].blockType
             let r; 
@@ -194,13 +194,13 @@ class TetrisCanvas{
                 let column = box.column - 2;
                 let row = box.row;
                 this.ctx.fillStyle = box.color;
-                this.ctx.fillRect(boxWidth * (3.5 + column - c),    boxWidth * (4.5 - r + row),     boxWidth,boxWidth)
+                this.ctx.fillRect(boxWidthRatio * (3.5 + column - c),    boxWidthRatio * (4.5 - r + row),     boxWidthRatio,boxWidthRatio)
 
                 this.ctx.fillStyle = "black"
-                this.ctx.fillRect(boxWidth * (3.5 + column - c),     boxWidth * (4.5  - r + row),     boxWidth + 2.5 ,2.5)
-                this.ctx.fillRect(boxWidth * (3.5 + column - c),     boxWidth * (4.5  - r + row),     2.5,boxWidth + 2.5)
-                this.ctx.fillRect(boxWidth * (3.5 + column - c),     boxWidth * (4.5  - r + row + 1), boxWidth + 2.5,2.5)
-                this.ctx.fillRect(boxWidth * (3.5 + column + 1 - c), boxWidth * (4.5  - r + row),     2.5,boxWidth + 2.5)
+                this.ctx.fillRect(boxWidthRatio * (3.5 + column - c),     boxWidthRatio * (4.5  - r + row),     boxWidthRatio + 2.5 ,2.5)
+                this.ctx.fillRect(boxWidthRatio * (3.5 + column - c),     boxWidthRatio * (4.5  - r + row),     2.5,boxWidthRatio + 2.5)
+                this.ctx.fillRect(boxWidthRatio * (3.5 + column - c),     boxWidthRatio * (4.5  - r + row + 1), boxWidthRatio + 2.5,2.5)
+                this.ctx.fillRect(boxWidthRatio * (3.5 + column + 1 - c), boxWidthRatio * (4.5  - r + row),     2.5,boxWidthRatio + 2.5)
             }
        }
     }

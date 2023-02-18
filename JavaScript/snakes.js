@@ -1,9 +1,9 @@
 
         // creating the canvas 
-    const cvs = document.getElementById("snake");
-    const ctx = cvs.getContext("2d");
-    ctx.canvas.height  = 24 * boxWidth;
-    ctx.canvas.width  = 24 * boxWidth;
+    let cvs = document.getElementById("snake");
+    let ctx = cvs.getContext("2d");
+    ctx.canvas.height  = 24 * boxWidthRatio;
+    ctx.canvas.width  = 24 * boxWidthRatio;
     
     const textDiv = document.getElementById("SnakesTitle");
     const scoreDiv = document.getElementById("SnakesScore");
@@ -18,7 +18,6 @@
     const snakeColor = "rgb(86,217,0)"
     
     
-
     let keyPressed = null;
     let count = 10;
 
@@ -98,10 +97,10 @@
         
         //Background
         ctx.fillStyle = "rgb(20,20,20)";
-        ctx.fillRect(0,0,24 * boxWidth,24 * boxWidth);
+        ctx.fillRect(0,0,24 * boxWidthRatio,24 * boxWidthRatio);
 
         ctx.fillStyle = "white"
-        ctx.fillRect(0,3 * boxWidth,24 * boxWidth - 2,2);
+        ctx.fillRect(0,3 * boxWidthRatio,24 * boxWidthRatio - 2,2);
 
 
         //draw all the cells of the snake
@@ -109,25 +108,25 @@
             if(i == 0){
                 ctx.fillStyle = snakeColor; 
                 ctx.strokeStyle = snakeColor;
-                ctx.fillRect(snake[i].x,snake[i].y,boxWidth,boxWidth);
+                ctx.fillRect(snake[i].x / boxWidth * boxWidthRatio,snake[i].y / boxWidth * boxWidthRatio,boxWidthRatio,boxWidthRatio);
                 ctx.fillStyle = "black";
                 ctx.beginPath();
 
                 if(d == "down"){
                 
-                    ctx.arc(snake[i].x + 1.5* boxWidth / 5, snake[i].y + 4 * boxWidth / 5, boxWidth / 8, 0, 2 * Math.PI);
-                    ctx.arc(snake[i].x + 3.5*boxWidth / 5, snake[i].y +  4 *boxWidth / 5, boxWidth / 8, 0, 2 * Math.PI);
+                    ctx.arc(snake[i].x / boxWidth * boxWidthRatio + 1.5* boxWidthRatio / 5, snake[i].y / boxWidth * boxWidthRatio + 4 * boxWidthRatio / 5, boxWidthRatio / 8, 0, 2 * Math.PI);
+                    ctx.arc(snake[i].x / boxWidth * boxWidthRatio + 3.5*boxWidthRatio / 5, snake[i].y / boxWidth * boxWidthRatio +  4 *boxWidthRatio / 5, boxWidthRatio / 8, 0, 2 * Math.PI);
                   
                 }else if(d == "right"){
-                    ctx.arc(snake[i].x + 3.5* boxWidth / 5, snake[i].y + 3.5 * boxWidth / 5, boxWidth / 8, 0, 2 * Math.PI);
-                    ctx.arc(snake[i].x + 3.5*boxWidth / 5, snake[i].y +  1.5 * boxWidth / 5, boxWidth / 8, 0, 2 * Math.PI);
+                    ctx.arc(snake[i].x / boxWidth * boxWidthRatio + 3.5* boxWidthRatio / 5, snake[i].y / boxWidth * boxWidthRatio + 3.5 * boxWidthRatio / 5, boxWidthRatio / 8, 0, 2 * Math.PI);
+                    ctx.arc(snake[i].x / boxWidth * boxWidthRatio + 3.5*boxWidthRatio / 5, snake[i].y / boxWidth * boxWidthRatio +  1.5 * boxWidthRatio / 5, boxWidthRatio / 8, 0, 2 * Math.PI);
                 }else if(d == "left"){
-                    ctx.arc(snake[i].x + 1.5* boxWidth / 5, snake[i].y + 1.5 * boxWidth / 5, boxWidth / 8, 0, 2 * Math.PI);
-                    ctx.arc(snake[i].x + 1.5*boxWidth / 5, snake[i].y + 3.5 * boxWidth / 5, boxWidth / 8, 0, 2 * Math.PI);
+                    ctx.arc(snake[i].x / boxWidth * boxWidthRatio + 1.5* boxWidthRatio / 5, snake[i].y / boxWidth * boxWidthRatio + 1.5 * boxWidthRatio / 5, boxWidthRatio / 8, 0, 2 * Math.PI);
+                    ctx.arc(snake[i].x / boxWidth * boxWidthRatio + 1.5*boxWidthRatio / 5, snake[i].y / boxWidth * boxWidthRatio + 3.5 * boxWidthRatio / 5, boxWidthRatio / 8, 0, 2 * Math.PI);
         
                 }else{
-                    ctx.arc(snake[i].x + 1.5* boxWidth / 5, snake[i].y + boxWidth / 5, boxWidth / 8, 0, 2 * Math.PI);
-                    ctx.arc(snake[i].x + 3.5*boxWidth / 5, snake[i].y + boxWidth / 5, boxWidth / 8, 0, 2 * Math.PI);
+                    ctx.arc(snake[i].x / boxWidth * boxWidthRatio + 1.5* boxWidthRatio / 5, snake[i].y / boxWidth * boxWidthRatio + boxWidthRatio / 5, boxWidthRatio / 8, 0, 2 * Math.PI);
+                    ctx.arc(snake[i].x / boxWidth * boxWidthRatio + 3.5*boxWidthRatio / 5, snake[i].y / boxWidth * boxWidthRatio + boxWidthRatio / 5, boxWidthRatio / 8, 0, 2 * Math.PI);
                 }
                 ctx.fill();
                 
@@ -137,17 +136,17 @@
                 }    
             }else{
                 ctx.fillStyle = "white";
-                if(collisionBody(snake[i].x,snake[i].y)){
+                if(collisionBody(snake[i].x / boxWidth * boxWidthRatio,snake[i].y / boxWidth * boxWidthRatio)){
                     endGame(game);
                 } 
-                ctx.fillRect(snake[i].x,snake[i].y,boxWidth,boxWidth); 
+                ctx.fillRect(snake[i].x / boxWidth * boxWidthRatio,snake[i].y / boxWidth * boxWidthRatio,boxWidthRatio,boxWidthRatio); 
             }  
         }
 
         //drawing the food
         ctx.fillStyle = "red";
         ctx.beginPath();
-        ctx.arc(food.x + boxWidth / 2, food.y + boxWidth / 2, boxWidth / 2, 0, 2 * Math.PI);
+        ctx.arc(food.x / boxWidth * boxWidthRatio + boxWidthRatio / 2, food.y / boxWidth * boxWidthRatio + boxWidthRatio / 2, boxWidthRatio / 2, 0, 2 * Math.PI);
         ctx.fill();
 
         if(d == "stop"){
@@ -271,22 +270,15 @@ function handleTouchStart(evt) {
 function handleTouchMove(evt) {
 
     
-
     if ( ! xDown || ! yDown ) {
         return;
     }
-
-    // if(game){
-    //     evt.preventDefault();
-    //     evt.stopPropagation();
-    // } 
 
     var xUp = evt.touches[0].clientX;                                    
     var yUp = evt.touches[0].clientY;
 
     var xDiff = xDown - xUp;
     var yDiff = yDown - yUp;
-
                                                                   
     if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
         if ( xDiff > 0 ) {
@@ -306,9 +298,9 @@ function handleTouchMove(evt) {
     yDown = null;                                             
 };
 
-     // call the draw function every 100ms;
-     var game;
-     draw();
+    // call the draw function every 100ms;
+    var game;
+    draw();
      
      
     
