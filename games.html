@@ -17,13 +17,14 @@
         var boxWidthRatio
         if (window.matchMedia('(max-width: 1300px)').matches) {
             boxWidth = 44
-            boxWidthRatio = 44
+            boxWidthRatio = Math.ceil(44 * 1.5)//* scale;
         } else {
             boxWidth = 44;
             boxWidthRatio = Math.ceil(44 * 1.5 * pixleRatio)//* scale;
-            boxWidthRatio = Math.round(boxWidthRatio / 2) * 2;
+            
             //console.log(Math.ceil(44 * 1.5 * pixleRatio), (44 * 1.5 * pixleRatio))
         }
+        boxWidthRatio = Math.round(boxWidthRatio / 2) * 2;
          
         
     </script>
