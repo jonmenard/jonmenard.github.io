@@ -3,6 +3,8 @@
 const backgroundCanvas = document.getElementById("background");
 const backgroundContex = backgroundCanvas.getContext("2d");
 
+let moveRatio = Math.ceil(boxWidthRatio / boxWidth)
+
 backgroundContex.canvas.height  = 24 * boxWidthRatio;
 backgroundContex.canvas.width  = 24 * boxWidthRatio;
 
@@ -98,16 +100,16 @@ function makePipe(){
 
 function drawCanvas(){
 
-    if(time % 2 == 0){
-        drawPipes();  
-    }
+//if(time % 1 == 0){
+    drawPipes();  
+   // }
 
-    if(time % 16 == 0){
+    if(time <= 0){
         drawBackground()
-        time == 0;
+        time = 8;
     }
 
-    time++;
+    time--;
     drawBird();
     collisonDetection();
 }
@@ -115,6 +117,9 @@ function drawCanvas(){
 function drawPipes(){
 
     for(i = 0; i < topPipes.length; i++){
+
+        bottomPipes[i].x = bottomPipes[i].x - 2 * moveRatio  //* pixleRatio;
+        topPipes[i].x = topPipes[i].x - 2  * moveRatio//* pixleRatio;
         
         pipeContex.clearRect(bottomPipes[i].x + boxWidthRatio * 2,0,4,boxWidthRatio * 24);
         pipeContex.drawImage(topPipeImg, topPipes[i].x,(topPipes[i].y - 12 * boxWidthRatio),boxWidthRatio * 2,12 * boxWidthRatio);
@@ -122,8 +127,7 @@ function drawPipes(){
         pipeContex.drawImage(bottomPipeImg, topPipes[i].x,-4 * boxWidthRatio,boxWidthRatio * 2,(topPipes[i].y-boxWidthRatio * 12)+4 * boxWidthRatio);
         pipeContex.drawImage(topPipeImg, bottomPipes[i].x,bottomPipes[i].y+2 * boxWidthRatio,boxWidthRatio * 2,24 * boxWidthRatio);
         // move the pipes forward 2px
-        bottomPipes[i].x = bottomPipes[i].x - 2 * pixleRatio;
-        topPipes[i].x = topPipes[i].x - 2 * pixleRatio;
+        
 
         if((topPipes[i].x + boxWidthRatio*2) <= 0){
             topPipes.pop;
@@ -154,9 +158,9 @@ function drawBackground(){
     backgroundContex.drawImage(boat.img, boat.x,boat.y, 2 * boxWidthRatio,2 * boxWidthRatio);
     backgroundContex.drawImage(clouds.img, clouds.x,clouds.y, 48 * boxWidthRatio,5 * boxWidthRatio);
    
-    sun.x -= 1;
-    boat.x -= 2;
-    clouds.x -= 1.5;
+    sun.x -= 0.5 * moveRatio/2;
+    boat.x -= 1 * moveRatio/2;
+    clouds.x -= 1.5 * moveRatio/2;
 
     if(sun.x <=-2 * boxWidthRatio){
         sun.x = 24 * boxWidthRatio;
@@ -185,7 +189,7 @@ function drawBird(){
     birdContex.strokeText(flappyScore, boxWidthRatio, boxWidthRatio*2)
 
     if(jumpTime > 0){
-        bird.y -= 3;
+        bird.y -= 3 * moveRatio;
         jumpTime -= 1;
         falling = 0;   
         birdContex.translate(bird.x + boxWidthRatio, bird.y + boxWidthRatio);
@@ -196,17 +200,17 @@ function drawBird(){
         birdContex.rotate(-15 * Math.PI / 180);
     }else{
         if(falling < 25){
-            bird.y += 1;
+            bird.y += 1 * moveRatio;
             falling++;
             birdContex.translate(bird.x + boxWidthRatio, bird.y + boxWidthRatio);
             birdContex.rotate(15 * Math.PI / 180);
         }else if (falling < 50){
-            bird.y += 2;
+            bird.y += 2 * moveRatio;
             falling++;
             birdContex.translate(bird.x + boxWidthRatio, bird.y + boxWidthRatio);
             birdContex.rotate(30 * Math.PI / 180); 
         }else if(falling < 100){
-            bird.y += 3;
+            bird.y += 3 * moveRatio;
             birdContex.translate(bird.x + boxWidthRatio, bird.y + boxWidthRatio);
             birdContex.rotate(60 * Math.PI / 180); 
         }
@@ -364,7 +368,7 @@ function resetGame(event){
         //document.removeEventListener("keydown",reset);
         document.addEventListener("keydown",jump);
         document.addEventListener("click",jump);
-        pipes = setInterval(makePipe,timeBetweenPipe * boxWidth * 40);
+        pipes = setInterval(makePipe,timeBetweenPipe * boxWidth * 20);
         flappyGame = setInterval(drawCanvas, 1);
     //}
     newgame = false;

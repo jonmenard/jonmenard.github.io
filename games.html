@@ -20,7 +20,9 @@
             boxWidthRatio = 44
         } else {
             boxWidth = 44;
-            boxWidthRatio = 44 * 1.5 * pixleRatio//* scale;
+            boxWidthRatio = Math.ceil(44 * 1.5 * pixleRatio)//* scale;
+            boxWidthRatio = Math.round(boxWidthRatio / 2) * 2;
+            //console.log(Math.ceil(44 * 1.5 * pixleRatio), (44 * 1.5 * pixleRatio))
         }
          
         
