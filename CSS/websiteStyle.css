@@ -1240,10 +1240,16 @@ th{
 	min-width: fit-content
 }
 
+.outer{
+	width:100%;
+	display: flex;
+	justify-content: center;
+}
+
 #chatGPTHolder{
-	margin-left: 25%;
-	margin-right: 25%;
-	max-width: 1500;
+	text-align: left;
+	max-width: 800px;
+	min-width: 800px;
 	color: whitesmoke;
 	font-size: 1.5em;
 }

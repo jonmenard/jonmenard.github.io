@@ -1265,12 +1265,18 @@ th{
 	
 }
 
+.outer{
+	width:100%;
+	display: flex;
+	justify-content: center;
+}
+
 #chatGPTHolder{
-	margin-left: 33%;
-	margin-right: 33%;
-	max-width: 1500;
+	text-align: left;
+	max-width: 800px;
+	min-width: 800px;
 	color: whitesmoke;
-	font-size: 1.5em;
+	font-size: 2em;
 }
 
 #chatGPTGreeting{
