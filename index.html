@@ -27,6 +27,10 @@
                     <h1 id="mainTitle" class ="indexPageTitles">Jon Menard </h1><br>
                     
                     <h2 id="subTitle"  class ="indexPageTitles">Software Engineering Portfolio </h2>
+                    <br>
+                    <div id="chatGPTHolder">
+                        <p id = "chatGPTGreeting"><strong>Chat GPT Greeting: </strong><span id="response"  class ="indexPageTitles"> </span></p>
+                    </div>
 
                 </div>
                 <!-- <img id = "profilePicture" src="Images/profile.jpg" alt="Image of Jon Menard" hidden> -->
@@ -34,11 +38,149 @@
         </main>
         <footer>
             
-
-            
+        
 
         </footer>
 
     </body>
     <script src = "JavaScript/index.js"></script>
+    <script>
+      const apiKey = "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";
+      const apiUrl = "https://api.openai.com/v1/completions";
+
+
+      var showText = function (target, message, index, interval) {   
+        if (index < message.length) {
+            $(target).append(message[index++]);
+            setTimeout(function () { showText(target, message, index, interval); }, interval);
+        }
+    }
+
+        function completePrompt() {
+
+            // Define your API endpoint URL
+            const apiEndpoint = "https://www.findmycelltower.com/test.php";
+
+            // Define the data you want to send to the API
+            
+
+            // Create a new XMLHttpRequest object
+            const xhr = new XMLHttpRequest();
+
+            // Set the HTTP method and URL
+            xhr.open('GET', apiEndpoint);
+
+            // Set the content type header to URL-encoded form data
+            //xhr.responseType = 'application/json';
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                    console.log("here")
+                } else {
+                    console.error('Request failed.  Returned status of ' + xhr.status);
+                }
+            }
+
+             xhr.onerror = function () {
+                console.error("Request failed. Network error.");
+            };
+
+            xhr.send();
+            console.log("sent")
+
+            // // Set the onload function to handle the response
+            // xhr.onload = function () {
+            // // Check if the request was successful
+            // if (xhr.status === 200) {
+            //     // Parse the response as JSON
+            //     const response = JSON.parse(xhr.responseText);
+
+
+
+            //     const responseElement = document.getElementById("response");
+            //     var message = response;
+
+            //     // Display each letter with a delay
+            //     function typeWriter(index) {
+            //         if (index < message.length) {
+            //         responseElement.textContent += message.charAt(index);
+            //         responseElement.style.textAlign = "left";
+            //         index++;
+            //         setTimeout(function() { typeWriter(index); }, 50); // Adjust the delay to control the speed of typing
+            //         }
+            //     }
+
+            //     typeWriter(0);
+            //     // responseElement.style.textAlign = "left"
+            //     // $(function () {
+            //     // showText("#response", data.choices[0].text, 0, 25);   
+            //     // });
+
+
+
+            //     // Use the response as needed
+            //     console.log(response);
+            // } else {
+            //     // Log an error message
+            //     console.error("Request failed. Status: " + xhr.status);
+            // }
+            // };
+
+            // // Set the onerror function to handle any errors
+            // xhr.onerror = function () {
+            // console.error("Request failed. Network error.");
+            // };
+
+            // // Send the request with the URL-encoded form data
+            // xhr.send(params);
+
+        }
+
+        // fetch(apiUrl, {
+        //     method: "POST",
+        //     headers: {
+        //     "Content-Type": "application/json",
+        //     "Authorization": `Bearer ${apiKey}`
+        //     },
+        //     body: JSON.stringify({
+        //         model: "text-davinci-003",
+        //         prompt: "Generate a professional greeting for my software portfolio based on the time of day now",
+        //         temperature: 0.5,
+        //         max_tokens: 60
+        //     })
+        // })
+        // .then(response => response.json())
+        // .then(data => {
+        //     const responseElement = document.getElementById("response");
+        //     var message = data.choices[0].text;
+
+        //     // Display each letter with a delay
+        //     function typeWriter(index) {
+        //         if (index < message.length) {
+        //         responseElement.textContent += message.charAt(index);
+        //         responseElement.style.textAlign = "left";
+        //         index++;
+        //         setTimeout(function() { typeWriter(index); }, 50); // Adjust the delay to control the speed of typing
+        //         }
+        //     }
+
+        //     typeWriter(0);
+        //     // responseElement.style.textAlign = "left"
+        //     // $(function () {
+        //     // showText("#response", data.choices[0].text, 0, 25);   
+        //     // });
+
+
+        //     //responseElement.textContent = "Chat GPT Greeting: " +  data.choices[0].text;
+        // })
+        // .catch(error => console.error(error));
+        // }
+
+        completePrompt()
+  </script>
+
+
+
+
+    </script>
 </html>

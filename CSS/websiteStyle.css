@@ -1240,6 +1240,19 @@ th{
 	min-width: fit-content
 }
 
+#chatGPTHolder{
+	margin-left: 25%;
+	margin-right: 25%;
+	max-width: 1500;
+	color: whitesmoke;
+	font-size: 1.5em;
+}
+
+#chatGPTGreeting{
+	text-align: left;
+	color: whitesmoke;
+}
+
 #drop-region {
 	background-color: #4183c4;
 	/* border-radius:0px 0px 20px 20px; */

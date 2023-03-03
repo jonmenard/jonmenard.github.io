@@ -653,7 +653,6 @@ main{
 	font-family: Helvetica, sans-serif;
 	margin: 0;
 	padding: 0;
-	-webkit-text-stroke: 1.5px black;
 	
 }
 
@@ -1264,6 +1263,19 @@ th{
 	height: auto;
 	text-align: center;
 	
+}
+
+#chatGPTHolder{
+	margin-left: 33%;
+	margin-right: 33%;
+	max-width: 1500;
+	color: whitesmoke;
+	font-size: 1.5em;
+}
+
+#chatGPTGreeting{
+	text-align: left;
+	color: whitesmoke;
 }
 
 #drop-region {
