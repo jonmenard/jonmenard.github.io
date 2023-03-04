@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Classification Form</title>
+  </head>
+  <body>
+    <form  id="my-form">
+
+      <label for="preDefined">PreDefined Prompts:</label><br>
+      <select id="preDefined" style="width: 600px;" name="dropdown" onchange="selectSubject()">
+        <option value="Shark,Whale,Dolphin,Beaver">I am a mammal that lives under the water. I look like a large fish, but I breathe air. I have teeth and a snout that looks like a beak. Some of my relatives live in large rivers in Asia and South America. What am I?</option>
+        <option value="Bear,Kangaroo,Cow,Doe">I am a mammal with long pointed ears, short front legs, and big powerful back legs. I use my large tail to balance when I am hopping. I live in Australia and New Guinea. What am I?</option>
+        <option value="Orangutan,Chimpanzee,Chipmunk,Koala">I am a large ape that lives in the rain forest of a few south Asian Islands. I have red-brown fur and long arms. I spend most of my time in trees. I am a kind of primate, and also endangered. What am I?</option>
+        <option value="Gorilla,Chimpanzee,Monkey,Panda">I am a mammal that lives in the African rain forests. I am in the group of primate mammals called apes. I am related to, but smaller than, gorillas. I am very intelligent and sometimes I use tools to get food. What am I?</option>
+        <option value="Rabbits,Goat,Sheep,Chinchilla">I am a small mammal from the mountains of South America. I am a rodent closely related to guinea pigs. I have very soft fur and live in tunnels called burrows. Sometimes people keep me as a pet. What am I?</option>
+        <option value="Koala,Sloth,Panda,Vole">I am a mammal with gray fur, round ears, and a short black nose. I live in trees, and only can be found in Australia. I am not related to true bears. What am I?</option>
+        <option value="Leopard,Tiger,Bear,Wolf">I am a large, very strong mammal with short yellow-orange fur and black stripes. I am a carnivore and live in several parts of Asia. I am endangered in all my habitats. I am closely related to lions. What am I?</option>
+        <option value="Sloth,Anteaters,Hedgehog,Snail">I am a very lazy mammal and spend my entire life in trees, using my long claws to hang upside down. I live in the tropical rain forests of Central and South America. I move very slowly, and am related to armadillos. What am I?</option>
+        <option value="Lion,Zebra,Ewe,Bison">I am a large mammal with striped coat, long legs, and hooves. I am closely related to a horse but have a shorter mane. I live in large herds in Africa. I am in danger of becoming extinct. What am I?</option>
+        <option value="Ram,Lemur,Chipmunk,Beaver">I am a small brown squirrel with a striped back and a flat bushy tail. I eat nuts, seeds, berries, and insects. I make underground burrows for sleeping and for storing foods. I live in North America and Asia. What am I?</option>
+      </select><br>
+
+
+      <label for="subject">Subject Content:</label><br>
+
+      
+
+
+      <textarea type="text" id="subject" rows="10" cols="60" name="subject">This course will trace the history of the diverse religious cultures that proliferated throughout the Roman Republican and Imperial periods. Emphasis will be placed on reading and interpreting primary texts in their social, cultural, and historical context. Students will also be expected to engage with modern scholarly perspectives and explore issues such as unity and diversity, continuity and change, gender and sexuality, as well as violence and religion.</textarea><br>
+      <!-- <label for="classification">Add Clasification:</label> -->
+      <!-- <input type="text" id="classification" name="classification"> -->
+      <!-- <button type="button" onclick="addClassification()">Append</button> -->
+      <!-- <button type="button" onclick="removeClassification()">Remove Last</button><br> -->
+      <label for="classification-list">Classifications: </label><br>
+      <textarea type="text" id="classification-list" rows="10" cols="60" name="classification-list">'Mathematics', 'Science', 'English Language Arts', 'Social Studies', 'History', 'Physical Education', 'Art', 'Music', 'Foreign Language', 'Computer Science', 'Health Education', 'Economics', 'Government', 'Geography', 'Religious Studies'</textarea>
+      <button type="submit" id="submit-btn">Submit</button>
+    </form>
+    
+
+    <p id="result"></p>
+
+    <script>
+      // var classificationList = [];
+      // var classificationListEl = document.getElementById("classification-list");
+      
+      // function addClassification() {
+      //   var classificationInputEl = document.getElementById("classification");
+      //   var classification = classificationInputEl.value;
+      //   if (classification.trim() !== "") {
+      //     classificationList.push(classification);
+      //     updateClassificationList();
+      //     classificationInputEl.value = "";
+      //   }
+      // }
+      
+      // function removeClassification() {
+      //   classificationList.pop();
+      //   updateClassificationList();
+      // }
+      
+      // function updateClassificationList() {
+      //   classificationListEl.textContent = "[" + classificationList.join(", ") + "]";
+      // }
+
+      function selectSubject() {
+      const preDefined = document.getElementById("preDefined");
+      const classification = document.getElementById("classification-list");
+      const subjectContent = document.getElementById("subject");
+      
+      subjectContent.value = preDefined.options[preDefined.selectedIndex].innerHTML;
+      classification.value = preDefined.value;
+      }
+
+      const form = document.getElementById('my-form');
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        for (const [key, value] of formData) {
+          console.log(key, value)
+        }
+        fetch('https://www.findmycelltower.com/test2.php', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+          const resultElement = document.getElementById('result');
+          const response = JSON.parse(data);
+          resultElement.innerHTML = " ChatGPT clasified the content as:<strong>" +  response.choices[0].text + "</strong>";
+        })
+        .catch(error => {
+          const resultElement = document.getElementById('result');
+          resultElement.innerHTML = " ChatGPT clasified the content as:<strong style='color: red;'> Error with input </strong>";
+          //console.error(error);
+        });
+      });
+
+
+
+
+
+
+
+    </script>
+  </body>
+</html>
