@@ -101,6 +101,7 @@ function makePipe(){
 function drawCanvas(){
 
 //if(time % 1 == 0){
+    //backgroundContex.drawImage(background,0,0,24 * boxWidthRatio,24 * boxWidthRatio);
     drawPipes();  
    // }
 
@@ -115,13 +116,15 @@ function drawCanvas(){
 }
 
 function drawPipes(){
-
+    
     for(i = 0; i < topPipes.length; i++){
-
+        
+        //pipeContex.clearRect(bottomPipes[i].x + boxWidthRatio * 2,0,6,boxWidthRatio * 24);
         bottomPipes[i].x = bottomPipes[i].x - 2 * moveRatio  //* pixleRatio;
         topPipes[i].x = topPipes[i].x - 2  * moveRatio//* pixleRatio;
+
+        pipeContex.clearRect(bottomPipes[i].x + boxWidthRatio * 2,0,6,boxWidthRatio * 24);
         
-        pipeContex.clearRect(bottomPipes[i].x + boxWidthRatio * 2,0,4,boxWidthRatio * 24);
         pipeContex.drawImage(topPipeImg, topPipes[i].x,(topPipes[i].y - 12 * boxWidthRatio),boxWidthRatio * 2,12 * boxWidthRatio);
         pipeContex.drawImage(bottomPipeImg, bottomPipes[i].x,bottomPipes[i].y,boxWidthRatio * 2,12 * boxWidthRatio);
         pipeContex.drawImage(bottomPipeImg, topPipes[i].x,-4 * boxWidthRatio,boxWidthRatio * 2,(topPipes[i].y-boxWidthRatio * 12)+4 * boxWidthRatio);
@@ -142,7 +145,7 @@ function drawPipes(){
             if((bird.y+boxWidthRatio*2) > bottomPipes[i].y){
                 
                 gameOver();
-            }else if(topPipes[i].x == bird.x){
+            }else if(Math.abs(topPipes[i].x - bird.x) <= moveRatio){
                 flappyScore++;
             }
 
