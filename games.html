@@ -10,6 +10,24 @@
     </script>
     <head>
     </head>
+
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <!-- <span class="close">&times;</span> -->
+            <div id="modal-content"></div>
+        </div>
+    </div>
+    
+    
+    <div id="alert" class="alert modal">
+        <div class="alert-content">
+            <span class="close-alert">&times;</span>
+            <div id="alert-content"></div>
+        </div>
+    </div>
+
+
 <body hidden>
     <header></header>
     <script>
@@ -25,6 +43,20 @@
             //console.log(Math.ceil(44 * 1.5 * pixleRatio), (44 * 1.5 * pixleRatio))
         }
         boxWidthRatio = Math.round(boxWidthRatio / 2) * 2;
+
+        const alertModal = document.getElementById('alert');
+        const alertMessage = document.getElementById('alert-content');
+        const closeAlert = document.querySelector('.close-alert');
+
+        closeAlert.addEventListener('click', function() {
+            alertModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target == alertModal) {
+                alertModal.style.display = 'none';
+            }
+        });
          
         
     </script>
@@ -126,6 +158,22 @@
 
 
 <script>
+
+
+    function link(){
+        const modal = document.getElementById('modal');
+        const closeButtons = document.querySelector('.close');
+
+        closeButtons.addEventListener('click', function() {
+        modal.style.display = 'none';
+        });
+    }
+
+
+    window.addEventListener("load", link);
+
+
+
     $(function(){
         $("#games").before()
     });
