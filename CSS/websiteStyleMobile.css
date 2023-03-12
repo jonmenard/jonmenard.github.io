@@ -1474,7 +1474,7 @@ th{
 .modal {
 	display: none;
 	position: fixed;
-	z-index: 3;
+	z-index: 9;
 	left: 0;
 	top: 0;
 	width: 100%;
@@ -1496,7 +1496,7 @@ th{
   .modal-content {
 	
 	margin: auto;
-	z-index: 1;
+	z-index: 10;
 	overflow: auto;
 	/* padding: 20px; */
 	/* border: 1px solid #888; */
@@ -1517,7 +1517,7 @@ th{
 	border: 1px solid #888;
 	width: 80%;
 	max-width: 600px;
-	z-index: 4;
+	z-index: 11;
   }
   
   /* Close Button */
