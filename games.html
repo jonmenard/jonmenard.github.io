@@ -133,23 +133,18 @@
             </div>
 
     
-            <div id = "tetrisContainer" class="game">
+            <div id = "tetrisContainer" style="margin:auto" class="game">
                 <br>
                 <button class = "tetrisButton" id="tetrisStart">Start Game</button>
                 <button class = "tetrisButton" id="tetrisAIStart">Start AI</button>
-                <canvas id="tetris" > 
-                    <button class = "tetrisButton" id="tetrisStart">Start Game</button>
-                    <button class = "tetrisButton" id="tetrisAIStart">Start AI</button>
-                </canvas>
-                
-                
-                <script  src = "JavaScript/tetris/aiTetris.js"></script>
-                <script  src = "JavaScript/tetris/tetrisBox.js"></script>
-                <script  src = "JavaScript/tetris/tetrisObject.js"></script>
-                <script  src = "JavaScript/tetris/tetrisGameBoard.js"></script>
-                <script  src = "JavaScript/tetris/tetrisCanvas.js"></script>
-                <script  src = "JavaScript/tetris/tetris.js"></script>
-                <script  src = "JavaScript/tetris/tetrisControler.js"></script>
+                <canvas id="tetris" > </canvas>
+                <script  src = "Submodules/Tetris/Scripts/tetris/aiTetris.js"></script>
+                <script  src = "Submodules/Tetris/Scripts/tetris/tetrisBox.js"></script>
+                <script  src = "Submodules/Tetris/Scripts/tetris/tetrisObject.js"></script>
+                <script  src = "Submodules/Tetris/Scripts/tetris/tetrisGameBoard.js"></script>
+                <script  src = "Submodules/Tetris/Scripts/tetris/tetrisCanvas.js"></script>
+                <script  src = "Submodules/Tetris/Scripts/tetris/tetris.js"></script>
+                <script  src = "Submodules/Tetris/Scripts/tetris/tetrisControler.js"></script>
             </div>
         </section>
     </main>
@@ -178,8 +173,8 @@
         $("#games").before()
     });
 
-    let tetrisCanvas = document.getElementById("tetris");
-    tetrisCanvas.style.maxHeight = "1050px"
+    // let tetrisCanvas = document.getElementById("tetris");
+    // tetrisCanvas.style.maxHeight = "1050px"
 
     let snakeCanvas = document.getElementById("snake");
     snakeCanvas.style.maxHeight = "1050px"
@@ -192,6 +187,19 @@
     flappyBirdCanvas.style.maxHeight = "1050px"
     let flappyGameOverCanvas = document.getElementById("gameOver");
     flappyGameOverCanvas.style.maxHeight = "1050px"
+
+    const tetrisCanvas = document.getElementById("tetris");
+    function resizeGame(){
+        let avalibleWidth = window.innerWidth
+        let avalibleHeight = Math.min(window.innerHeight, avalibleWidth * 1.04) ;
+        tetrisCanvas.style.height = (avalibleHeight * .90) +"px"
+        tetrisCanvas.style.maxHeight = (avalibleHeight * .90) +"px"
+        resizeButtons()
+        
+    }
+    window.addEventListener("load", resizeGame);
+    window.addEventListener("resize", resizeGame);
+    
 
     
 

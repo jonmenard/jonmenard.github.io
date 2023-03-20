@@ -1,3 +1,6 @@
 [submodule "Submodules/Minesweeper"]
 	path = Submodules/Minesweeper
 	url = https://github.com/jonmenard/Minesweeper.git
+[submodule "Submodules/Tetris"]
+	path = Submodules/Tetris
+	url = https://github.com/jonmenard/Tetris.git
