@@ -16,6 +16,10 @@
 	align-items: center;
 }
 
+#unity-canvas{
+	border: 1px solid black;
+}
+
 .sectionContainer{
 	position: relative;
 	text-align: left;
