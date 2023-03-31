@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=960 height=600></canvas>
+      <canvas id="unity-canvas" width=5962 height=3353></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -18,9 +18,9 @@
       </div>
       <div id="unity-warning"> </div>
       <div id="unity-footer">
-        <div id="unity-webgl-logo"></div>
+        <!-- <div id="unity-webgl-logo"></div> -->
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">UnityEnvironment</div>
+        <!-- <div id="unity-build-title">UnityEnvironment</div> -->
       </div>
     </div>
     <script>
@@ -56,16 +56,17 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/WEB-GL.loader.js";
+      var loaderUrl = buildUrl + "/WEB_GL2.loader.js";
       var config = {
-        dataUrl: buildUrl + "/WEB-GL.data.gz",
-        frameworkUrl: buildUrl + "/WEB-GL.framework.js.gz",
-        codeUrl: buildUrl + "/WEB-GL.wasm.gz",
+        dataUrl: buildUrl + "/WEB_GL2.data",
+        frameworkUrl: buildUrl + "/WEB_GL2.framework.js",
+        codeUrl: buildUrl + "/WEB_GL2.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Unity Technologies",
         productName: "UnityEnvironment",
         productVersion: "1.0",
-        showBanner: unityShowBanner,
+        matchWebGLToCanvasSize: false,
+        // showBanner: unityShowBanner,
       };
 
       // By default Unity keeps WebGL canvas render target size matched with
@@ -79,11 +80,12 @@
         container.className = "unity-mobile";
         // Avoid draining fillrate performance on mobile devices,
         // and default/override low DPI mode on mobile browsers.
-        config.devicePixelRatio = 1;
+        config.devicePixelRatio = 0;
         unityShowBanner('WebGL builds are not supported on mobile devices.');
       } else {
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
+        config.devicePixelRatio = 0;
+        canvas.style.width = 1920
+        canvas.style.height = 1080
       }
       loadingBar.style.display = "block";
 
@@ -104,4 +106,26 @@
       document.body.appendChild(script);
     </script>
   </body>
+
+  <script>
+// let flappyBackgroundCanvas = document.getElementById("unity-canvas");
+// let backgroundContex = flappyBackgroundCanvas.getContext("2d");
+
+// backgroundContex.canvas.height  = 3353
+// backgroundContex.canvas.width  = 5962
+
+
+  function reSizeALL(){
+  let flappyBackgroundCanvas = document.getElementById("unity-canvas");
+  flappyBackgroundCanvas.style.maxHeight = "1080px"
+  flappyBackgroundCanvas.style.maxWidth = "1920px"
+  
+
+  // unityInstance.SetFullscreen(1);
+  }
+  window.addEventListener("load", reSizeALL);
+
+  </script>
+
+
 </html>
