@@ -63,7 +63,7 @@
                     
                     const response = JSON.parse(xhr.responseText);
                     const responseElement = document.getElementById("response");
-                    var message = response.choices[0].text;
+                    var message = response.choices[0].message.content;
 
                     // Display each letter with a delay
                     function typeWriter(index) {
