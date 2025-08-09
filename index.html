@@ -53,16 +53,14 @@
             const apiEndpoint = "https://jonmenardportfoliobackend-979240443910.northamerica-northeast2.run.app/test.php";
             const xhr = new XMLHttpRequest();
             xhr.open('GET', apiEndpoint);
-            xhr.responseType = 'text';
+            xhr.responseType = 'json';
             xhr.onload = function () {
                 // Check if the request was successful
                 if (xhr.status === 200) {
                     
                     const response = JSON.parse(xhr.responseText);
                     const responseElement = document.getElementById("response");
-                    var message = response.choices[0].message.content;
-                    console.log(message);
-                    console.log(response);
+                    const message = xhr.response.greeting;
                     // Display each letter with a delay
                     function typeWriter(index) {
                         if (index < message.length) {
