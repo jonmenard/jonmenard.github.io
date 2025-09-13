@@ -11,6 +11,10 @@
 	margin: 10px 12.5%;
 }
 
+a.body-link {
+	color:RGB(60, 60, 60);
+}
+
 #unity-container{
 	display: flex;
 	align-items: center;
@@ -113,7 +117,7 @@ textNode{
 	position: relative;
 	margin: auto;
 	width: auto;
-	
+
 }
 
 body {
@@ -123,7 +127,7 @@ body {
 	top: 40px;
 	width: 99%;
 	min-width: 600px;
-	
+
 	text-align: center;
 	background-color: #1b1c1d;;
 }
@@ -231,7 +235,7 @@ button:hover, input:hover {
 }
 
 #calendar{
-	
+
 	table-layout: fixed;
 	position: relative;
 	margin-top: 10px;
@@ -297,11 +301,11 @@ button:hover, input:hover {
 	text-align: center;
 	/* float: left; */
 	background-size: cover;
-	
+
 }
 
 .right{
-	
+
 	/* width: min-content; */
 	position: absolute;
 	display: inline;
@@ -341,7 +345,7 @@ button:hover, input:hover {
 	background-size: 30px auto;
 	line-height: 0px;
 	text-align: center;
-	
+
 	margin-top: 0px;
 	/* margin: -2px -1px 0px -1px !important; */
 	/* padding-bottom: 2px; */
@@ -564,7 +568,7 @@ footer {
 
 footer a{
 	color: whitesmoke;
-	
+
 }
 
 
@@ -574,8 +578,8 @@ footer a{
 	text-align: left;
 	font-family: Helvetica, sans-serif;
 	background-color: #1b1c1d;;
-	max-width: 75%;
-	margin-left: 12.5%;
+	max-width: 80%;
+	margin-left: 10%;
 }
 
 .header2{
@@ -714,7 +718,7 @@ main{
 	margin: 0;
 	padding: 0;
 	-webkit-text-stroke: 0.25px black;
-	
+
 }
 
 #main-title-holder{
@@ -761,7 +765,7 @@ main{
 
 .float{
 	float: left
-	
+
 }
 
 .clear{
@@ -818,7 +822,7 @@ main{
 	/* height: 120px; */
 	animation: spin 2s linear infinite;
   }
-  
+
   @keyframes spin {
 	0% { transform: rotate(0deg); }
 	100% { transform: rotate(360deg); }
@@ -1158,7 +1162,7 @@ th{
 
 
 .whiteHref{
-	color: whitesmoke;	
+	color: whitesmoke;
 }
 
 
@@ -1168,7 +1172,7 @@ th{
 	border-style: outset;
 	/* max-width: 840px; */
 	min-width: 800px;
-	
+
 	background-color: rgb(20,20,20);
 	color: whitesmoke;
 	width: fit-content;
@@ -1176,7 +1180,7 @@ th{
 	margin: auto;
 	height: auto;
 	text-align: center;
-	
+
 }
 
 #formContainer{
@@ -1366,15 +1370,15 @@ th{
   .alert-pass{
 	border: 1px solid #d6e9c6;
 	color: #3c763d;
-	background-color: #dff0d8;	
+	background-color: #dff0d8;
   }
-  
+
   .alert-error {
 	border-color: #ebccd1;
 	color: #a94442;
 	background-color: #f2dede;
   }
-  
+
   .alert-warning {
 	border-color: #faebcc;
 	color: #8a6d3b;
@@ -1403,10 +1407,10 @@ th{
   #modal{
 	background-color: #1b1c1d;
   }
-  
+
   /* Modal Content */
   .modal-content {
-	
+
 	margin: auto;
 	z-index: 1;
 	overflow: auto;
@@ -1425,13 +1429,13 @@ th{
 	position: relative;
 	background-color: #fefefe;
 	margin: auto;
-	
+
 	border: 1px solid #888;
 	width: 80%;
 	max-width: 600px;
 	z-index: 11;
   }
-  
+
   /* Close Button */
   .close-alert {
 	/* float: right; */
@@ -1443,7 +1447,7 @@ th{
 	font-size: 30px;
 	cursor: pointer;
   }
-  
+
   .close:hover,
   .close:focus {
 	color: #000;

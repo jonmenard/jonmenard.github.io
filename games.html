@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" id = "html"></html>
 <script src = "JavaScript/jquery-3.4.1.js"></script>
-    <script> 
+    <script>
         $(function(){
-            $("header").load("header.html"); 
+            $("header").load("header.html");
             $("head").load("head.html");
-            $("footer").load("footer.html");  
+            $("footer").load("footer.html");
         });
     </script>
     <head>
@@ -18,8 +18,8 @@
             <div id="modal-content"></div>
         </div>
     </div>
-    
-    
+
+
     <div id="alert" class="alert modal">
         <div class="alert-content">
             <span class="close-alert">&times;</span>
@@ -33,15 +33,16 @@
     <script>
         const pixleRatio = window.devicePixelRatio || 1
         var boxWidthRatio
-        if (window.matchMedia('(max-width: 1300px)').matches) {
-            boxWidth = 44
-            boxWidthRatio = Math.ceil(44 * 1.5)//* scale;
+        if (window.matchMedia('(max-width: 1150px)').matches) {
+            boxWidth = 40
+            boxWidthRatio = Math.ceil(boxWidth * 0.5 * pixleRatio)//* scale;
         } else {
             boxWidth = 44;
-            boxWidthRatio = Math.ceil(44 * 1.5 * pixleRatio)//* scale;
-            
+            boxWidthRatio = Math.ceil(boxWidth * 1.5 * pixleRatio)//* scale;
+
             //console.log(Math.ceil(44 * 1.5 * pixleRatio), (44 * 1.5 * pixleRatio))
         }
+
         boxWidthRatio = Math.round(boxWidthRatio / 2) * 2;
 
         const alertModal = document.getElementById('alert');
@@ -57,10 +58,10 @@
                 alertModal.style.display = 'none';
             }
         });
-         
-        
+
+
     </script>
-    
+
     <div id = "content" >
         <div id = "top">
             <h1 class="header">Games </h1>
@@ -74,10 +75,10 @@
                 <strong>Instructions:</strong> The objective of Minesweeper is to clear a rectangular board containing hidden "mines" or bombs without detonating any of them, with help from clues about the number of neighboring mines in each cell.
                 The board is divided into cells, which can either be blank or contain a number indicating the number of mines in adjacent cells (including diagonals). To win the game, you must flag all the mines and reveal all the other cells. You lose the game if you reveal a cell containing a mine.
                 To reveal a cell, simply click on it. If the cell does not contain a mine, it will reveal the number of adjacent mines, or be blank if there are no adjacent mines. If the cell does contain a mine, the game is over and you lose.
-                To flag a cell as containing a mine, right-click on it. If you flag all the mines and reveal all the other cells, you win. Selecting "Easy", "Medium", "Hard" or "Expert" will reset the game and generate 20, 50, 80 or 120 
+                To flag a cell as containing a mine, right-click on it. If you flag all the mines and reveal all the other cells, you win. Selecting "Easy", "Medium", "Hard" or "Expert" will reset the game and generate 20, 50, 80 or 120
                 bombs. <br><br> In additon to the game, there is an AI solver which uses various algorithms and techniques to analyze the Minesweeper board and make educated guesses about which cells contain mines. You can active the AI solver by pressing the solve button at the top right
             </div>
-            
+
             <div id="minesweeperHolder">
                 <script src = "Submodules/Minesweeper/Scripts/minesweeper.js"> </script>
             </div>
@@ -85,7 +86,7 @@
         <section class="sectionContainer">
             <div class="textHolder">
                 <h3>2. Snakes</h3>
-                <strong>Instructions:</strong> The goal of this game is to grow the snake as long as possible. Inorder to grow, the snake needs to consume food. If the snake 
+                <strong>Instructions:</strong> The goal of this game is to grow the snake as long as possible. Inorder to grow, the snake needs to consume food. If the snake
                 runs into the walls or its own self the game is over. Click 'reset' before starting a new game.
             </div>
             <div id = "snakeContainer" class="game">
@@ -114,25 +115,25 @@
                 style="z-index: 2;"></canvas>
                 <canvas id = "gameOver" class="flappyBirdCanvas" height = "600px" width = "600px"
                 style="z-index: 3;"></canvas>
-                <script src = "JavaScript/flappyBird.js"></script>   
+                <script src = "JavaScript/flappyBird.js"></script>
             </div>
         </section>
         <section class="sectionContainer">
             <div class="textHolder">
                 <h3>4. Tetris</h3>
                 <strong>Description: </strong>
-                The objective of Tetris is to place as many pieces as possible. 
-                The pieces will start at the top of the screen and drop down towards the bottom. 
-                The pieces can be moved left, right, down or rotated. 
-                Additionally, the current piece can be swapped with the piece in the hold box. 
-                When a row is completely full the row will be cleared, and all tiles above will be moved down one row. 
+                The objective of Tetris is to place as many pieces as possible.
+                The pieces will start at the top of the screen and drop down towards the bottom.
+                The pieces can be moved left, right, down or rotated.
+                Additionally, the current piece can be swapped with the piece in the hold box.
+                When a row is completely full the row will be cleared, and all tiles above will be moved down one row.
                 If a new piece can not be placed without hitting an already placed object, the game is over.
                 <br><br>
                 'A' and 'S' to move. W to rotate. Space to swap. Enter to fast drop.
-    
+
             </div>
 
-    
+
             <div id = "tetrisContainer" style="margin:auto" class="game">
                 <br>
                 <button class = "tetrisButton" id="tetrisStart">Start Game</button>
@@ -195,13 +196,13 @@
         tetrisCanvas.style.height = (avalibleHeight * .90) +"px"
         tetrisCanvas.style.maxHeight = (avalibleHeight * .90) +"px"
         resizeButtons()
-        
+
     }
     window.addEventListener("load", resizeGame);
     window.addEventListener("resize", resizeGame);
-    
 
-    
+
+
 
 </script>
 
